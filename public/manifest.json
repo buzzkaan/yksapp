@@ -1,0 +1,24 @@
+{
+  "name": "YKS Quest",
+  "short_name": "YKS Quest",
+  "description": "Pokémon esintili YKS çalışma RPG uygulaması",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#181838",
+  "theme_color": "#181838",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon/flag.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon/flag.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

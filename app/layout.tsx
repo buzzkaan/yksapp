@@ -20,6 +20,24 @@ const bodyFont = VT323({
 export const metadata: Metadata = {
   title: "⚔️ YKS Quest",
   description: "Pokémon esintili YKS çalışma RPG uygulaması",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "YKS Quest",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "YKS Quest",
+    "theme-color": "#181838",
+  },
 };
 
 export default function RootLayout({
@@ -30,6 +48,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="tr">
+        <head>
+          <link rel="apple-touch-icon" href="/icon/flag.png" />
+        </head>
         <body className={`${pixelFont.variable} ${bodyFont.variable}`}>
           <Navbar />
           <main
