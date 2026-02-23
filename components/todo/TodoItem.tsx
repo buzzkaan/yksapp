@@ -31,15 +31,15 @@ export function TodoItem({
     <div
       className={`flex items-start gap-3 px-4 py-3 transition-all ${pending ? "opacity-50 pointer-events-none" : ""}`}
       style={{
-        background: konu.tamamlandi ? "#E0F0E0" : "#F8F8F0",
-        borderBottom: "3px solid #C0C0D0",
+        background: konu.tamamlandi ? "#CCF0B8" : "#F8F0DC",
+        borderBottom: "3px solid #D0D0E8",
       }}
     >
       <button
         onClick={toggle}
         className="mt-0.5 w-7 h-7 flex-shrink-0 flex items-center justify-center transition-all hover:scale-110 cursor-pointer"
         style={{
-          backgroundColor: konu.tamamlandi ? dersRenk : "#F8F8F0",
+          backgroundColor: konu.tamamlandi ? dersRenk : "#F8F0DC",
           border: "3px solid #101010",
           boxShadow: konu.tamamlandi ? "none" : "2px 2px 0 0 #101010",
         }}
@@ -53,14 +53,14 @@ export function TodoItem({
         <p
           className="font-[family-name:var(--font-body)] text-lg leading-snug"
           style={{
-            color: konu.tamamlandi ? "#585868" : "#101010",
+            color: konu.tamamlandi ? "#484858" : "#101010",
             textDecoration: konu.tamamlandi ? "line-through" : "none",
           }}
         >
           {konu.baslik}
         </p>
         {konu.aciklama && (
-          <p className="font-[family-name:var(--font-body)] text-sm mt-0.5 leading-snug" style={{ color: "#585868" }}>
+          <p className="font-[family-name:var(--font-body)] text-sm mt-0.5 leading-snug" style={{ color: "#484858" }}>
             {konu.aciklama}
           </p>
         )}
@@ -78,9 +78,9 @@ export function TodoItem({
           onClick={sil}
           className="w-6 h-6 flex items-center justify-center transition-colors font-[family-name:var(--font-body)] text-lg leading-none cursor-pointer"
           title="Sil"
-          style={{ color: "#A0A8C0" }}
-          onMouseEnter={e => (e.currentTarget.style.color = "#E04048")}
-          onMouseLeave={e => (e.currentTarget.style.color = "#A0A8C0")}
+          style={{ color: "#8890B8" }}
+          onMouseEnter={e => (e.currentTarget.style.color = "#E01828")}
+          onMouseLeave={e => (e.currentTarget.style.color = "#8890B8")}
         >
           ✕
         </button>

@@ -47,7 +47,7 @@ export default function AyarlarPage() {
               <div className="font-[family-name:var(--font-body)] text-lg text-[#101010] truncate">
                 {user?.fullName || user?.username || "—"}
               </div>
-              <div className="font-[family-name:var(--font-body)] text-sm text-[#585868] truncate">
+              <div className="font-[family-name:var(--font-body)] text-sm text-[#484858] truncate">
                 {user?.primaryEmailAddress?.emailAddress || "—"}
               </div>
             </div>
@@ -59,7 +59,7 @@ export default function AyarlarPage() {
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] mb-1">
             🎓 Hangi Boss&apos;a Hazırlanıyorsun?
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868] mb-4">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484858] mb-4">
             Seçtiğin sınava göre konular ve içerikler değişir.
           </p>
 
@@ -76,7 +76,7 @@ export default function AyarlarPage() {
                     backgroundColor: meta.renk,
                     boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.2), 4px 4px 0px 0px #101010",
                   } : {
-                    backgroundColor: "#F8F8F0",
+                    backgroundColor: "#F8F0DC",
                     boxShadow: "3px 3px 0px 0px #101010",
                   }}
                 >
@@ -104,7 +104,7 @@ export default function AyarlarPage() {
                       </p>
                       <p
                         className="font-[family-name:var(--font-body)] text-sm"
-                        style={{ color: isSecili ? "rgba(255,255,255,0.75)" : "#585868" }}
+                        style={{ color: isSecili ? "rgba(255,255,255,0.75)" : "#484858" }}
                       >
                         {meta.aciklama}
                       </p>
@@ -124,8 +124,8 @@ export default function AyarlarPage() {
           {kaydedildi ? "✓ Kaydedildi!" : "💾 Kaydet ve Uygula"}
         </PixelButton>
 
-        <div className="border-2 border-dashed border-[#4088F0] bg-[#F0F0F8] px-3 py-2">
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868]">
+        <div className="border-2 border-dashed border-[#2878F8] bg-[#F0E8D0] px-3 py-2">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
             ℹ️ Sınav seçimin yalnızca bu cihazda saklanır. İstediğin zaman değiştirebilirsin.
           </p>
         </div>

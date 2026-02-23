@@ -58,10 +58,10 @@ export default function DenemellerPage() {
               <PixelLineChart data={chartData} />
             </div>
             <div className="flex justify-between mt-1">
-              <span className="font-[family-name:var(--font-body)] text-xs text-[#585868]">
+              <span className="font-[family-name:var(--font-body)] text-xs text-[#484858]">
                 {chartData[0]?.label}
               </span>
-              <span className="font-[family-name:var(--font-body)] text-xs text-[#585868]">
+              <span className="font-[family-name:var(--font-body)] text-xs text-[#484858]">
                 {chartData[chartData.length - 1]?.label}
               </span>
             </div>
@@ -70,7 +70,7 @@ export default function DenemellerPage() {
 
         {denemeler.length === 0 ? (
           <PixelCard className="text-center py-8">
-            <p className="font-[family-name:var(--font-body)] text-xl text-[#585868]">
+            <p className="font-[family-name:var(--font-body)] text-xl text-[#484858]">
               Henüz deneme kaydı yok.
             </p>
           </PixelCard>
@@ -83,7 +83,7 @@ export default function DenemellerPage() {
                     <PixelBadge variant={d.tur === "TYT" ? "blue" : "purple"}>
                       {d.tur}
                     </PixelBadge>
-                    <span className="font-[family-name:var(--font-body)] text-base text-[#585868]">
+                    <span className="font-[family-name:var(--font-body)] text-base text-[#484858]">
                       {new Date(d.tarih).toLocaleDateString("tr-TR")}
                     </span>
                   </div>
@@ -92,10 +92,10 @@ export default function DenemellerPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="font-[family-name:var(--font-pixel)] text-sm text-[#48B848]">
+                  <div className="font-[family-name:var(--font-pixel)] text-sm text-[#18C840]">
                     {d.net.toFixed(2)}
                   </div>
-                  <div className="font-[family-name:var(--font-body)] text-xs text-[#585868]">
+                  <div className="font-[family-name:var(--font-body)] text-xs text-[#484858]">
                     net
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function DenemellerPage() {
 
               {expandedId === d.id && (
                 <div className="border-t-4 border-[#101010] mt-3 pt-3">
-                  <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-xs text-[#585868] mb-1">
+                  <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-xs text-[#484858] mb-1">
                     <span>Ders</span>
                     <span className="text-center">D</span>
                     <span className="text-center">Y</span>
@@ -129,8 +129,8 @@ export default function DenemellerPage() {
                   {d.dersDetay.map((dd) => (
                     <div key={dd.id} className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-base">
                       <span className="text-[#101010] truncate">{dd.dersAdi}</span>
-                      <span className="text-center text-[#48B848]">{dd.dogru}</span>
-                      <span className="text-center text-[#E04048]">{dd.yanlis}</span>
+                      <span className="text-center text-[#18C840]">{dd.dogru}</span>
+                      <span className="text-center text-[#E01828]">{dd.yanlis}</span>
                       <span className="text-center text-[#101010]">{dd.net.toFixed(1)}</span>
                     </div>
                   ))}

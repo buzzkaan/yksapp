@@ -25,17 +25,17 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
       <Link
         href={item.href}
         className="flex flex-col items-center gap-0.5 px-1.5 py-1.5 transition-all min-w-0 relative"
-        style={{ color: active ? "#F8D030" : "#A0A8C0" }}
+        style={{ color: active ? "#FFD000" : "#606878" }}
       >
         {active && (
-          <span className="absolute top-0 left-1 right-1 h-[3px]" style={{ background: "#F8D030" }} />
+          <span className="absolute top-0 left-1 right-1 h-[3px]" style={{ background: "#FFD000" }} />
         )}
         <div className={`relative w-6 h-6 transition-transform ${active ? "scale-125" : ""}`}>
           <Image src={item.iconSrc} alt={item.iconAlt} fill className="object-contain" />
         </div>
         <span
           className="font-[family-name:var(--font-body)] text-sm leading-none truncate"
-          style={{ color: active ? "#F8D030" : "#A0A8C0" }}
+          style={{ color: active ? "#FFD000" : "#606878" }}
         >
           {item.label}
         </span>
@@ -48,15 +48,15 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
       href={item.href}
       className="flex items-center gap-3 px-4 py-3 mx-2 my-0.5 border-2 transition-all duration-75 relative"
       style={{
-        borderColor: active || showHover ? "#4088F0" : "transparent",
-        background: active ? "#4088F0" : showHover ? "#2A2A48" : "transparent",
-        color: active ? "#F8D030" : showHover ? "#F8F8F8" : "#A0A8C0",
+        borderColor: active ? "#FFD000" : showHover ? "#303058" : "transparent",
+        background: active ? "#101010" : showHover ? "#18183A" : "transparent",
+        color: active ? "#FFD000" : showHover ? "#B0C0D8" : "#606878",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {active && (
-        <span className="absolute left-0 top-1 bottom-1 w-[3px]" style={{ background: "#F8D030" }} />
+        <span className="absolute left-0 top-1 bottom-1 w-[3px]" style={{ background: "#FFD000" }} />
       )}
       <div className="w-8 h-8 relative flex-shrink-0">
         <Image src={item.iconSrc} alt={item.iconAlt} fill className="object-contain" />
@@ -67,7 +67,7 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
       {active && (
         <span
           className="font-[family-name:var(--font-pixel)] text-[9px] animate-pixel-blink"
-          style={{ color: "#F8D030" }}
+          style={{ color: "#FFD000" }}
         >
           ▶
         </span>
@@ -95,34 +95,34 @@ export function Navbar() {
       <aside
         className="hidden lg:flex fixed left-0 top-0 h-full w-64 flex-col z-50"
         style={{
-          background: "#181828",
-          borderRight: "4px solid #4088F0",
-          boxShadow: "4px 0 0 0 #080818",
+          background: "#181838",
+          borderRight: "4px solid #101010",
+          boxShadow: "4px 0 0 0 #000000",
         }}
       >
         {/* ── Logo banner ── */}
         <div
           className="px-4 py-5 border-b-4"
-          style={{ background: "#181828", borderColor: "#4088F0" }}
+          style={{ background: "#0E0E28", borderColor: "#FFD000" }}
         >
           <div
             className="font-[family-name:var(--font-pixel)] text-[11px] leading-relaxed tracking-wider"
-            style={{ color: "#F8D030", textShadow: "2px 2px 0 #504000" }}
+            style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
           >
             ⚔️ YKS QUEST
           </div>
-          <div className="font-[family-name:var(--font-body)] text-xl mt-1 leading-tight" style={{ color: "#A0A8C0" }}>
+          <div className="font-[family-name:var(--font-body)] text-xl mt-1 leading-tight" style={{ color: "#8890B8" }}>
             Pixel Akademi
           </div>
         </div>
 
         {/* ── Active exam badge ── */}
-        <div className="px-3 py-2.5 border-b-2" style={{ borderColor: "#2A2A48" }}>
+        <div className="px-3 py-2.5 border-b-2" style={{ borderColor: "#101010" }}>
           <div
             className="flex items-center gap-2.5 px-3 py-2 border-2"
             style={{
-              background: "#181828",
-              borderColor: "#F8D030",
+              background: "#181838",
+              borderColor: "#FFD000",
               boxShadow: "2px 2px 0 0 #504000",
             }}
           >
@@ -132,21 +132,21 @@ export function Navbar() {
             <div className="min-w-0 flex-1">
               <div
                 className="font-[family-name:var(--font-pixel)] text-[9px] leading-tight"
-                style={{ color: "#F8D030" }}
+                style={{ color: "#FFD000" }}
               >
                 {sinavTipi} MODU
               </div>
               <Link
                 href="/ayarlar"
-                className="font-[family-name:var(--font-body)] text-sm leading-none transition-colors hover:text-[#F8D030]"
-                style={{ color: "#A0A8C0" }}
+                className="font-[family-name:var(--font-body)] text-sm leading-none transition-colors hover:text-[#FFD000]"
+                style={{ color: "#8890B8" }}
               >
                 değiştir →
               </Link>
             </div>
             <span
               className="font-[family-name:var(--font-pixel)] text-[8px] animate-pixel-blink"
-              style={{ color: "#F8D030" }}
+              style={{ color: "#FFD000" }}
             >
               ★
             </span>
@@ -161,8 +161,8 @@ export function Navbar() {
         </nav>
 
         {/* ── Footer ── */}
-        <div className="px-4 py-3 border-t-2" style={{ borderColor: "#2A2A48" }}>
-          <div className="font-[family-name:var(--font-body)] text-sm text-center" style={{ color: "#A0A8C0" }}>
+        <div className="px-4 py-3 border-t-2" style={{ borderColor: "#101010" }}>
+          <div className="font-[family-name:var(--font-body)] text-sm text-center" style={{ color: "#8890B8" }}>
             ✦ Macera Devam Ediyor! ✦
           </div>
         </div>
@@ -174,9 +174,9 @@ export function Navbar() {
       <nav
         className="lg:hidden fixed bottom-0 left-0 right-0 z-50"
         style={{
-          background: "#181828",
-          borderTop: "4px solid #4088F0",
-          boxShadow: "0 -4px 0 0 #080818",
+          background: "#181838",
+          borderTop: "4px solid #FFD000",
+          boxShadow: "0 -4px 0 0 #080828",
         }}
       >
         <div className="flex justify-around items-end py-1 px-1">

@@ -9,6 +9,7 @@ export async function gorevEkle(data: {
   tarih: Date;
   baslik: string;
   aciklama?: string;
+  oncelik?: number;
   renk?: string;
 }): Promise<void> {
   try {

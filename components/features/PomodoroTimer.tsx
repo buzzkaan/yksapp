@@ -76,7 +76,7 @@ export function PomodoroTimer() {
             </span>
           ))}
         </div>
-        <p className="text-center font-[family-name:var(--font-body)] text-sm text-[#585868] mt-1">
+        <p className="text-center font-[family-name:var(--font-body)] text-sm text-[#484858] mt-1">
           Bugün {completed} oturum tamamlandı
         </p>
       </PixelCard>
@@ -85,11 +85,11 @@ export function PomodoroTimer() {
       <PixelCard variant="dark" className="text-center">
         <div className="relative w-40 h-40 mx-auto mb-4">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#4088F0" strokeWidth="8" />
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#2878F8" strokeWidth="8" />
             <circle
               cx="50" cy="50" r="45"
               fill="none"
-              stroke="#48B848"
+              stroke="#18C840"
               strokeWidth="8"
               strokeDasharray={`${2 * Math.PI * 45}`}
               strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress / 100)}`}
@@ -98,7 +98,7 @@ export function PomodoroTimer() {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-[family-name:var(--font-pixel)] text-3xl text-[#F8D030] tracking-widest">
+            <span className="font-[family-name:var(--font-pixel)] text-3xl text-[#FFD000] tracking-widest">
               {dakika}:{saniye}
             </span>
           </div>
@@ -147,7 +147,7 @@ export function PomodoroTimer() {
         <input
           type="text"
           placeholder="Ör: Matematik — Türev"
-          className="w-full border-4 border-[#101010] bg-white px-3 py-2 font-[family-name:var(--font-body)] text-lg text-[#101010] outline-none focus:border-[#4088F0]"
+          className="w-full border-4 border-[#101010] bg-white px-3 py-2 font-[family-name:var(--font-body)] text-lg text-[#101010] outline-none focus:border-[#2878F8]"
           onChange={(e) => setKonuId(e.target.value || undefined)}
         />
       </PixelCard>

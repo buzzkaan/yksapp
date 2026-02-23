@@ -5,19 +5,19 @@
 
 @theme inline {
   /* ─── Pokémon GBC Palette ─── */
-  --color-poke-red: #E04048;
-  --color-poke-blue: #4088F0;
-  --color-poke-yellow: #F8D030;
-  --color-poke-green: #48B848;
-  --color-poke-navy: #181828;
-  --color-poke-screen: #F0F0E8;
-  --color-poke-cream: #F8F8F0;
+  --color-poke-red: #E01828;
+  --color-poke-blue: #2878F8;
+  --color-poke-yellow: #FFD000;
+  --color-poke-green: #18C840;
+  --color-poke-navy: #181838;
+  --color-poke-screen: #F0E8D0;
+  --color-poke-cream: #F8F0DC;
   --color-poke-border: #101010;
-  --color-poke-muted: #585868;
-  --color-poke-light: #C0C0D0;
+  --color-poke-muted: #484858;
+  --color-poke-light: #B0B0CC;
 
   --color-pixel-border: #101010;
-  --color-pixel-bg: #F8F8F0;
+  --color-pixel-bg: #F8F0DC;
   --color-pixel-shadow: #101010;
 
   --font-pixel: var(--font-pixel-start);
@@ -48,38 +48,44 @@
 
 :root {
   --radius: 0;
-  --background: #E8E0D0;
+  --background: #C8B07C;
   --foreground: #101010;
-  --card: #F8F8F0;
+  --card: #F8F0DC;
   --card-foreground: #101010;
-  --popover: #F8F8F0;
+  --popover: #F8F0DC;
   --popover-foreground: #101010;
-  --primary: #4088F0;
+  --primary: #2878F8;
   --primary-foreground: #FFFFFF;
-  --secondary: #E04048;
+  --secondary: #E01828;
   --secondary-foreground: #FFFFFF;
-  --muted: #C0C0D0;
-  --muted-foreground: #585868;
-  --accent: #F8D030;
+  --muted: #B0B0CC;
+  --muted-foreground: #484858;
+  --accent: #FFD000;
   --accent-foreground: #101010;
-  --destructive: #E04048;
+  --destructive: #E01828;
   --border: #101010;
-  --input: #C0C0D0;
-  --ring: #4088F0;
+  --input: #B0B0CC;
+  --ring: #2878F8;
 }
 
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 @layer base {
   * {
-    @apply border-[#101010] outline-[#4088F0]/50;
+    @apply border-[#101010] outline-[#2878F8]/50;
     box-sizing: border-box;
   }
 
   body {
-    background-color: #E8E0D0;
+    background-color: #C8B07C;
     background-image:
-      linear-gradient(rgba(16, 16, 16, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(16, 16, 16, 0.04) 1px, transparent 1px);
+      /* Gölge: her tile'ın ALT kenarı (2px koyu) */
+      linear-gradient(to bottom, transparent 14px, rgba(16, 16, 16, 0.22) 14px),
+      /* Gölge: her tile'ın SAĞ kenarı (2px koyu) */
+      linear-gradient(to right,  transparent 14px, rgba(16, 16, 16, 0.22) 14px),
+      /* Highlight: her tile'ın ÜST kenarı (2px açık) */
+      linear-gradient(to bottom, rgba(255, 252, 225, 0.60) 2px, transparent 2px),
+      /* Highlight: her tile'ın SOL kenarı (2px açık) */
+      linear-gradient(to right,  rgba(255, 252, 225, 0.60) 2px, transparent 2px);
     background-size: 16px 16px;
     color: #101010;
     font-family: var(--font-vt323), monospace;
@@ -93,17 +99,17 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #181828;
+  background: #181838;
   border-left: 2px solid #101010;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4088F0;
+  background: #2878F8;
   border: 2px solid #101010;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #F8D030;
+  background: #FFD000;
 }
 
 /* ─── Animations ──────────────────────────────────────────────────────────── */
@@ -163,11 +169,11 @@
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 #F8D03088
+    box-shadow: 0 0 0 0 #FFD00088
   }
 
   50% {
-    box-shadow: 0 0 12px 4px #F8D03066
+    box-shadow: 0 0 12px 4px #FFD00066
   }
 }
 

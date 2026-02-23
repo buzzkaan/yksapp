@@ -3,9 +3,9 @@ export function DarkBox({ children, className = "" }: { children: React.ReactNod
     <div
       className={className}
       style={{
-        background: "#181828",
-        border: "4px solid #4088F0",
-        boxShadow: "4px 4px 0 0 #080818",
+        background: "#181838",
+        border: "4px solid #101010",
+        boxShadow: "4px 4px 0 0 #080828",
       }}
     >
       {children}

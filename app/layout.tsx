@@ -34,7 +34,6 @@ export default function RootLayout({
           <Navbar />
           <main
             className="min-h-screen pb-20 lg:pb-6 lg:ml-64"
-            style={{ background: "#E8E0D0" }}
           >
             {children}
           </main>
@@ -42,9 +41,9 @@ export default function RootLayout({
             position="top-center"
             toastOptions={{
               style: {
-                background: "#181828",
-                color: "#F8D030",
-                border: "4px solid #4088F0",
+                background: "#181838",
+                color: "#FFD000",
+                border: "4px solid #2878F8",
                 borderRadius: "0",
                 fontFamily: "var(--font-vt323), monospace",
                 fontSize: "20px",

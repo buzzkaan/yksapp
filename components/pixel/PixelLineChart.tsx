@@ -27,13 +27,13 @@ export function PixelLineChart({ data }: PixelLineChartProps) {
         const y = pad + (1 - pct / 100) * (H - pad * 2);
         return (
           <line key={pct} x1={pad} y1={y} x2={W - pad} y2={y}
-            stroke="#C0C0D0" strokeWidth="1" strokeDasharray="4 4" />
+            stroke="#D0D0E8" strokeWidth="1" strokeDasharray="4 4" />
         );
       })}
-      <path d={pathD} fill="none" stroke="#4088F0" strokeWidth="3" strokeLinejoin="miter" />
+      <path d={pathD} fill="none" stroke="#2878F8" strokeWidth="3" strokeLinejoin="miter" />
       {points.map((p, i) => (
         <rect key={i} x={p.x - 4} y={p.y - 4} width="8" height="8"
-          fill="#F8D030" stroke="#101010" strokeWidth="2" />
+          fill="#FFD000" stroke="#101010" strokeWidth="2" />
       ))}
     </svg>
   );

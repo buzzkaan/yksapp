@@ -8,32 +8,32 @@ interface PixelButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const variants: Record<string, { base: string; shadow: string; activeShadow: string }> = {
   primary: {
-    base: "bg-[#4088F0] border-[#1858A0] text-white hover:bg-[#50A0FF]",
+    base: "bg-[#2878F8] border-[#1060C0] text-white hover:bg-[#2060D0]",
     shadow: "3px 3px 0 0 #101010",
     activeShadow: "0 0 0 0 #101010",
   },
   secondary: {
-    base: "bg-[#E04048] border-[#901820] text-white hover:bg-[#F05058]",
+    base: "bg-[#E01828] border-[#780010] text-white hover:bg-[#C01020]",
     shadow: "3px 3px 0 0 #101010",
     activeShadow: "0 0 0 0 #101010",
   },
   danger: {
-    base: "bg-[#E04048] border-[#901820] text-white hover:bg-[#F05058]",
+    base: "bg-[#E01828] border-[#780010] text-white hover:bg-[#C01020]",
     shadow: "3px 3px 0 0 #101010",
     activeShadow: "0 0 0 0 #101010",
   },
   ghost: {
-    base: "bg-[#F8F8F0] border-[#101010] text-[#101010] hover:bg-[#E8E8E0]",
+    base: "bg-[#F8F0DC] border-[#101010] text-[#101010] hover:bg-[#E8E0C8]",
     shadow: "3px 3px 0 0 #101010",
     activeShadow: "0 0 0 0 #101010",
   },
   gold: {
-    base: "bg-[#F8D030] border-[#906000] text-[#101010] hover:bg-[#FFE050]",
+    base: "bg-[#FFD000] border-[#806000] text-[#101010] hover:bg-[#FFDC00]",
     shadow: "3px 3px 0 0 #504000",
     activeShadow: "0 0 0 0 #504000",
   },
   blue: {
-    base: "bg-[#4088F0] border-[#1858A0] text-white hover:bg-[#50A0FF]",
+    base: "bg-[#2878F8] border-[#1060C0] text-white hover:bg-[#2060D0]",
     shadow: "3px 3px 0 0 #101010",
     activeShadow: "0 0 0 0 #101010",
   },

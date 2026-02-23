@@ -9,9 +9,9 @@ interface PixelProgressProps {
 
 function fillColor(v: number, custom?: string) {
   if (custom) return custom;
-  if (v >= 50) return "#48B848";
-  if (v >= 25) return "#F8D030";
-  return "#E04048";
+  if (v >= 50) return "#18C840";
+  if (v >= 25) return "#FFD000";
+  return "#E01828";
 }
 
 const heights: Record<string, number> = { sm: 14, md: 20, lg: 28 };
@@ -47,7 +47,7 @@ export function PixelProgress({
         className="w-full relative overflow-hidden border-4 border-[#101010]"
         style={{
           height: h,
-          background: "#181828",
+          background: "#181838",
           imageRendering: "pixelated",
         }}
       >

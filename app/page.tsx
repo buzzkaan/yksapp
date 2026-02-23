@@ -7,10 +7,13 @@ import { PixelProgress } from "@/components/pixel/PixelProgress";
 import { PixelButton } from "@/components/pixel/PixelButton";
 import { SinavGeriSayim } from "@/components/features/SinavGeriSayim";
 import { bugunPomodorolariGetir } from "@/server/actions/pomodoro";
-import { bugunGorevleriGetir } from "@/server/actions/takvim";
+import { bugunGorevleriGetir, tamamlananGunleriGetir } from "@/server/actions/takvim";
 import { denemeleriGetir } from "@/server/actions/denemeler";
 import { derslerGetir } from "@/server/actions/konular";
+import { getOzetIstatistik } from "@/server/actions/istatistik";
 import { AYLAR_TAM, GUNLER_TAM } from "@/lib/constants/ui";
+import { SINAV_META } from "@/lib/sinav-data";
+import { hesaplaStreak } from "@/lib/utils/date";
 import type { DersWithKonular, DenemeWithDetay, Gorev, PomodoroOturum } from "@/lib/types";
 
 function weatherIcon(n: number) {
@@ -20,17 +23,34 @@ function weatherIcon(n: number) {
   return "💤";
 }
 
+const ALINTILAR = [
+  "Bir adım at, hedefine bir adım daha yaklaş! 👣",
+  "Bugün çalışan yarın kazanır! 🏆",
+  "Küçük adımlar, büyük sonuçlar! 🌟",
+  "Mükemmellik değil, ilerleme önemli! 📈",
+  "Her gün biraz daha iyi! 💪",
+  "Başarı, birikmiş küçük çabaların sonucudur! 🎯",
+];
+
+function getRandomAlinti(): string {
+  return ALINTILAR[Math.floor(Math.random() * ALINTILAR.length)];
+}
+
 export default async function HomePage() {
-  const [pomodorolar, gorevler, denemeler, dersler]: [
+  const [pomodorolar, gorevler, denemeler, dersler, streakDates, istatistik]: [
     PomodoroOturum[],
     Gorev[],
     DenemeWithDetay[],
-    DersWithKonular[]
+    DersWithKonular[],
+    string[],
+    { bugunGorev: { toplam: number; tamamlanan: number }; haftaGorev: { toplam: number; tamamlanan: number }; ayGorev: { toplam: number; tamamlanan: number }; haftaPomodoro: number }
   ] = await Promise.all([
     bugunPomodorolariGetir(),
     bugunGorevleriGetir(),
     denemeleriGetir(),
     derslerGetir(),
+    tamamlananGunleriGetir(),
+    getOzetIstatistik(),
   ]);
 
   const now = new Date();
@@ -44,6 +64,8 @@ export default async function HomePage() {
   const tamamlananGorev = gorevler.filter((g: Gorev) => g.tamamlandi).length;
   const toplamGorev = gorevler.length;
   const gorevProgress = toplamGorev > 0 ? (tamamlananGorev / toplamGorev) * 100 : 0;
+  const streakInfo = hesaplaStreak(streakDates);
+  const alinti = getRandomAlinti();
 
   return (
     <div className="flex flex-col py-4 px-3 sm:px-4">
@@ -53,7 +75,7 @@ export default async function HomePage() {
         <div
           className="relative border-4 border-[#101010] px-5 py-4"
           style={{
-            background: "#181828",
+            background: "#181838",
             boxShadow: "4px 4px 0 0 #101010",
           }}
         >
@@ -61,55 +83,108 @@ export default async function HomePage() {
             <div>
               <h1
                 className="font-[family-name:var(--font-pixel)] leading-tight flex items-center gap-1"
-                style={{ fontSize: "14px", color: "#F8D030", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
+                style={{ fontSize: "14px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
               >
                 <Image src="/icon/flag.png" alt="quest" width={16} height={16} className="w-4 h-4" />
                 YKS QUEST
               </h1>
-              <p className="font-[family-name:var(--font-body)] text-2xl mt-1" style={{ color: "#A0A8C0" }}>
+              <p className="font-[family-name:var(--font-body)] text-2xl mt-1" style={{ color: "#8890B8" }}>
                 {weatherIcon(bugunPomodoro)} {gunStr} · {tarihStr}
               </p>
 
               {bugunPomodoro > 0 && (
                 <div
-                  className="mt-2 inline-flex items-center gap-1.5 border-2 border-[#F8D030] px-3 py-1"
+                  className="mt-2 inline-flex items-center gap-1.5 border-2 border-[#FFD000] px-3 py-1"
                   style={{ background: "#101010" }}
                 >
                   <span>🔥</span>
-                  <span className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#F8D030" }}>
+                  <span className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#FFD000" }}>
                     {bugunPomodoro} oturum — combo!
                   </span>
                 </div>
               )}
             </div>
-            <Link href="/ayarlar" className="w-6 h-6 mt-1 opacity-70 hover:opacity-100 transition-opacity relative">
-              <Image src="/icon/flag.png" alt="ayarlar" fill className="object-contain" />
-            </Link>
+            <div className="flex flex-col items-end gap-2">
+              {/* Streak göstergeleri */}
+              {streakInfo.current > 0 && (
+                <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#FFD000", border: "2px solid #101010", boxShadow: "2px 2px 0 0 #504000" }}>
+                  <span className="text-sm">🔥</span>
+                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
+                    {streakInfo.current} gün
+                  </span>
+                </div>
+              )}
+              {streakInfo.best > 0 && (
+                <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
+                  <span className="text-sm">🏆</span>
+                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
+                    {streakInfo.best} REKOR
+                  </span>
+                </div>
+              )}
+              <Link href="/ayarlar" className="w-6 h-6 mt-1 opacity-70 hover:opacity-100 transition-opacity relative">
+                <Image src="/icon/flag.png" alt="ayarlar" fill className="object-contain" />
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* ── Sınav geri sayım ─────────────────────────────────────────── */}
         <SinavGeriSayim />
 
+        {/* ── Motivasyon ──────────────────────────────────────────────── */}
+        <div
+          className="border-3 border-[#FFD000] px-4 py-3 text-center"
+          style={{ background: "#101010", boxShadow: "3px 3px 0 0 #504000" }}
+        >
+          <p className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#FFD000" }}>
+            💬 {alinti}
+          </p>
+        </div>
+
+        {/* ── İstatistik özeti ────────────────────────────────────────── */}
+        <div className="grid grid-cols-4 gap-2">
+          <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
+            <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>BUGÜN</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#2878F8" }}>{istatistik.bugunGorev.toplam}</div>
+            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#18C840" }}>{istatistik.bugunGorev.tamamlanan} ✓</div>
+          </div>
+          <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
+            <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>HAFTA</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#F89000" }}>{istatistik.haftaGorev.toplam}</div>
+            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#18C840" }}>{istatistik.haftaGorev.tamamlanan} ✓</div>
+          </div>
+          <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
+            <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>POMODORO</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#E01828" }}>{istatistik.haftaPomodoro}</div>
+            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#484858" }}>bu hafta</div>
+          </div>
+          <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
+            <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>KONULAR</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#18C840" }}>{tamamlananKonular}</div>
+            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#484858" }}>/ {toplamKonular}</div>
+          </div>
+        </div>
+
         {/* ── Stat grid ────────────────────────────────────────────────── */}
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           <PixelCard variant="dark" className="text-center p-3">
             <div className="text-3xl mb-1">⭐</div>
-            <div className="font-[family-name:var(--font-pixel)] text-2xl text-[#48B848]">
+            <div className="font-[family-name:var(--font-pixel)] text-2xl text-[#18C840]">
               {bugunPomodoro}
             </div>
-            <div className="font-[family-name:var(--font-body)] text-base text-[#A0A8C0]">
+            <div className="font-[family-name:var(--font-body)] text-base text-[#8890B8]">
               oturum
             </div>
           </PixelCard>
 
           <PixelCard variant="dark" className="text-center p-3">
             <div className="text-3xl mb-1">📖</div>
-            <div className="font-[family-name:var(--font-pixel)] text-2xl text-[#F8D030]">
+            <div className="font-[family-name:var(--font-pixel)] text-2xl text-[#FFD000]">
               {tamamlananKonular}
             </div>
             {toplamKonular > 0 && (
-              <div className="font-[family-name:var(--font-body)] text-sm text-[#585868]">
+              <div className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
                 / {toplamKonular} konu
               </div>
             )}
@@ -121,15 +196,15 @@ export default async function HomePage() {
             </div>
             {sonDeneme ? (
               <>
-                <div className="font-[family-name:var(--font-pixel)] text-[9px] text-[#585868]">
+                <div className="font-[family-name:var(--font-pixel)] text-[9px] text-[#484858]">
                   {sonDeneme.tur}
                 </div>
-                <div className="font-[family-name:var(--font-body)] text-xl text-[#48B848] mt-0.5">
+                <div className="font-[family-name:var(--font-body)] text-xl text-[#18C840] mt-0.5">
                   {sonDeneme.net.toFixed(1)} net
                 </div>
               </>
             ) : (
-              <div className="font-[family-name:var(--font-body)] text-base text-[#585868]">
+              <div className="font-[family-name:var(--font-body)] text-base text-[#484858]">
                 henüz yok
               </div>
             )}
@@ -148,12 +223,12 @@ export default async function HomePage() {
           </div>
           <PixelProgress value={gorevProgress} showPercent size="lg" hpLabel="QUEST" />
           {toplamGorev === 0 && (
-            <p className="font-[family-name:var(--font-body)] text-lg text-[#585868] mt-2">
+            <p className="font-[family-name:var(--font-body)] text-lg text-[#484858] mt-2">
               ✦ Takvimden görev ekleyebilirsin!
             </p>
           )}
           {toplamGorev > 0 && tamamlananGorev === toplamGorev && (
-            <p className="font-[family-name:var(--font-body)] text-xl text-[#48B848] mt-2 animate-pixel-float">
+            <p className="font-[family-name:var(--font-body)] text-xl text-[#18C840] mt-2 animate-pixel-float">
               🏆 Harika! Tüm görevler tamamlandı!
             </p>
           )}
@@ -163,7 +238,7 @@ export default async function HomePage() {
         <PixelCard variant="dark">
           <p
             className="font-[family-name:var(--font-pixel)] mb-4"
-            style={{ fontSize: "10px", color: "#F8D030", textShadow: "1px 1px 0 #504000", letterSpacing: "0.08em" }}
+            style={{ fontSize: "10px", color: "#FFD000", textShadow: "1px 1px 0 #504000", letterSpacing: "0.08em" }}
           >
             ▶ HIZLI BAŞLAT
           </p>
@@ -202,7 +277,7 @@ export default async function HomePage() {
                 Son Denemeler
               </p>
               <Link href="/denemeler">
-                <span className="font-[family-name:var(--font-body)] text-lg text-[#4088F0]" style={{ borderBottom: "2px dotted #4088F0" }}>
+                <span className="font-[family-name:var(--font-body)] text-lg text-[#2878F8]" style={{ borderBottom: "2px dotted #2878F8" }}>
                   tümü →
                 </span>
               </Link>
@@ -211,13 +286,13 @@ export default async function HomePage() {
               {denemeler.slice(0, 3).map((d) => (
                 <div
                   key={d.id}
-                  className="flex justify-between items-center border-2 border-[#C0C0D0] px-3 py-2"
-                  style={{ background: "#F0F0E8" }}
+                  className="flex justify-between items-center border-2 border-[#D0D0E8] px-3 py-2"
+                  style={{ background: "#F0E8D0" }}
                 >
                   <span className="font-[family-name:var(--font-body)] text-xl text-[#101010]">
                     {d.tur} · {new Date(d.tarih).toLocaleDateString("tr-TR")}
                   </span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px] text-[#48B848]">
+                  <span className="font-[family-name:var(--font-pixel)] text-[10px] text-[#18C840]">
                     {d.net.toFixed(1)}
                   </span>
                 </div>

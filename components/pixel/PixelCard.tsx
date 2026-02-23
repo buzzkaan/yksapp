@@ -8,35 +8,35 @@ interface PixelCardProps {
 
 const variants: Record<string, { bg: string; border: string; shadow: string; text?: string; corner: string }> = {
   wood: {
-    bg: "#F8F8F0",
+    bg: "#F8F0DC",
     border: "#101010",
     shadow: "4px 4px 0 0 #101010",
-    corner: "#F8D030",
+    corner: "#FFD000",
   },
   stone: {
-    bg: "#D8D8E0",
+    bg: "#D0D0E8",
     border: "#101010",
     shadow: "4px 4px 0 0 #101010",
-    corner: "#4088F0",
+    corner: "#2878F8",
   },
   gold: {
-    bg: "#F8D030",
-    border: "#906000",
+    bg: "#FFD000",
+    border: "#806000",
     shadow: "4px 4px 0 0 #504000",
     corner: "#FFFFFF",
   },
   dark: {
-    bg: "#181828",
-    border: "#4088F0",
-    shadow: "4px 4px 0 0 #080818",
-    text: "#F8F8F8",
-    corner: "#4088F0",
+    bg: "#181838",
+    border: "#101010",
+    shadow: "4px 4px 0 0 #080828",
+    text: "#F0F0F0",
+    corner: "#FFD000",
   },
   green: {
-    bg: "#C8F0B0",
-    border: "#188018",
-    shadow: "4px 4px 0 0 #085008",
-    corner: "#F8D030",
+    bg: "#B8F0A0",
+    border: "#107010",
+    shadow: "4px 4px 0 0 #064818",
+    corner: "#FFD000",
   },
 };
 

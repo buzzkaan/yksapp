@@ -38,13 +38,13 @@ export function KonuCard({ id, baslik, aciklama, tamamlandi, oncelik, dersRenk, 
   return (
     <div
       className={`flex items-start gap-3 border-4 border-[#101010] p-3 transition-all ${
-        tamamlandi ? "opacity-60 bg-[#E0F0E0]" : "bg-[#FFFFFF]"
+        tamamlandi ? "opacity-60 bg-[#CCF0B8]" : "bg-[#FFFFFF]"
       }`}
       style={{ borderLeftColor: dersRenk, borderLeftWidth: "8px" }}
     >
       <button
         onClick={handleToggle}
-        className="mt-0.5 w-6 h-6 border-4 border-[#101010] flex-shrink-0 flex items-center justify-center bg-white hover:bg-[#18C018] transition-colors"
+        className="mt-0.5 w-6 h-6 border-4 border-[#101010] flex-shrink-0 flex items-center justify-center bg-white hover:bg-[#18D030] transition-colors"
         title={tamamlandi ? "Tamamlandı" : "Tamamla"}
       >
         {tamamlandi && <span className="text-xs leading-none text-white">✓</span>}
@@ -53,13 +53,13 @@ export function KonuCard({ id, baslik, aciklama, tamamlandi, oncelik, dersRenk, 
       <div className="flex-1 min-w-0">
         <p
           className={`font-[family-name:var(--font-body)] text-lg leading-tight ${
-            tamamlandi ? "line-through text-[#505068]" : "text-[#101010]"
+            tamamlandi ? "line-through text-[#484860]" : "text-[#101010]"
           }`}
         >
           {baslik}
         </p>
         {aciklama && (
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#505068] mt-0.5">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484860] mt-0.5">
             {aciklama}
           </p>
         )}
@@ -69,7 +69,7 @@ export function KonuCard({ id, baslik, aciklama, tamamlandi, oncelik, dersRenk, 
         <PixelBadge variant={p.variant}>{p.label}</PixelBadge>
         <button
           onClick={handleSil}
-          className="text-[#D81818] hover:text-[#E81818] font-[family-name:var(--font-body)] text-lg"
+          className="text-[#CC0820] hover:text-[#E00820] font-[family-name:var(--font-body)] text-lg"
           title="Sil"
         >
           ✕

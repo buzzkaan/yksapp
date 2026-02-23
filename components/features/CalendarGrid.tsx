@@ -23,11 +23,13 @@ export function CalendarGrid({
     ...Array.from({ length: sonGun.getDate() }, (_, i) => i + 1),
   ];
 
-  const gorevByDay: Record<number, { count: number; renk: string }> = {};
+  const gorevByDay: Record<number, { count: number; tamamlandi: number; renk: string; oncelik: number }> = {};
   for (const g of gorevler) {
     const d = new Date(g.tarih).getDate();
-    if (!gorevByDay[d]) gorevByDay[d] = { count: 0, renk: g.renk };
+    if (!gorevByDay[d]) gorevByDay[d] = { count: 0, tamamlandi: 0, renk: g.renk, oncelik: 0 };
     gorevByDay[d].count++;
+    if (g.tamamlandi) gorevByDay[d].tamamlandi++;
+    if (g.oncelik && g.oncelik > gorevByDay[d].oncelik) gorevByDay[d].oncelik = g.oncelik;
   }
 
   const today = new Date();
@@ -46,7 +48,7 @@ export function CalendarGrid({
   return (
     <div
       style={{
-        background: "#F8F8F0",
+        background: "#F8F0DC",
         border: "4px solid #101010",
         boxShadow: "4px 4px 0 0 #101010",
       }}
@@ -55,40 +57,40 @@ export function CalendarGrid({
       <div
         className="flex items-center justify-between px-4 py-2.5"
         style={{
-          background: "#181828",
-          borderBottom: "4px solid #4088F0",
+          background: "#181838",
+          borderBottom: "4px solid #101010",
         }}
       >
         <button
           onClick={prevMonth}
           className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
           style={{
-            color: "#F8F8F0",
+            color: "#F8F0DC",
             background: "#101010",
-            border: "3px solid #4088F0",
-            boxShadow: "2px 2px 0 0 #080818",
+            border: "3px solid #FFD000",
+            boxShadow: "2px 2px 0 0 #504000",
           }}
         >
           ◀
         </button>
         <div className="flex items-center gap-2">
-          <span className="text-base">✨</span>
+          <span className="text-base">◆</span>
           <span
             className="font-[family-name:var(--font-pixel)] text-[14px]"
-            style={{ color: "#F8D030", textShadow: "2px 2px 0 #504000" }}
+            style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
           >
             {AYLAR_TAM[ay - 1].toUpperCase()} {yil}
           </span>
-          <span className="text-base">✨</span>
+          <span className="text-base">◆</span>
         </div>
         <button
           onClick={nextMonth}
           className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
           style={{
-            color: "#F8F8F0",
+            color: "#F8F0DC",
             background: "#101010",
-            border: "3px solid #4088F0",
-            boxShadow: "2px 2px 0 0 #080818",
+            border: "3px solid #FFD000",
+            boxShadow: "2px 2px 0 0 #504000",
           }}
         >
           ▶
@@ -99,8 +101,8 @@ export function CalendarGrid({
       <div
         className="grid grid-cols-7"
         style={{
-          background: "#E8E0D0",
-          borderBottom: "3px solid #C0C0D0",
+          background: "#E8D4B0",
+          borderBottom: "3px solid #D0D0E8",
         }}
       >
         {GUNLER_KISALT.map((g, i) => (
@@ -108,8 +110,8 @@ export function CalendarGrid({
             key={g}
             className="text-center py-1.5 font-[family-name:var(--font-pixel)] text-[10px]"
             style={{
-              color: i >= 5 ? "#E04048" : "#101010",
-              borderRight: i < 6 ? "2px solid #C0C0D0" : "none",
+              color: i >= 5 ? "#E01828" : "#101010",
+              borderRight: i < 6 ? "2px solid #D0D0E8" : "none",
             }}
           >
             {g}
@@ -126,9 +128,9 @@ export function CalendarGrid({
                 key={`empty-${idx}`}
                 className="h-11 sm:h-12"
                 style={{
-                  background: "#F0F0E8",
-                  borderRight: "2px solid #C0C0D0",
-                  borderBottom: "2px solid #C0C0D0",
+                  background: "#F0E8D0",
+                  borderRight: "2px solid #D0D0E8",
+                  borderBottom: "2px solid #D0D0E8",
                 }}
               />
             );
@@ -147,16 +149,16 @@ export function CalendarGrid({
               className="h-11 sm:h-12 relative flex flex-col items-center justify-center transition-all cursor-pointer group"
               style={{
                 background: isSelected
-                  ? "#4088F0"
+                  ? "#2878F8"
                   : isToday
-                    ? "#F8D030"
-                    : "#F8F8F0",
-                borderRight: "2px solid #C0C0D0",
-                borderBottom: "2px solid #C0C0D0",
+                    ? "#FFD000"
+                    : "#F8F0DC",
+                borderRight: "2px solid #D0D0E8",
+                borderBottom: "2px solid #D0D0E8",
                 boxShadow: isSelected
-                  ? "inset 0 0 0 2px #1858A0"
+                  ? "inset 0 0 0 2px #1060C0"
                   : isToday
-                    ? "inset 0 0 0 2px #C8A020"
+                    ? "inset 0 0 0 2px #C09000"
                     : "none",
               }}
             >
@@ -168,7 +170,7 @@ export function CalendarGrid({
                     : isToday
                       ? "#101010"
                       : isWeekend
-                        ? "#E04048"
+                        ? "#E01828"
                         : "#101010",
                 }}
               >
@@ -177,16 +179,51 @@ export function CalendarGrid({
 
               {gorevInfo && (
                 <div className="flex gap-[2px] mt-0.5">
-                  {Array.from({ length: Math.min(gorevInfo.count, 3) }).map((_, i) => (
+                  {gorevInfo.tamamlandi > 0 && gorevInfo.tamamlandi === gorevInfo.count ? (
                     <div
-                      key={i}
                       className="w-[5px] h-[5px]"
                       style={{
-                        backgroundColor: isSelected ? "#F8D030" : gorevInfo.renk,
-                        border: `1px solid ${isSelected ? "#C8A020" : "#101010"}`,
+                        backgroundColor: isSelected ? "#FFF" : "#18C840",
+                        border: `1px solid ${isSelected ? "#1060C0" : "#107030"}`,
+                      }}
+                      title="Tümü tamamlandı"
+                    />
+                  ) : gorevInfo.tamamlandi > 0 ? (
+                    <>
+                      <div
+                        className="w-[5px] h-[5px]"
+                        style={{
+                          backgroundColor: isSelected ? "#FFD000" : "#18C840",
+                          border: `1px solid ${isSelected ? "#C09000" : "#107030"}`,
+                        }}
+                        title={`${gorevInfo.tamamlandi}/${gorevInfo.count} tamamlandı`}
+                      />
+                      <div
+                        className="w-[5px] h-[5px]"
+                        style={{
+                          backgroundColor: isSelected ? "#FFF" : gorevInfo.renk,
+                          border: `1px solid ${isSelected ? "#1060C0" : "#101010"}`,
+                        }}
+                      />
+                    </>
+                  ) : gorevInfo.oncelik === 3 ? (
+                    <div
+                      className="w-[5px] h-[5px]"
+                      style={{
+                        backgroundColor: isSelected ? "#FFF" : "#E01828",
+                        border: `1px solid ${isSelected ? "#1060C0" : "#A02020"}`,
+                      }}
+                      title="Yüksek öncelik"
+                    />
+                  ) : (
+                    <div
+                      className="w-[5px] h-[5px]"
+                      style={{
+                        backgroundColor: isSelected ? "#FFD000" : gorevInfo.renk,
+                        border: `1px solid ${isSelected ? "#C09000" : "#101010"}`,
                       }}
                     />
-                  ))}
+                  )}
                 </div>
               )}
 
@@ -194,8 +231,8 @@ export function CalendarGrid({
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                   style={{
-                    background: "#4088F020",
-                    border: "2px solid #4088F0",
+                    background: "#FFD00020",
+                    border: "2px solid #FFD000",
                   }}
                 />
               )}

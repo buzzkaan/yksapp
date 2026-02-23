@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useTransition, useRef } from "react";
+import { useState, useEffect, useTransition, useRef, useMemo } from "react";
 import {
   derslerGetir, dersEkle, dersSil,
   konuEkle, konuToggle, konuSil,
@@ -30,6 +30,8 @@ export default function YapilacaklarPage() {
   const [selectedDate, setSelectedDate] = useState<string | null>(formatDateStr(now));
   const [showGorevForm, setShowGorevForm] = useState(false);
   const [gorevBaslik, setGorevBaslik] = useState("");
+  const [gorevAciklama, setGorevAciklama] = useState("");
+  const [gorevOncelik, setGorevOncelik] = useState(1);
   const [gorevRenk, setGorevRenk] = useState(GOREV_RENKLER[0]);
 
   const [dersler, setDersler] = useState<DersWithKonular[]>([]);
@@ -56,14 +58,32 @@ export default function YapilacaklarPage() {
 
   const streakInfo = hesaplaStreak(streakDates);
 
+  const bugunStr = formatDateStr(now);
+  const istatistikler = useMemo(() => {
+    const aylik = gorevler;
+    const bugun = aylik.filter(g => formatDateStr(new Date(g.tarih)) === bugunStr);
+    const bugunTamamlanan = bugun.filter(g => g.tamamlandi).length;
+    const bugunAktif = bugun.filter(g => !g.tamamlandi).length;
+    const toplamTamam = aylik.filter(g => g.tamamlandi).length;
+    const toplamAktif = aylik.filter(g => !g.tamamlandi).length;
+    const yuksekOncelik = aylik.filter(g => !g.tamamlandi && g.oncelik === 3).length;
+    return { bugun, bugunTamamlanan, bugunAktif, toplamTamam, toplamAktif, yuksekOncelik };
+  }, [gorevler, bugunStr]);
+
   function handleMonthChange(y: number, m: number) { setYil(y); setAy(m); setSelectedDate(null); }
 
   async function handleGorevEkle(e: React.FormEvent) {
     e.preventDefault();
     if (!gorevBaslik.trim() || !selectedDate) return;
     const [y, m, d] = selectedDate.split("-").map(Number);
-    await gorevEkle({ tarih: new Date(y, m - 1, d), baslik: gorevBaslik, renk: gorevRenk });
-    setGorevBaslik(""); setShowGorevForm(false);
+    await gorevEkle({ 
+      tarih: new Date(y, m - 1, d), 
+      baslik: gorevBaslik, 
+      aciklama: gorevAciklama || undefined,
+      oncelik: gorevOncelik,
+      renk: gorevRenk 
+    });
+    setGorevBaslik(""); setGorevAciklama(""); setGorevOncelik(1); setShowGorevForm(false);
     toast.success("📅 Görev eklendi!");
     await loadGorevler();
   }
@@ -123,7 +143,7 @@ export default function YapilacaklarPage() {
   }
 
   return (
-    <div className="min-h-screen py-4 px-3 sm:px-4" style={{ background: "#E8E0D0" }}>
+    <div className="min-h-screen py-4 px-3 sm:px-4">
       <div className="max-w-4xl mx-auto flex flex-col gap-4">
 
         {/* Başlık */}
@@ -134,28 +154,28 @@ export default function YapilacaklarPage() {
               <div>
                 <h1
                   className="font-[family-name:var(--font-pixel)] text-[14px] leading-tight"
-                  style={{ color: "#F8D030", textShadow: "2px 2px 0 #504000" }}
+                  style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
                 >
                   YAPILACAKLAR
                 </h1>
-                <p className="font-[family-name:var(--font-body)] text-base mt-0.5" style={{ color: "#A0A8C0" }}>
+                <p className="font-[family-name:var(--font-body)] text-base mt-0.5" style={{ color: "#8890B8" }}>
                   Görevler &amp; Konular
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {streakInfo.best > 0 && (
-                <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#101010", border: "3px solid #4088F0" }}>
+                <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#101010", border: "3px solid #2878F8" }}>
                   <span className="text-sm">🏆</span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#F8D030" }}>
+                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
                     {streakInfo.best}
                   </span>
                 </div>
               )}
               {streakInfo.current > 0 && (
-                <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#101010", border: "3px solid #F8D030", boxShadow: "0 0 8px #F8D03044" }}>
+                <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#101010", border: "3px solid #FFD000", boxShadow: "0 0 8px #FFD00044" }}>
                   <span className="text-base">🔥</span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#F8D030" }}>
+                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
                     {streakInfo.current} GÜN
                   </span>
                 </div>
@@ -163,6 +183,28 @@ export default function YapilacaklarPage() {
             </div>
           </div>
         </DarkBox>
+
+        {/* İstatistik kartları */}
+        {aktifTab === "takvim" && (
+          <div className="grid grid-cols-4 gap-2">
+            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#484858" }}>BUGÜN</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#2878F8" }}>{istatistikler.bugun.length}</div>
+            </div>
+            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#CCF0B8", boxShadow: "3px 3px 0 0 #101010" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#18C840" }}>TAMAM</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#18C840" }}>{istatistikler.bugunTamamlanan}</div>
+            </div>
+            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#FFF8E0", boxShadow: "3px 3px 0 0 #101010" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#F89000" }}>AKTİF</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#F89000" }}>{istatistikler.bugunAktif}</div>
+            </div>
+            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#FFE0E0", boxShadow: "3px 3px 0 0 #101010" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#E01828" }}>acil</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#E01828" }}>{istatistikler.yuksekOncelik}</div>
+            </div>
+          </div>
+        )}
 
         {/* Sekme çubuğu */}
         <div className="flex gap-2">
@@ -175,10 +217,10 @@ export default function YapilacaklarPage() {
               onClick={() => setAktifTab(tab.key)}
               className="flex-1 py-2.5 font-[family-name:var(--font-pixel)] text-[11px] transition-all cursor-pointer select-none"
               style={aktifTab === tab.key ? {
-                background: "#F8F8F0", border: "4px solid #101010", borderBottom: "4px solid #F8F8F0",
-                color: "#4088F0", marginBottom: "-4px", position: "relative", zIndex: 2,
+                background: "#F8F0DC", borderTop: "4px solid #101010", borderLeft: "4px solid #101010", borderRight: "4px solid #101010", borderBottom: "4px solid #F8F0DC",
+                color: "#2878F8", marginBottom: "-4px", position: "relative", zIndex: 2,
               } : {
-                background: "#181828", border: "4px solid #101010", color: "#A0A8C0", boxShadow: "2px 2px 0 0 #101010",
+                background: "#181838", borderTop: "4px solid #101010", borderLeft: "4px solid #101010", borderRight: "4px solid #101010", borderBottom: "4px solid #101010", color: "#8890B8", boxShadow: "2px 2px 0 0 #101010",
               }}
             >
               {tab.label}
@@ -190,9 +232,12 @@ export default function YapilacaklarPage() {
           <TaskPanel
             yil={yil} ay={ay} gorevler={gorevler}
             selectedDate={selectedDate} showGorevForm={showGorevForm}
-            gorevBaslik={gorevBaslik} gorevRenk={gorevRenk}
+            gorevBaslik={gorevBaslik} gorevAciklama={gorevAciklama}
+            gorevOncelik={gorevOncelik} gorevRenk={gorevRenk}
+            istatistikler={istatistikler}
             onMonthChange={handleMonthChange} onSelectDate={setSelectedDate}
             onShowGorevForm={setShowGorevForm} onGorevBaslik={setGorevBaslik}
+            onGorevAciklama={setGorevAciklama} onGorevOncelik={setGorevOncelik}
             onGorevRenk={setGorevRenk} onGorevEkle={handleGorevEkle}
             onGorevTamamla={handleGorevTamamla} onGorevSil={handleGorevSil}
           />

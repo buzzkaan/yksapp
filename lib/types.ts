@@ -6,4 +6,4 @@ export { DenemeType };
 
 export type DersWithKonular = Prisma.DersGetPayload<{ include: { konular: true } }>;
 export type DenemeWithDetay = Prisma.DenemeGetPayload<{ include: { dersDetay: true } }>;
-export type Gorev = GunlukGorev;
+export type Gorev = GunlukGorev & { oncelik: number };

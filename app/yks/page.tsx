@@ -59,12 +59,12 @@ function DersKonuTakip({
 
   return (
     <div
-      className="border-4 border-[#101010] bg-[#F8F8F0]"
+      className="border-4 border-[#101010] bg-[#F8F0DC]"
       style={{ borderLeftColor: renk, borderLeftWidth: 8 }}
     >
       {/* Başlık satırı */}
       <button
-        className="w-full flex items-center gap-3 p-3 hover:bg-[#F0F0E8] transition-colors text-left cursor-pointer"
+        className="w-full flex items-center gap-3 p-3 hover:bg-[#F0E8D0] transition-colors text-left cursor-pointer"
         onClick={() => setAcik(!acik)}
       >
         <span className="text-2xl flex-shrink-0">{icon}</span>
@@ -82,42 +82,42 @@ function DersKonuTakip({
               </span>
             )}
             {tamTamam && (
-              <span className="font-[family-name:var(--font-body)] text-xs border-2 border-[#48B848] text-[#48B848] px-1.5 py-0.5 flex-shrink-0">
+              <span className="font-[family-name:var(--font-body)] text-xs border-2 border-[#18C840] text-[#18C840] px-1.5 py-0.5 flex-shrink-0">
                 🏆 Clear!
               </span>
             )}
-            <span className="ml-auto font-[family-name:var(--font-body)] text-sm text-[#585868] flex-shrink-0">
+            <span className="ml-auto font-[family-name:var(--font-body)] text-sm text-[#484858] flex-shrink-0">
               {tamamSayi}/{konular.length}
             </span>
           </div>
           {/* Progress bar */}
-          <div className="h-4 border-2 border-[#101010] bg-[#181828] w-full relative overflow-hidden">
+          <div className="h-4 border-2 border-[#101010] bg-[#181838] w-full relative overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 transition-all duration-300"
-              style={{ width: `${progress}%`, backgroundColor: tamTamam ? "#48B848" : renk }}
+              style={{ width: `${progress}%`, backgroundColor: tamTamam ? "#18C840" : renk }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-[family-name:var(--font-body)] text-xs leading-none"
-                style={{ color: progress > 50 ? "#fff" : "#585868" }}
+                style={{ color: progress > 50 ? "#fff" : "#484858" }}
               >
                 {tamTamam ? "✓ Tamamlandı!" : progress > 0 ? `%${Math.round(progress)}` : "Başlanmadı"}
               </span>
             </div>
           </div>
         </div>
-        <span className="text-[#585868] text-sm flex-shrink-0 ml-1">{acik ? "▲" : "▼"}</span>
+        <span className="text-[#484858] text-sm flex-shrink-0 ml-1">{acik ? "▲" : "▼"}</span>
       </button>
 
       {/* Konu listesi */}
       {acik && (
-        <div className="border-t-2 border-[#C0C0D0]">
+        <div className="border-t-2 border-[#D0D0E8]">
           {konular.map((konu, i) => {
             const tamam = tamamlanan[i] ?? false;
             return (
               <button
                 key={i}
                 onClick={() => toggleKonu(i)}
-                className={`w-full flex items-start gap-3 px-3 py-2.5 text-left transition-colors border-b border-[#C0C0D0] last:border-b-0 cursor-pointer ${tamam ? "bg-[#E0F0E0] hover:bg-[#D8F0D8]" : "bg-white hover:bg-[#F0F0F8]"
+                className={`w-full flex items-start gap-3 px-3 py-2.5 text-left transition-colors border-b border-[#D0D0E8] last:border-b-0 cursor-pointer ${tamam ? "bg-[#CCF0B8] hover:bg-[#D8F0D8]" : "bg-white hover:bg-[#F0F0F8]"
                   }`}
               >
                 <span className={`text-lg flex-shrink-0 mt-0.5 transition-all ${tamam ? "opacity-100" : "opacity-25"}`}>
@@ -132,7 +132,7 @@ function DersKonuTakip({
                 >
                   {konu}
                 </span>
-                <span className="font-[family-name:var(--font-body)] text-xs text-[#585868] flex-shrink-0 mt-1">
+                <span className="font-[family-name:var(--font-body)] text-xs text-[#484858] flex-shrink-0 mt-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </button>
@@ -169,23 +169,23 @@ function IlerlemOzeti({
   const progress = toplamKonu > 0 ? (toplamTamam / toplamKonu) * 100 : 0;
 
   return (
-    <div className="border-4 border-[#101010] p-3 bg-[#F8F8F0]" style={{ boxShadow: "4px 4px 0 0 #101010" }}>
+    <div className="border-4 border-[#101010] p-3 bg-[#F8F0DC]" style={{ boxShadow: "4px 4px 0 0 #101010" }}>
       <div className="flex items-center justify-between mb-2">
         <span className="font-[family-name:var(--font-body)] text-lg text-[#101010]">
           📊 Genel İlerleme
         </span>
-        <span className="font-[family-name:var(--font-body)] text-base text-[#585868]">
+        <span className="font-[family-name:var(--font-body)] text-base text-[#484858]">
           {toplamTamam}/{toplamKonu} konu
         </span>
       </div>
-      <div className="h-5 border-2 border-[#101010] bg-[#181828] w-full relative overflow-hidden">
+      <div className="h-5 border-2 border-[#101010] bg-[#181838] w-full relative overflow-hidden">
         <div
           className="absolute inset-y-0 left-0 transition-all duration-300"
-          style={{ width: `${progress}%`, backgroundColor: "#48B848" }}
+          style={{ width: `${progress}%`, backgroundColor: "#18C840" }}
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="font-[family-name:var(--font-body)] text-sm leading-none"
-            style={{ color: progress > 50 ? "#fff" : "#585868" }}
+            style={{ color: progress > 50 ? "#fff" : "#484858" }}
           >
             %{Math.round(progress)}
           </span>
@@ -200,8 +200,8 @@ function YksSinavGrubu({ sinav, dersKeys, kategoriRenk }: {
   sinav: "TYT" | "AYT"; dersKeys: string[]; kategoriRenk: string;
 }) {
   const isTyt = sinav === "TYT";
-  const bgColor = isTyt ? "#E8F0E8" : "#E8E8F8";
-  const borderColor = isTyt ? "#509050" : "#4060D0";
+  const bgColor = isTyt ? "#D4ECC8" : "#D0D0F0";
+  const borderColor = isTyt ? "#18C840" : "#2878F8";
   const label = isTyt ? "📚 TYT" : "🎓 AYT";
   const aciklama = isTyt
     ? "Temel Yeterlilik Testi — Tüm adaylar girer"
@@ -215,7 +215,7 @@ function YksSinavGrubu({ sinav, dersKeys, kategoriRenk }: {
   });
 
   return (
-    <div className="border-4 border-[#101010] overflow-hidden" style={{ boxShadow: "4px 4px 0 0 #101010" }}>
+    <div className="border-4 border-[#101010] overflow-hidden bg-[#F8F0DC]" style={{ boxShadow: "4px 4px 0 0 #101010" }}>
       <div
         className="px-3 py-2 flex items-center gap-3"
         style={{ backgroundColor: bgColor, borderBottom: `3px solid ${borderColor}` }}
@@ -233,7 +233,7 @@ function YksSinavGrubu({ sinav, dersKeys, kategoriRenk }: {
           {gercekDersler.length} ders
         </span>
       </div>
-      <div className="flex flex-col divide-y-2 divide-[#C0C0D0]">
+      <div className="flex flex-col divide-y-2 divide-[#D0D0E8]">
         {gercekDersler.map((dk) => {
           const ders = DERSLER[dk];
           if (!ders) return null;
@@ -260,10 +260,10 @@ function YksSinavGrubu({ sinav, dersKeys, kategoriRenk }: {
 // ─── DGS/KPSS: Bölüm grubu ───────────────────────────────────────────────────
 function GenelSinavBolum({ bolum, sinavTipi }: { bolum: SinavBolum; sinavTipi: SinavTipi }) {
   return (
-    <div className="border-4 border-[#101010] overflow-hidden" style={{ boxShadow: "4px 4px 0 0 #101010" }}>
+    <div className="border-4 border-[#101010] overflow-hidden bg-[#F8F0DC]" style={{ boxShadow: "4px 4px 0 0 #101010" }}>
       <div
         className="px-3 py-2 flex items-center gap-3"
-        style={{ backgroundColor: bolum.renk + "22", borderBottom: `3px solid ${bolum.renk}` }}
+        style={{ backgroundColor: bolum.renk + "33", borderBottom: `3px solid ${bolum.renk}` }}
       >
         <span
           className="font-[family-name:var(--font-pixel)] text-xs px-2 py-1"
@@ -274,11 +274,11 @@ function GenelSinavBolum({ bolum, sinavTipi }: { bolum: SinavBolum; sinavTipi: S
         <span className="font-[family-name:var(--font-body)] text-sm text-[#101010] flex-1 truncate">
           {bolum.aciklama}
         </span>
-        <span className="font-[family-name:var(--font-body)] text-sm text-[#585868] flex-shrink-0">
+        <span className="font-[family-name:var(--font-body)] text-sm text-[#484858] flex-shrink-0">
           {bolum.dersler.length} ders
         </span>
       </div>
-      <div className="flex flex-col divide-y-2 divide-[#C0C0D0]">
+      <div className="flex flex-col divide-y-2 divide-[#D0D0E8]">
         {bolum.dersler.map((ders) => (
           <DersKonuTakip
             key={ders.key}
@@ -329,7 +329,7 @@ function YksView() {
               onClick={() => setAktif(k)}
               className={`py-3 flex flex-col items-center gap-1 border-r-4 last:border-r-0 border-[#101010] transition-all cursor-pointer ${isAktif ? "text-white" : "hover:opacity-80"
                 }`}
-              style={isAktif ? { background: kat.renk } : { background: "#F8F8F0", color: "#101010" }}
+              style={isAktif ? { background: kat.renk } : { background: "#F8F0DC", color: "#101010" }}
             >
               <span className="text-2xl leading-none">{kat.icon}</span>
               <span className="font-[family-name:var(--font-body)] text-lg leading-tight">{kat.label}</span>
@@ -338,7 +338,7 @@ function YksView() {
                 style={
                   isAktif
                     ? { borderColor: "rgba(255,255,255,0.5)", color: "rgba(255,255,255,0.85)" }
-                    : { borderColor: "#A0A8C0", color: "#585868" }
+                    : { borderColor: "#8890B8", color: "#484858" }
                 }
               >
                 {dersAdet} ders
@@ -350,7 +350,7 @@ function YksView() {
 
       {/* Kategori açıklaması */}
       <div
-        className="border-4 border-[#101010] p-3 flex items-center gap-3 bg-[#F8F8F0]"
+        className="border-4 border-[#101010] p-3 flex items-center gap-3 bg-[#F8F0DC]"
         style={{ borderLeftColor: kategori.renk, borderLeftWidth: 8, boxShadow: "4px 4px 0 0 #101010" }}
       >
         <span className="text-3xl">{kategori.icon}</span>
@@ -358,7 +358,7 @@ function YksView() {
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] leading-tight">
             {kategori.label} Puan Türü
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868]">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
             {kategori.aciklama}
           </p>
         </div>
@@ -368,8 +368,8 @@ function YksView() {
       <IlerlemOzeti sinavTipi="YKS" bolumler={[tytBolum, aytBolum]} />
 
       {(aktif === "ea" || aktif === "dil") && (
-        <div className="border-2 border-dashed border-[#4088F0] px-3 py-2 bg-[#F0F0F8]">
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868]">
+        <div className="border-2 border-dashed border-[#2878F8] px-3 py-2 bg-[#F0F0F8]">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
             ℹ️ TDE, Tarih, Coğrafya ve Felsefe hem TYT hem AYT için gereklidir.
           </p>
         </div>
@@ -378,8 +378,8 @@ function YksView() {
       <YksSinavGrubu sinav="TYT" dersKeys={kategori.tyt} kategoriRenk={kategori.renk} />
       <YksSinavGrubu sinav="AYT" dersKeys={kategori.ayt} kategoriRenk={kategori.renk} />
 
-      <div className="border-2 border-dashed border-[#4088F0] px-3 py-2 bg-[#F0F0F8]">
-        <p className="font-[family-name:var(--font-body)] text-xs text-[#585868]">
+      <div className="border-2 border-dashed border-[#2878F8] px-3 py-2 bg-[#F0F0F8]">
+        <p className="font-[family-name:var(--font-body)] text-xs text-[#484858]">
           ⚠️ Yabancı Dil kazanımları henüz mevcut değil.
         </p>
       </div>
@@ -403,7 +403,7 @@ function GenelSinavView({
   return (
     <div className="p-3 flex flex-col gap-3 max-w-4xl mx-auto">
       <div
-        className="border-4 border-[#101010] p-3 flex items-center gap-3 bg-[#F8F8F0]"
+        className="border-4 border-[#101010] p-3 flex items-center gap-3 bg-[#F8F0DC]"
         style={{ borderLeftColor: meta.renk, borderLeftWidth: 8, boxShadow: "4px 4px 0 0 #101010" }}
       >
         <Image src={meta.icon} alt={meta.isim} width={36} height={36} className="w-9 h-9" />
@@ -411,7 +411,7 @@ function GenelSinavView({
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] leading-tight">
             {meta.tamIsim}
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868]">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
             {meta.aciklama}
           </p>
         </div>
@@ -419,7 +419,7 @@ function GenelSinavView({
           <p className="font-[family-name:var(--font-pixel)] text-base" style={{ color: meta.renk }}>
             {bolumler.length}
           </p>
-          <p className="font-[family-name:var(--font-body)] text-xs text-[#585868]">bölüm</p>
+          <p className="font-[family-name:var(--font-body)] text-xs text-[#484858]">bölüm</p>
         </div>
       </div>
 
@@ -434,32 +434,37 @@ function GenelSinavView({
 
 // ─── Ana sayfa ────────────────────────────────────────────────────────────────
 export default function SinavPage() {
-  const sinavTipi = getSinavTipi();
+  const [sinavTipi, setSinavTipiState] = useState<SinavTipi>("YKS");
+  
+  useEffect(() => {
+    setSinavTipiState(getSinavTipi());
+  }, []);
+  
   const meta = SINAV_META[sinavTipi];
 
   return (
-    <div className="min-h-screen" style={{ background: "#E8E0D0" }}>
+    <div className="min-h-screen">
       {/* Header */}
       <div
-        className="border-b-4 border-[#4088F0] px-4 py-4"
-        style={{ background: "#181828", boxShadow: "0 4px 0 0 #080818" }}
+        className="border-b-4 border-[#2878F8] px-4 py-4"
+        style={{ background: "#181838", boxShadow: "0 4px 0 0 #080828" }}
       >
         <div className="flex items-center justify-between max-w-4xl mx-auto">
           <div>
-            <h1 className="font-[family-name:var(--font-pixel)] text-xs text-[#F8D030] leading-tight flex items-center gap-1" style={{ textShadow: "2px 2px 0 #504000" }}>
+            <h1 className="font-[family-name:var(--font-pixel)] text-xs text-[#FFD000] leading-tight flex items-center gap-1" style={{ textShadow: "2px 2px 0 #504000" }}>
               <Image src={meta.icon} alt={meta.isim} width={14} height={14} className="w-3.5 h-3.5" />
               {meta.isim} KAZANIMLARI
             </h1>
-            <p className="font-[family-name:var(--font-body)] text-base text-[#A0A8C0] mt-1">
+            <p className="font-[family-name:var(--font-body)] text-base text-[#8890B8] mt-1">
               Konuları tamamla, level atla!
             </p>
           </div>
           <Link
             href="/ayarlar"
-            className="flex flex-col items-center gap-0.5 border-2 border-[#A0A8C0] px-2 py-1 hover:bg-[#282838] transition-colors cursor-pointer"
+            className="flex flex-col items-center gap-0.5 border-2 border-[#8890B8] px-2 py-1 hover:bg-[#282838] transition-colors cursor-pointer"
           >
             <span className="text-lg">⚙️</span>
-            <span className="font-[family-name:var(--font-body)] text-xs text-[#A0A8C0]">
+            <span className="font-[family-name:var(--font-body)] text-xs text-[#8890B8]">
               Değiştir
             </span>
           </Link>

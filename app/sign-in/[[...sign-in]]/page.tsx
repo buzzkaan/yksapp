@@ -4,19 +4,19 @@ export default function SignInPage() {
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center p-4"
-      style={{ background: "#181828" }}
+      style={{ background: "#181838" }}
     >
       {/* Logo */}
       <div className="mb-8 text-center">
         <div
           className="font-[family-name:var(--font-pixel)] text-[14px] leading-relaxed tracking-wider"
-          style={{ color: "#F0D000", textShadow: "2px 2px 0 #504000" }}
+          style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
         >
           🌾 YKS FARM
         </div>
         <div
           className="font-[family-name:var(--font-body)] text-2xl mt-1"
-          style={{ color: "#A0A8C0" }}
+          style={{ color: "#8890B8" }}
         >
           Çiftliğe Giriş Yap
         </div>

@@ -32,7 +32,7 @@ export function SinavGeriSayim() {
     <div
       className="relative border-4 border-[#101010] overflow-hidden"
       style={{
-        background: "#181828",
+        background: "#181838",
         boxShadow: "4px 4px 0 0 #101010",
       }}
     >
@@ -45,7 +45,7 @@ export function SinavGeriSayim() {
       ))}
 
       {/* Top strip */}
-      <div className="flex items-center justify-between px-4 py-2 border-b-2 border-[#2A2A48]">
+      <div className="flex items-center justify-between px-4 py-2 border-b-2 border-[#1E1E40]">
         <div className="flex items-center gap-2">
           <Image src={meta.icon} alt={meta.isim} width={20} height={20} className="w-5 h-5" />
           <span
@@ -56,8 +56,8 @@ export function SinavGeriSayim() {
           </span>
         </div>
         <span
-          className="font-[family-name:var(--font-body)] text-sm border border-[#2A2A48] px-2 py-0.5"
-          style={{ color: "#585868" }}
+          className="font-[family-name:var(--font-body)] text-sm border border-[#1E1E40] px-2 py-0.5"
+          style={{ color: "#484858" }}
         >
           yaklaşık tarih
         </span>
@@ -79,7 +79,7 @@ export function SinavGeriSayim() {
           {!bitti && (
             <span
               className="font-[family-name:var(--font-body)] text-base mt-1 tracking-widest"
-              style={{ color: "#A0A8C0" }}
+              style={{ color: "#8890B8" }}
             >
               GÜN KALDI
             </span>
@@ -89,14 +89,14 @@ export function SinavGeriSayim() {
         <div className="flex flex-col gap-1.5 flex-1 min-w-0">
           <p
             className="font-[family-name:var(--font-body)] text-lg leading-snug"
-            style={{ color: "#F8F8F8" }}
+            style={{ color: "#F0F0F0" }}
           >
             {mesaj(gunler)}
           </p>
           <div className="flex items-center gap-1.5 flex-wrap">
             <span
-              className="font-[family-name:var(--font-body)] text-base border border-[#2A2A48] px-2 py-0.5 leading-tight"
-              style={{ color: "#A0A8C0", background: "#101010" }}
+              className="font-[family-name:var(--font-body)] text-base border border-[#1E1E40] px-2 py-0.5 leading-tight"
+              style={{ color: "#8890B8", background: "#101010" }}
             >
               <Image src="/icon/calendar.png" alt="tarih" width={14} height={14} className="inline w-3.5 h-3.5 mr-1" />
               {tarihBilgi.etiket}
@@ -107,11 +107,11 @@ export function SinavGeriSayim() {
 
       {/* Bottom urgency bar */}
       {!bitti && (
-        <div className="border-t-2 border-[#2A2A48]">
+        <div className="border-t-2 border-[#1E1E40]">
           <div
             className="h-1.5 transition-all duration-1000"
             style={{
-              background: `linear-gradient(to right, ${renk}, ${renk}80)`,
+              background: renk,
               width: `${Math.min(100, Math.max(2, ((365 - gunler) / 365) * 100))}%`,
             }}
           />
