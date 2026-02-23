@@ -32,11 +32,11 @@ export default async function HomePage() {
   const tarihStr          = `${now.getDate()} ${AYLAR[now.getMonth()]}`;
   const gunStr            = GUNLER[now.getDay()];
   const bugunPomodoro     = pomodorolar.length;
-  const tumKonular        = dersler.flatMap(d => d.konular);
-  const tamamlananKonular = tumKonular.filter(k => k.tamamlandi).length;
+  const tumKonular        = dersler.flatMap((d) => d.konular);
+  const tamamlananKonular = tumKonular.filter((k) => k.tamamlandi).length;
   const toplamKonular     = tumKonular.length;
   const sonDeneme         = denemeler[0];
-  const tamamlananGorev   = gorevler.filter(g => g.tamamlandi).length;
+  const tamamlananGorev   = gorevler.filter((g) => g.tamamlandi).length;
   const toplamGorev       = gorevler.length;
   const gorevProgress     = toplamGorev > 0 ? (tamamlananGorev / toplamGorev) * 100 : 0;
 
