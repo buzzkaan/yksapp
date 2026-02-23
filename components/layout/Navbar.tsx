@@ -27,6 +27,7 @@ export function Navbar() {
   const [sinavTipi, setSinavTipi] = useState<SinavTipi>("YKS");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSinavTipi(getInitialSinavTipi());
   }, []);
 
