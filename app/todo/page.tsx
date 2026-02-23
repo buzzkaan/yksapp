@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useTransition, useRef, useMemo } from "react";
+import Image from "next/image";
 import {
   derslerGetir, dersEkle, dersSil,
   konuEkle, konuToggle, konuSil,
@@ -9,7 +10,6 @@ import {
   tamamlananGunleriGetir,
 } from "@/server/actions/takvim";
 import { formatDateStr, hesaplaStreak } from "@/lib/utils/date";
-import { DarkBox } from "@/components/todo/DarkBox";
 import { TaskPanel } from "@/components/todo/TaskPanel";
 import { SubjectPanel } from "@/components/todo/SubjectPanel";
 import { RENKLER, GOREV_RENKLER, IKONLAR } from "@/components/todo/constants";
@@ -143,46 +143,58 @@ export default function YapilacaklarPage() {
   }
 
   return (
-    <div className="min-h-screen py-4 px-3 sm:px-4">
-      <div className="max-w-4xl mx-auto flex flex-col gap-4">
+    <div className="min-h-screen">
 
-        {/* Başlık */}
-        <DarkBox className="px-5 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">⚔️</span>
-              <div>
-                <h1
-                  className="font-[family-name:var(--font-pixel)] text-[14px] leading-tight"
-                  style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
-                >
-                  YAPILACAKLAR
-                </h1>
-                <p className="font-[family-name:var(--font-body)] text-base mt-0.5" style={{ color: "#8890B8" }}>
-                  Görevler &amp; Konular
-                </p>
-              </div>
+      {/* ── Header ── */}
+      <div
+        className="relative border-b-4 px-4 py-5"
+        style={{
+          background: "#181838",
+          borderColor: "#FFD000",
+          boxShadow: "0 4px 0 0 #504000",
+        }}
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: "#FFD000" }} />
+        <div className="flex items-center justify-between pl-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 relative flex-shrink-0">
+              <Image src="/icon/chat.png" alt="yapilacaklar" fill className="object-contain" />
             </div>
-            <div className="flex items-center gap-2">
-              {streakInfo.best > 0 && (
-                <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#101010", border: "3px solid #2878F8" }}>
-                  <span className="text-sm">🏆</span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
-                    {streakInfo.best}
-                  </span>
-                </div>
-              )}
-              {streakInfo.current > 0 && (
-                <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#101010", border: "3px solid #FFD000", boxShadow: "0 0 8px #FFD00044" }}>
-                  <span className="text-base">🔥</span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
-                    {streakInfo.current} GÜN
-                  </span>
-                </div>
-              )}
+            <div>
+              <h1
+                className="font-[family-name:var(--font-pixel)] leading-tight"
+                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
+              >
+                YAPILACAKLAR
+              </h1>
+              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#8890B8" }}>
+                Görevler &amp; Konular
+              </p>
             </div>
           </div>
-        </DarkBox>
+          <div className="flex items-center gap-2">
+            {streakInfo.best > 0 && (
+              <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#101010", border: "3px solid #FFD000" }}>
+                <span className="text-sm">🏆</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
+                  {streakInfo.best}
+                </span>
+              </div>
+            )}
+            {streakInfo.current > 0 && (
+              <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#FFD000", border: "3px solid #101010" }}>
+                <span className="text-base">🔥</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
+                  {streakInfo.current} GÜN
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="py-4 px-3 sm:px-4">
+      <div className="max-w-4xl mx-auto flex flex-col gap-4">
 
         {/* İstatistik kartları */}
         {aktifTab === "takvim" && (
@@ -261,6 +273,7 @@ export default function YapilacaklarPage() {
           />
         )}
 
+      </div>
       </div>
     </div>
   );

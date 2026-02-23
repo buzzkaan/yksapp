@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
 import { getSinavTipi, setSinavTipi } from "@/lib/utils/sinav";
-import { PageHeader } from "@/components/layout/PageHeader";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelButton } from "@/components/pixel/PixelButton";
 import toast from "react-hot-toast";
@@ -27,33 +26,40 @@ export default function AyarlarPage() {
 
   return (
     <div>
-      <PageHeader icon="⚙️" title="AYARLAR" subtitle="Trainer ayarlarını yönet" />
-
-      <div className="p-4 flex flex-col gap-4 max-w-4xl mx-auto">
-        {/* Profil */}
-        <PixelCard>
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] mb-3">
-            👤 Trainer Profili
-          </p>
-          <div className="flex items-center gap-4">
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: { width: 48, height: 48, border: "4px solid #101010", borderRadius: "0" },
-                },
-              }}
-            />
-            <div className="flex-1 min-w-0">
-              <div className="font-[family-name:var(--font-body)] text-lg text-[#101010] truncate">
-                {user?.fullName || user?.username || "—"}
-              </div>
-              <div className="font-[family-name:var(--font-body)] text-sm text-[#484858] truncate">
-                {user?.primaryEmailAddress?.emailAddress || "—"}
-              </div>
+      {/* Header */}
+      <div
+        className="relative border-b-4 px-4 py-5"
+        style={{ background: "#181838", borderColor: "#FFD000", boxShadow: "0 4px 0 0 #504000" }}
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: "#FFD000" }} />
+        <div className="flex items-center justify-between pl-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 relative flex-shrink-0">
+              <Image src="/icon/flag.png" alt="ayarlar" fill className="object-contain" />
+            </div>
+            <div>
+              <h1
+                className="font-[family-name:var(--font-pixel)] leading-tight"
+                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
+              >
+                AYARLAR
+              </h1>
+              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#8890B8" }}>
+                Trainer ayarlarını yönet
+              </p>
             </div>
           </div>
-        </PixelCard>
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: { width: 40, height: 40, border: "3px solid #FFD000", borderRadius: "0" },
+              },
+            }}
+          />
+        </div>
+      </div>
 
+      <div className="p-4 flex flex-col gap-4 max-w-4xl mx-auto">
         {/* Sınav Seçimi */}
         <PixelCard>
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] mb-1">

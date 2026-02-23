@@ -68,66 +68,61 @@ export default async function HomePage() {
   const alinti = getRandomAlinti();
 
   return (
-    <div className="flex flex-col py-4 px-3 sm:px-4">
-      <div className="max-w-4xl mx-auto w-full flex flex-col gap-3">
-
-        {/* ── Game HUD Header ──────────────────────────────────────────── */}
-        <div
-          className="relative border-4 border-[#101010] px-5 py-4"
-          style={{
-            background: "#181838",
-            boxShadow: "4px 4px 0 0 #101010",
-          }}
-        >
-          <div className="flex items-start justify-between gap-3">
+    <>
+      {/* ── Header ── */}
+      <div
+        className="relative border-b-4 px-4 py-5 w-full"
+        style={{ background: "#181838", borderColor: "#FFD000", boxShadow: "0 4px 0 0 #504000" }}
+      >
+        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: "#FFD000" }} />
+        <div className="flex items-center justify-between pl-3 max-w-4xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 relative flex-shrink-0">
+              <Image src="/icon/flag.png" alt="quest" fill className="object-contain" />
+            </div>
             <div>
               <h1
-                className="font-[family-name:var(--font-pixel)] leading-tight flex items-center gap-1"
-                style={{ fontSize: "14px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
+                className="font-[family-name:var(--font-pixel)] leading-tight"
+                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
               >
-                <Image src="/icon/flag.png" alt="quest" width={16} height={16} className="w-4 h-4" />
                 YKS QUEST
               </h1>
-              <p className="font-[family-name:var(--font-body)] text-2xl mt-1" style={{ color: "#8890B8" }}>
-                {weatherIcon(bugunPomodoro)} {gunStr} · {tarihStr}
+              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#8890B8" }}>
+                {gunStr} · {tarihStr}
               </p>
-
-              {bugunPomodoro > 0 && (
-                <div
-                  className="mt-2 inline-flex items-center gap-1.5 border-2 border-[#FFD000] px-3 py-1"
-                  style={{ background: "#101010" }}
-                >
-                  <span>🔥</span>
-                  <span className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#FFD000" }}>
-                    {bugunPomodoro} oturum — combo!
-                  </span>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col items-end gap-2">
-              {/* Streak göstergeleri */}
-              {streakInfo.current > 0 && (
-                <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#FFD000", border: "2px solid #101010", boxShadow: "2px 2px 0 0 #504000" }}>
-                  <span className="text-sm">🔥</span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
-                    {streakInfo.current} gün
-                  </span>
-                </div>
-              )}
-              {streakInfo.best > 0 && (
-                <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
-                  <span className="text-sm">🏆</span>
-                  <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
-                    {streakInfo.best} REKOR
-                  </span>
-                </div>
-              )}
-              <Link href="/ayarlar" className="w-6 h-6 mt-1 opacity-70 hover:opacity-100 transition-opacity relative">
-                <Image src="/icon/flag.png" alt="ayarlar" fill className="object-contain" />
-              </Link>
             </div>
           </div>
+          <div className="flex items-center gap-2">
+            {bugunPomodoro > 0 && (
+              <div className="flex items-center gap-1.5 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
+                <span className="text-sm">🔥</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
+                  {bugunPomodoro} COMBO
+                </span>
+              </div>
+            )}
+            {streakInfo.current > 0 && (
+              <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#FFD000", border: "2px solid #101010" }}>
+                <span className="text-sm">🔥</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
+                  {streakInfo.current} GÜN
+                </span>
+              </div>
+            )}
+            {streakInfo.best > 0 && (
+              <div className="hidden sm:flex items-center gap-1 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
+                <span className="text-sm">🏆</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
+                  {streakInfo.best}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
+      </div>
+
+      <div className="flex flex-col py-4 px-3 sm:px-4">
+      <div className="max-w-4xl mx-auto w-full flex flex-col gap-3">
 
         {/* ── Sınav geri sayım ─────────────────────────────────────────── */}
         <SinavGeriSayim />
@@ -401,6 +396,7 @@ export default async function HomePage() {
         )}
 
       </div>
-    </div>
+      </div>
+    </>
   );
 }

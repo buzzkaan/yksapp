@@ -446,39 +446,48 @@ export default function SinavPage() {
     <div className="min-h-screen">
       {/* Header */}
       <div
-        className="border-b-4 border-[#2878F8] px-4 py-4"
-        style={{ background: "#181838", boxShadow: "0 4px 0 0 #080828" }}
+        className="relative border-b-4 px-4 py-5"
+        style={{
+          background: "#181838",
+          borderColor: "#FFD000",
+          boxShadow: "0 4px 0 0 #504000",
+        }}
       >
-        <div className="flex items-center justify-between max-w-4xl mx-auto">
-          <div>
-            <h1 className="font-[family-name:var(--font-pixel)] text-xs text-[#FFD000] leading-tight flex items-center gap-1" style={{ textShadow: "2px 2px 0 #504000" }}>
-              <Image src={meta.icon} alt={meta.isim} width={14} height={14} className="w-3.5 h-3.5" />
-              {meta.isim} KAZANIMLARI
-            </h1>
-            <p className="font-[family-name:var(--font-body)] text-base text-[#8890B8] mt-1">
-              Konuları tamamla, level atla!
-            </p>
+        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: "#FFD000" }} />
+        <div className="flex items-center justify-between pl-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 relative flex-shrink-0">
+              <Image src={meta.icon} alt={meta.isim} fill className="object-contain" />
+            </div>
+            <div>
+              <h1
+                className="font-[family-name:var(--font-pixel)] leading-tight"
+                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
+              >
+                {meta.isim} KAZANIMLARI
+              </h1>
+              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#8890B8" }}>
+                Konuları tamamla, level atla!
+              </p>
+            </div>
           </div>
           <Link
             href="/ayarlar"
-            className="flex flex-col items-center gap-0.5 border-2 border-[#8890B8] px-2 py-1 hover:bg-[#282838] transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-2 transition-colors cursor-pointer"
+            style={{
+              background: "#101010",
+              border: "3px solid #303050",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = "#FFD000")}
+            onMouseLeave={e => (e.currentTarget.style.borderColor = "#303050")}
           >
-            <span className="text-lg">⚙️</span>
-            <span className="font-[family-name:var(--font-body)] text-xs text-[#8890B8]">
-              Değiştir
+            <div className="w-4 h-4 relative">
+              <Image src="/icon/flag.png" alt="ayarlar" fill className="object-contain" />
+            </div>
+            <span className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#8890B8" }}>
+              değiştir
             </span>
           </Link>
-        </div>
-        <div className="mt-2 max-w-4xl mx-auto">
-          <span
-            className="inline-flex items-center gap-1 border-2 px-2 py-0.5"
-            style={{ borderColor: meta.renk, color: meta.renk }}
-          >
-            <Image src={meta.icon} alt={meta.isim} width={16} height={16} className="w-4 h-4" />
-            <span className="font-[family-name:var(--font-body)] text-base">
-              {meta.isim} modunda çalışıyorsun
-            </span>
-          </span>
         </div>
       </div>
 
