@@ -357,7 +357,6 @@ export default function YapilacaklarPage() {
   useEffect(() => {
     loadStreak();
     loadDersler();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

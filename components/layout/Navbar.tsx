@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { LS_SINAV_KEY, type SinavTipi } from "@/lib/sinav-data";
 
 const SINAV_ICON: Record<SinavTipi, string> = {
@@ -16,14 +15,15 @@ const navItems = [
   { href: "/ayarlar",   icon: "⚙️", label: "Ayarlar"  },
 ];
 
+function getInitialSinavTipi(): SinavTipi {
+  if (typeof window === "undefined") return "YKS";
+  const s = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
+  return s && ["YKS", "DGS", "KPSS"].includes(s) ? s : "YKS";
+}
+
 export function Navbar() {
   const pathname = usePathname();
-  const [sinavTipi, setSinavTipi] = useState<SinavTipi>("YKS");
-
-  useEffect(() => {
-    const s = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
-    if (s && ["YKS","DGS","KPSS"].includes(s)) setSinavTipi(s);
-  }, []);
+  const sinavTipi = getInitialSinavTipi();
 
   const sinavItem = { href: "/yks", icon: SINAV_ICON[sinavTipi], label: sinavTipi };
   const allItems = [navItems[0], navItems[1], sinavItem, navItems[2], navItems[3], navItems[4]];

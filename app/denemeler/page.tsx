@@ -71,20 +71,16 @@ export default function DenemellerPage() {
   const [showForm, setShowForm] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  async function loadDenemeler() {
+  async function handleSil(id: string) {
+    await denemeSil(id);
+    toast("🗑️ Deneme silindi", { icon: "⚠️" });
     const data = await denemeleriGetir();
     setDenemeler(data as Deneme[]);
   }
 
   useEffect(() => {
-    loadDenemeler();
+    denemeleriGetir().then((data) => setDenemeler(data as Deneme[]));
   }, []);
-
-  async function handleSil(id: string) {
-    await denemeSil(id);
-    toast("🗑️ Deneme silindi", { icon: "⚠️" });
-    await loadDenemeler();
-  }
 
   const chartData = [...denemeler]
     .reverse()
@@ -104,7 +100,10 @@ export default function DenemellerPage() {
             + Yeni Deneme Ekle
           </PixelButton>
         ) : (
-          <DenemeForm onClose={() => { setShowForm(false); loadDenemeler(); }} />
+          <DenemeForm onClose={() => { 
+            setShowForm(false); 
+            denemeleriGetir().then((data) => setDenemeler(data as Deneme[]));
+          }} />
         )}
 
         {chartData.length >= 2 && (

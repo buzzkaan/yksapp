@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { LS_SINAV_KEY, SINAV_META, type SinavTipi } from "@/lib/sinav-data";
@@ -13,15 +13,12 @@ const SINAV_LISTESI: SinavTipi[] = ["YKS", "DGS", "KPSS"];
 export default function AyarlarPage() {
   const router = useRouter();
   const { user } = useUser();
-  const [secili, setSecili] = useState<SinavTipi>("YKS");
-  const [kaydedildi, setKaydedildi] = useState(false);
-
-  useEffect(() => {
+  const [secili, setSecili] = useState<SinavTipi>(() => {
+    if (typeof window === "undefined") return "YKS";
     const stored = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
-    if (stored && SINAV_LISTESI.includes(stored)) {
-      setSecili(stored);
-    }
-  }, []);
+    return stored && SINAV_LISTESI.includes(stored) ? stored : "YKS";
+  });
+  const [kaydedildi, setKaydedildi] = useState(false);
 
   function handleKaydet() {
     localStorage.setItem(LS_SINAV_KEY, secili);

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { KATEGORILER, DERSLER, type KategoriAdi } from "@/lib/yks-categories";
 import {
@@ -151,10 +151,9 @@ function IlerlemOzeti({
   sinavTipi: SinavTipi;
   bolumler: { bolumKey: string; dersler: { key: string; konular: string[] }[] }[];
 }) {
-  const [toplamTamam, setToplamTamam] = useState(0);
   const toplamKonu = bolumler.flatMap(b => b.dersler).flatMap(d => d.konular).length;
 
-  useEffect(() => {
+  const toplamTamam = useMemo(() => {
     const data = getKonuData();
     let tamam = 0;
     for (const bolum of bolumler) {
@@ -164,8 +163,8 @@ function IlerlemOzeti({
         });
       }
     }
-    setToplamTamam(tamam);
-  });
+    return tamam;
+  }, [bolumler, sinavTipi]);
 
   const progress = toplamKonu > 0 ? (toplamTamam / toplamKonu) * 100 : 0;
 
@@ -438,21 +437,14 @@ function GenelSinavView({
 }
 
 // ─── Ana sayfa ────────────────────────────────────────────────────────────────
+function getInitialSinavTipi(): SinavTipi {
+  if (typeof window === "undefined") return "YKS";
+  const stored = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
+  return stored && ["YKS", "DGS", "KPSS"].includes(stored) ? stored : "YKS";
+}
+
 export default function SinavPage() {
-  const [sinavTipi, setSinavTipi] = useState<SinavTipi | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
-    setSinavTipi(stored && ["YKS", "DGS", "KPSS"].includes(stored) ? stored : "YKS");
-  }, []);
-
-  if (sinavTipi === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#E8E8F0" }}>
-        <span className="font-[family-name:var(--font-body)] text-xl text-[#505068]">Yükleniyor...</span>
-      </div>
-    );
-  }
+  const sinavTipi = getInitialSinavTipi();
 
   const meta = SINAV_META[sinavTipi];
 

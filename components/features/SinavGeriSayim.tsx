@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import { LS_SINAV_KEY, SINAV_META, type SinavTipi } from "@/lib/sinav-data";
 
 // Yaklaşık sınav tarihleri (ÖSYM resmi duyurusuna göre değişebilir)
@@ -33,19 +32,15 @@ function mesaj(gun: number): string {
   return "Zaman var ama en iyi an şimdi başlamak! 🎯";
 }
 
+function getInitialSinav(): SinavTipi {
+  if (typeof window === "undefined") return "YKS";
+  const stored = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
+  return stored && ["YKS", "DGS", "KPSS"].includes(stored) ? stored : "YKS";
+}
+
 export function SinavGeriSayim() {
-  const [sinav, setSinav]       = useState<SinavTipi>("YKS");
-  const [gunler, setGunler]     = useState<number | null>(null);
-
-  useEffect(() => {
-    const stored = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
-    const tip: SinavTipi =
-      stored && ["YKS", "DGS", "KPSS"].includes(stored) ? stored : "YKS";
-    setSinav(tip);
-    setGunler(hesaplaGunler(SINAV_TARIHLERI[tip].tarih));
-  }, []);
-
-  if (gunler === null) return null; // SSR/hydration sırasında gösterme
+  const sinav = getInitialSinav();
+  const gunler = hesaplaGunler(SINAV_TARIHLERI[sinav].tarih);
 
   const meta     = SINAV_META[sinav];
   const tarihBilgi = SINAV_TARIHLERI[sinav];
