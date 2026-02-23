@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── KONULAR ───────────────────────────────────────────
+model Ders {
+  id        String   @id @default(cuid())
+  userId    String
+  ad        String
+  renk      String   @default("#18C018")
+  icon      String   @default("📐")
+  konular   Konu[]
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Konu {
+  id         String   @id @default(cuid())
+  userId     String
+  baslik     String
+  aciklama   String?
+  tamamlandi Boolean  @default(false)
+  oncelik    Int      @default(1)
+  dersId     String
+  ders       Ders     @relation(fields: [dersId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ─── POMODORO ──────────────────────────────────────────
+model PomodoroOturum {
+  id         String    @id @default(cuid())
+  userId     String
+  baslangic  DateTime
+  bitis      DateTime?
+  sure       Int
+  tamamlandi Boolean   @default(false)
+  notlar     String?
+  konuId     String?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+}
+
+// ─── DENEMELER ─────────────────────────────────────────
+model Deneme {
+  id        String        @id @default(cuid())
+  userId    String
+  tarih     DateTime      @default(now())
+  tur       DenemeType
+  toplam    Int
+  dogru     Int
+  yanlis    Int
+  bos       Int
+  net       Float
+  notlar    String?
+  dersDetay DenemeDetay[]
+  createdAt DateTime      @default(now())
+
+  @@index([userId])
+}
+
+model DenemeDetay {
+  id       String @id @default(cuid())
+  denemeId String
+  deneme   Deneme @relation(fields: [denemeId], references: [id], onDelete: Cascade)
+  dersAdi  String
+  dogru    Int
+  yanlis   Int
+  bos      Int
+  net      Float
+}
+
+enum DenemeType {
+  TYT
+  AYT
+}
+
+// ─── TAKVİM / GÖREVLER ─────────────────────────────────
+model GunlukGorev {
+  id         String   @id @default(cuid())
+  userId     String
+  tarih      DateTime
+  baslik     String
+  aciklama   String?
+  tamamlandi Boolean  @default(false)
+  renk       String   @default("#F5A623")
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}

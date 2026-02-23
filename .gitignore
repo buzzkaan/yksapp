@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+
+# antigravity agents
+.agents/
+.agent/
+.agents
+.agent
+
+# claude
+.claude/
+.claude
