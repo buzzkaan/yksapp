@@ -10,7 +10,6 @@ const navItems = [
   { href: "/", iconSrc: "/icon/home.png", iconAlt: "home", label: "Köy" },
   { href: "/todo", iconSrc: "/icon/chat.png", iconAlt: "tasks", label: "Görevler" },
   { href: "/pomodoro", iconSrc: "/icon/hourglass.png", iconAlt: "pomodoro", label: "Pomodoro" },
-  { href: "/denemeler", iconSrc: "/icon/docs.png", iconAlt: "exams", label: "Denemeler" },
   { href: "/ayarlar", iconSrc: "/icon/flag.png", iconAlt: "settings", label: "Ayarlar" },
 ];
 
@@ -85,7 +84,7 @@ export function Navbar() {
   }, []);
 
   const sinavItem: NavItem = { href: "/yks", iconSrc: SINAV_META[sinavTipi].icon, iconAlt: SINAV_META[sinavTipi].isim, label: sinavTipi };
-  const allItems: NavItem[] = [navItems[0], navItems[1], sinavItem, navItems[2], navItems[3], navItems[4]];
+  const allItems: NavItem[] = [navItems[0], navItems[1], sinavItem, navItems[2], navItems[3]];
 
   return (
     <>

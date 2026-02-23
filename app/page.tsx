@@ -146,91 +146,188 @@ export default async function HomePage() {
         <div className="grid grid-cols-4 gap-2">
           <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
             <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>BUGÜN</div>
-            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#2878F8" }}>{istatistik.bugunGorev.toplam}</div>
-            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#18C840" }}>{istatistik.bugunGorev.tamamlanan} ✓</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#2878F8" }}>{istatistik.bugunGorev.toplam || "—"}</div>
+            {istatistik.bugunGorev.tamamlanan > 0 && (
+              <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#18C840" }}>{istatistik.bugunGorev.tamamlanan} ✓</div>
+            )}
           </div>
           <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
             <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>HAFTA</div>
-            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#F89000" }}>{istatistik.haftaGorev.toplam}</div>
-            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#18C840" }}>{istatistik.haftaGorev.tamamlanan} ✓</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#F89000" }}>{istatistik.haftaGorev.toplam || "—"}</div>
+            {istatistik.haftaGorev.tamamlanan > 0 && (
+              <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#18C840" }}>{istatistik.haftaGorev.tamamlanan} ✓</div>
+            )}
           </div>
           <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
             <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>POMODORO</div>
-            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#E01828" }}>{istatistik.haftaPomodoro}</div>
-            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#484858" }}>bu hafta</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#E01828" }}>{istatistik.haftaPomodoro || "—"}</div>
+            {istatistik.haftaPomodoro > 0 && (
+              <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#484858" }}>bu hafta</div>
+            )}
           </div>
           <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
             <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#484858" }}>KONULAR</div>
-            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#18C840" }}>{tamamlananKonular}</div>
-            <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#484858" }}>/ {toplamKonular}</div>
+            <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: "#18C840" }}>{tamamlananKonular || "—"}</div>
+            {toplamKonular > 0 && (
+              <div className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#484858" }}>/ {toplamKonular}</div>
+            )}
           </div>
         </div>
 
         {/* ── Stat grid ────────────────────────────────────────────────── */}
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
-          <PixelCard variant="dark" className="text-center p-3">
-            <div className="text-3xl mb-1">⭐</div>
-            <div className="font-[family-name:var(--font-pixel)] text-2xl text-[#18C840]">
-              {bugunPomodoro}
+          {/* Pomodoro */}
+          <PixelCard variant="dark" className="flex flex-col items-center justify-between p-3 gap-1 min-h-[88px]">
+            <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878] tracking-wider">OTURUM</div>
+            <div className="w-7 h-7 relative">
+              <Image src="/icon/hourglass.png" alt="pomodoro" fill className="object-contain" />
             </div>
-            <div className="font-[family-name:var(--font-body)] text-base text-[#8890B8]">
-              oturum
+            <div className="font-[family-name:var(--font-pixel)] text-2xl" style={{ color: bugunPomodoro > 0 ? "#18C840" : "#484858" }}>
+              {bugunPomodoro > 0 ? bugunPomodoro : "—"}
+            </div>
+            <div className="font-[family-name:var(--font-body)] text-sm" style={{ color: bugunPomodoro > 0 ? "#8890B8" : "#303050" }}>
+              {bugunPomodoro > 0 ? "bugün" : "boş"}
             </div>
           </PixelCard>
 
-          <PixelCard variant="dark" className="text-center p-3">
-            <div className="text-3xl mb-1">📖</div>
-            <div className="font-[family-name:var(--font-pixel)] text-2xl text-[#FFD000]">
-              {tamamlananKonular}
+          {/* Konular */}
+          <PixelCard variant="dark" className="flex flex-col items-center justify-between p-3 gap-1 min-h-[88px]">
+            <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878] tracking-wider">KONULAR</div>
+            <div className="w-7 h-7 relative">
+              <Image src="/icon/chat.png" alt="konular" fill className="object-contain" />
             </div>
-            {toplamKonular > 0 && (
-              <div className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
-                / {toplamKonular} konu
-              </div>
-            )}
+            <div className="font-[family-name:var(--font-pixel)] text-2xl" style={{ color: tamamlananKonular > 0 ? "#FFD000" : "#484858" }}>
+              {tamamlananKonular > 0 ? tamamlananKonular : "—"}
+            </div>
+            <div className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#606878" }}>
+              {toplamKonular > 0 ? `/ ${toplamKonular} konu` : "henüz yok"}
+            </div>
           </PixelCard>
 
-          <PixelCard variant="dark" className="text-center p-3">
-            <div className="w-8 h-8 mx-auto mb-1 relative">
+          {/* Son deneme */}
+          <PixelCard variant="dark" className="flex flex-col items-center justify-between p-3 gap-1 min-h-[88px]">
+            <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878] tracking-wider">DENEME</div>
+            <div className="w-7 h-7 relative">
               <Image src="/icon/docs.png" alt="deneme" fill className="object-contain" />
             </div>
-            {sonDeneme ? (
-              <>
-                <div className="font-[family-name:var(--font-pixel)] text-[9px] text-[#484858]">
-                  {sonDeneme.tur}
-                </div>
-                <div className="font-[family-name:var(--font-body)] text-xl text-[#18C840] mt-0.5">
-                  {sonDeneme.net.toFixed(1)} net
-                </div>
-              </>
-            ) : (
-              <div className="font-[family-name:var(--font-body)] text-base text-[#484858]">
-                henüz yok
-              </div>
-            )}
+            <div className="font-[family-name:var(--font-pixel)] text-2xl" style={{ color: sonDeneme ? "#18C840" : "#484858" }}>
+              {sonDeneme ? sonDeneme.net.toFixed(1) : "—"}
+            </div>
+            <div className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#606878" }}>
+              {sonDeneme ? `${sonDeneme.tur} net` : "henüz yok"}
+            </div>
           </PixelCard>
         </div>
 
         {/* ── Görev progress ───────────────────────────────────────────── */}
         <PixelCard>
+          {/* Header */}
           <div className="flex items-center justify-between mb-3">
-            <span className="font-[family-name:var(--font-body)] text-2xl text-[#101010]">
-              ⚔️ Bugünün Görevleri
-            </span>
-            <span className="font-[family-name:var(--font-pixel)] text-[9px] border-2 border-[#101010] px-2 py-1">
-              {tamamlananGorev}/{toplamGorev}
-            </span>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 relative flex-shrink-0">
+                <Image src="/icon/home.png" alt="görevler" fill className="object-contain" />
+              </div>
+              <span
+                className="font-[family-name:var(--font-pixel)] leading-tight"
+                style={{ fontSize: "10px", color: "#101010", letterSpacing: "0.05em" }}
+              >
+                BUGÜNÜN GÖREVLERİ
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {toplamGorev > 0 && (
+                <span
+                  className="font-[family-name:var(--font-pixel)] text-[9px] border-2 border-[#101010] px-2 py-1"
+                  style={{ color: tamamlananGorev === toplamGorev ? "#18C840" : "#484858" }}
+                >
+                  {tamamlananGorev}/{toplamGorev}
+                </span>
+              )}
+              <Link href="/todo">
+                <span
+                  className="font-[family-name:var(--font-body)] text-lg"
+                  style={{ color: "#2878F8", borderBottom: "2px dotted #2878F8" }}
+                >
+                  tümü →
+                </span>
+              </Link>
+            </div>
           </div>
-          <PixelProgress value={gorevProgress} showPercent size="lg" hpLabel="QUEST" />
-          {toplamGorev === 0 && (
-            <p className="font-[family-name:var(--font-body)] text-lg text-[#484858] mt-2">
-              ✦ Takvimden görev ekleyebilirsin!
-            </p>
-          )}
-          {toplamGorev > 0 && tamamlananGorev === toplamGorev && (
-            <p className="font-[family-name:var(--font-body)] text-xl text-[#18C840] mt-2 animate-pixel-float">
-              🏆 Harika! Tüm görevler tamamlandı!
-            </p>
+
+          {toplamGorev === 0 ? (
+            /* Empty state */
+            <div
+              className="border-2 border-dashed border-[#C0B090] px-4 py-4 text-center"
+              style={{ background: "#F0E8D4" }}
+            >
+              <div className="font-[family-name:var(--font-pixel)] text-[9px] mb-2" style={{ color: "#A09070" }}>
+                [ GÖREV PANOSU BOŞ ]
+              </div>
+              <Link href="/todo">
+                <span
+                  className="font-[family-name:var(--font-body)] text-xl"
+                  style={{ color: "#2878F8", borderBottom: "2px dotted #2878F8" }}
+                >
+                  Takvimden görev ekle →
+                </span>
+              </Link>
+            </div>
+          ) : (
+            <>
+              <PixelProgress value={gorevProgress} showPercent size="lg" hpLabel="QUEST" />
+
+              {/* Görev listesi */}
+              <div className="flex flex-col gap-1.5 mt-3">
+                {gorevler.map((g) => (
+                  <div
+                    key={g.id}
+                    className="flex items-center gap-2.5 border-2 px-3 py-2"
+                    style={{
+                      borderColor: g.tamamlandi ? "#B0D8A0" : "#D0C8B8",
+                      background: g.tamamlandi ? "#E8F4E0" : "#FAF4E8",
+                    }}
+                  >
+                    {/* Renk dot */}
+                    <div
+                      className="w-2.5 h-2.5 flex-shrink-0 border border-[#10101040]"
+                      style={{ background: g.renk }}
+                    />
+                    {/* Başlık */}
+                    <span
+                      className="font-[family-name:var(--font-body)] text-xl flex-1 leading-tight"
+                      style={{
+                        color: g.tamamlandi ? "#70A060" : "#202030",
+                        textDecoration: g.tamamlandi ? "line-through" : "none",
+                      }}
+                    >
+                      {g.baslik}
+                    </span>
+                    {/* Öncelik */}
+                    {g.oncelik === 3 && (
+                      <span className="font-[family-name:var(--font-pixel)] text-[8px]" style={{ color: "#E01828" }}>!</span>
+                    )}
+                    {/* Durum */}
+                    <span
+                      className="font-[family-name:var(--font-pixel)] text-[10px]"
+                      style={{ color: g.tamamlandi ? "#18C840" : "#C0B890" }}
+                    >
+                      {g.tamamlandi ? "✓" : "○"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {tamamlananGorev === toplamGorev && (
+                <div
+                  className="mt-3 border-2 border-[#18C840] px-3 py-2 text-center"
+                  style={{ background: "#D4ECC8" }}
+                >
+                  <span className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#18C840" }}>
+                    🏆 Tüm görevler tamamlandı!
+                  </span>
+                </div>
+              )}
+            </>
           )}
         </PixelCard>
 
@@ -244,24 +341,26 @@ export default async function HomePage() {
           </p>
           <div className="grid grid-cols-2 gap-2">
             <Link href="/pomodoro">
-              <PixelButton variant="primary" className="w-full justify-center">
-                ⏱️ Pomodoro
+              <PixelButton variant="primary" className="w-full justify-center gap-2 font-[family-name:var(--font-body)] text-xl">
+                <Image src="/icon/hourglass.png" alt="pomodoro" width={18} height={18} className="w-4 h-4" />
+                Pomodoro
               </PixelButton>
             </Link>
             <Link href="/todo">
-              <PixelButton variant="secondary" className="w-full justify-center">
-                ⚔️ Konular
+              <PixelButton variant="secondary" className="w-full justify-center gap-2 font-[family-name:var(--font-body)] text-xl">
+                <Image src="/icon/chat.png" alt="konular" width={18} height={18} className="w-4 h-4" />
+                Konular
               </PixelButton>
             </Link>
             <Link href="/denemeler">
-              <PixelButton variant="ghost" className="w-full justify-center gap-2">
-                <Image src="/icon/docs.png" alt="deneme" width={16} height={16} className="w-4 h-4" />
+              <PixelButton variant="ghost" className="w-full justify-center gap-2 font-[family-name:var(--font-body)] text-xl">
+                <Image src="/icon/docs.png" alt="deneme" width={18} height={18} className="w-4 h-4" />
                 Deneme
               </PixelButton>
             </Link>
             <Link href="/todo">
-              <PixelButton variant="ghost" className="w-full justify-center gap-2">
-                <Image src="/icon/calendar.png" alt="takvim" width={16} height={16} className="w-4 h-4" />
+              <PixelButton variant="ghost" className="w-full justify-center gap-2 font-[family-name:var(--font-body)] text-xl">
+                <Image src="/icon/calendar.png" alt="takvim" width={18} height={18} className="w-4 h-4" />
                 Takvim
               </PixelButton>
             </Link>

@@ -200,7 +200,7 @@ export default function YapilacaklarPage() {
               <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#F89000" }}>{istatistikler.bugunAktif}</div>
             </div>
             <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#FFE0E0", boxShadow: "3px 3px 0 0 #101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#E01828" }}>acil</div>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#E01828" }}>ACİL</div>
               <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#E01828" }}>{istatistikler.yuksekOncelik}</div>
             </div>
           </div>
