@@ -1,15 +1,6 @@
 "use client";
-import { PixelButton } from "@/components/pixel/PixelButton";
-import { gorevTamamla } from "@/server/actions/takvim";
-import toast from "react-hot-toast";
-
-interface Gorev {
-  id: string;
-  tarih: Date;
-  baslik: string;
-  tamamlandi: boolean;
-  renk: string;
-}
+import { AYLAR_TAM, GUNLER_KISALT } from "@/lib/constants/ui";
+import type { Gorev } from "@/lib/types";
 
 interface CalendarGridProps {
   yil: number;
@@ -19,9 +10,6 @@ interface CalendarGridProps {
   selectedDate: string | null;
   onSelectDate: (dateStr: string) => void;
 }
-
-const AYLAR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
-const GUNLER = ["Pt","Sl","Ça","Pe","Cu","Ct","Pz"];
 
 export function CalendarGrid({
   yil, ay, gorevler, onMonthChange, selectedDate, onSelectDate
@@ -56,111 +44,165 @@ export function CalendarGrid({
   }
 
   return (
-    <div className="flex flex-col gap-0">
-      {/* Başlık */}
-      <div className="flex items-center justify-between px-4 py-3 border-b-4 border-[#101010]">
-        <PixelButton onClick={prevMonth} variant="ghost" size="sm">◀</PixelButton>
-        <span className="font-[family-name:var(--font-pixel)] text-xs text-[#101010]">
-          {AYLAR[ay - 1]} {yil}
-        </span>
-        <PixelButton onClick={nextMonth} variant="ghost" size="sm">▶</PixelButton>
+    <div
+      style={{
+        background: "#F8F8F0",
+        border: "4px solid #101010",
+        boxShadow: "4px 4px 0 0 #101010",
+      }}
+    >
+      {/* ── Başlık: GBC menü stili ── */}
+      <div
+        className="flex items-center justify-between px-4 py-2.5"
+        style={{
+          background: "#181828",
+          borderBottom: "4px solid #4088F0",
+        }}
+      >
+        <button
+          onClick={prevMonth}
+          className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
+          style={{
+            color: "#F8F8F0",
+            background: "#101010",
+            border: "3px solid #4088F0",
+            boxShadow: "2px 2px 0 0 #080818",
+          }}
+        >
+          ◀
+        </button>
+        <div className="flex items-center gap-2">
+          <span className="text-base">✨</span>
+          <span
+            className="font-[family-name:var(--font-pixel)] text-[14px]"
+            style={{ color: "#F8D030", textShadow: "2px 2px 0 #504000" }}
+          >
+            {AYLAR_TAM[ay - 1].toUpperCase()} {yil}
+          </span>
+          <span className="text-base">✨</span>
+        </div>
+        <button
+          onClick={nextMonth}
+          className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
+          style={{
+            color: "#F8F8F0",
+            background: "#101010",
+            border: "3px solid #4088F0",
+            boxShadow: "2px 2px 0 0 #080818",
+          }}
+        >
+          ▶
+        </button>
       </div>
 
-      {/* Gün isimleri */}
-      <div className="grid grid-cols-7 border-b-2 border-[#101010]">
-        {GUNLER.map((g) => (
-          <div key={g} className="text-center py-1 font-[family-name:var(--font-body)] text-sm text-[#505068]">
+      {/* ── Gün isimleri ── */}
+      <div
+        className="grid grid-cols-7"
+        style={{
+          background: "#E8E0D0",
+          borderBottom: "3px solid #C0C0D0",
+        }}
+      >
+        {GUNLER_KISALT.map((g, i) => (
+          <div
+            key={g}
+            className="text-center py-1.5 font-[family-name:var(--font-pixel)] text-[10px]"
+            style={{
+              color: i >= 5 ? "#E04048" : "#101010",
+              borderRight: i < 6 ? "2px solid #C0C0D0" : "none",
+            }}
+          >
             {g}
           </div>
         ))}
       </div>
 
-      {/* Günler */}
+      {/* ── Günler ── */}
       <div className="grid grid-cols-7">
         {gunler.map((gun, idx) => {
           if (gun === null) {
-            return <div key={`empty-${idx}`} className="h-10 border border-[#C0C0D0]" />;
+            return (
+              <div
+                key={`empty-${idx}`}
+                className="h-11 sm:h-12"
+                style={{
+                  background: "#F0F0E8",
+                  borderRight: "2px solid #C0C0D0",
+                  borderBottom: "2px solid #C0C0D0",
+                }}
+              />
+            );
           }
-          const dateStr = `${yil}-${String(ay).padStart(2,"0")}-${String(gun).padStart(2,"0")}`;
+
+          const dateStr = `${yil}-${String(ay).padStart(2, "0")}-${String(gun).padStart(2, "0")}`;
           const isToday = isThisMonth && gun === today.getDate();
           const isSelected = selectedDate === dateStr;
           const gorevInfo = gorevByDay[gun];
+          const isWeekend = (baslangicGunu + gun - 1) % 7 >= 5;
 
           return (
             <button
               key={gun}
               onClick={() => onSelectDate(dateStr)}
-              className={`h-10 border border-[#C0C0D0] relative flex flex-col items-center justify-center transition-colors
-                ${isSelected ? "bg-[#4060D0] border-[#101010]" : isToday ? "bg-[#F0D000]/30" : "hover:bg-[#4060D0]/15"}
-              `}
+              className="h-11 sm:h-12 relative flex flex-col items-center justify-center transition-all cursor-pointer group"
+              style={{
+                background: isSelected
+                  ? "#4088F0"
+                  : isToday
+                    ? "#F8D030"
+                    : "#F8F8F0",
+                borderRight: "2px solid #C0C0D0",
+                borderBottom: "2px solid #C0C0D0",
+                boxShadow: isSelected
+                  ? "inset 0 0 0 2px #1858A0"
+                  : isToday
+                    ? "inset 0 0 0 2px #C8A020"
+                    : "none",
+              }}
             >
-              <span className={`font-[family-name:var(--font-body)] text-sm leading-none
-                ${isSelected ? "text-white font-bold" : isToday ? "text-[#101010] font-bold" : "text-[#101010]"}
-              `}>
+              <span
+                className="font-[family-name:var(--font-pixel)] text-[11px] leading-none"
+                style={{
+                  color: isSelected
+                    ? "#FFFFFF"
+                    : isToday
+                      ? "#101010"
+                      : isWeekend
+                        ? "#E04048"
+                        : "#101010",
+                }}
+              >
                 {gun}
               </span>
+
               {gorevInfo && (
-                <span
-                  className="w-2 h-2 rounded-none absolute bottom-1"
-                  style={{ backgroundColor: gorevInfo.renk }}
+                <div className="flex gap-[2px] mt-0.5">
+                  {Array.from({ length: Math.min(gorevInfo.count, 3) }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-[5px] h-[5px]"
+                      style={{
+                        backgroundColor: isSelected ? "#F8D030" : gorevInfo.renk,
+                        border: `1px solid ${isSelected ? "#C8A020" : "#101010"}`,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {!isSelected && (
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                  style={{
+                    background: "#4088F020",
+                    border: "2px solid #4088F0",
+                  }}
                 />
               )}
             </button>
           );
         })}
       </div>
-    </div>
-  );
-}
-
-interface GorevListesiProps {
-  gorevler: Gorev[];
-  tarihStr: string;
-}
-
-export function GorevListesi({ gorevler, tarihStr }: GorevListesiProps) {
-  const gunGorevler = gorevler.filter((g) => {
-    const d = new Date(g.tarih);
-    const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-    return ds === tarihStr;
-  });
-
-  async function handleToggle(id: string) {
-    await gorevTamamla(id);
-    toast.success("✅ Görev tamamlandı!");
-  }
-
-  if (gunGorevler.length === 0) {
-    return (
-      <p className="font-[family-name:var(--font-body)] text-lg text-[#505068] text-center py-4">
-        Bu gün için görev yok.
-      </p>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-2">
-      {gunGorevler.map((g) => (
-        <div
-          key={g.id}
-          className={`flex items-center gap-3 border-4 border-[#101010] p-2 ${g.tamamlandi ? "opacity-60 bg-[#E0F0E0]" : "bg-[#FFFFFF]"}`}
-          style={{ borderLeftColor: g.renk, borderLeftWidth: "6px" }}
-        >
-          <button
-            onClick={() => !g.tamamlandi && handleToggle(g.id)}
-            className="w-5 h-5 border-4 border-[#101010] flex-shrink-0 flex items-center justify-center bg-white hover:bg-[#18C018] transition-colors"
-          >
-            {g.tamamlandi && <span className="text-xs text-white">✓</span>}
-          </button>
-          <span
-            className={`font-[family-name:var(--font-body)] text-lg ${
-              g.tamamlandi ? "line-through text-[#505068]" : "text-[#101010]"
-            }`}
-          >
-            {g.baslik}
-          </span>
-        </div>
-      ))}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { PixelBadge } from "@/components/pixel/PixelBadge";
-import { konuTamamla, konuSil } from "@/server/actions/konular";
+import { konuToggle, konuSil } from "@/server/actions/konular";
 import toast from "react-hot-toast";
 
 interface KonuCardProps {
@@ -24,7 +24,7 @@ export function KonuCard({ id, baslik, aciklama, tamamlandi, oncelik, dersRenk, 
 
   async function handleToggle() {
     if (tamamlandi) return;
-    await konuTamamla(id);
+    await konuToggle(id, true);
     toast.success("✅ Konu hasat edildi!");
     onRefresh?.();
   }

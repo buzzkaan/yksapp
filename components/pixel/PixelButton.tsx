@@ -6,30 +6,36 @@ interface PixelButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   size?: "sm" | "md" | "lg";
 }
 
-const variants: Record<string, { base: string; shadow: string }> = {
+const variants: Record<string, { base: string; shadow: string; activeShadow: string }> = {
   primary: {
-    base:   "bg-[#18C018] border-[#0A5A0A] text-white hover:bg-[#20D820]",
-    shadow: "4px 4px 0 0 #101010",
+    base: "bg-[#4088F0] border-[#1858A0] text-white hover:bg-[#50A0FF]",
+    shadow: "3px 3px 0 0 #101010",
+    activeShadow: "0 0 0 0 #101010",
   },
   secondary: {
-    base:   "bg-[#E87820] border-[#804010] text-white hover:bg-[#F08830]",
-    shadow: "4px 4px 0 0 #101010",
+    base: "bg-[#E04048] border-[#901820] text-white hover:bg-[#F05058]",
+    shadow: "3px 3px 0 0 #101010",
+    activeShadow: "0 0 0 0 #101010",
   },
   danger: {
-    base:   "bg-[#D81818] border-[#780A0A] text-white hover:bg-[#E82828]",
-    shadow: "4px 4px 0 0 #101010",
+    base: "bg-[#E04048] border-[#901820] text-white hover:bg-[#F05058]",
+    shadow: "3px 3px 0 0 #101010",
+    activeShadow: "0 0 0 0 #101010",
   },
   ghost: {
-    base:   "bg-[#FFFFFF] border-[#101010] text-[#101010] hover:bg-[#E8E8F0]",
-    shadow: "4px 4px 0 0 #101010",
+    base: "bg-[#F8F8F0] border-[#101010] text-[#101010] hover:bg-[#E8E8E0]",
+    shadow: "3px 3px 0 0 #101010",
+    activeShadow: "0 0 0 0 #101010",
   },
   gold: {
-    base:   "bg-[#F0D000] border-[#906000] text-[#101010] hover:bg-[#F8E020]",
-    shadow: "4px 4px 0 0 #504000",
+    base: "bg-[#F8D030] border-[#906000] text-[#101010] hover:bg-[#FFE050]",
+    shadow: "3px 3px 0 0 #504000",
+    activeShadow: "0 0 0 0 #504000",
   },
   blue: {
-    base:   "bg-[#1860C8] border-[#0A3870] text-white hover:bg-[#2070D8]",
-    shadow: "4px 4px 0 0 #101010",
+    base: "bg-[#4088F0] border-[#1858A0] text-white hover:bg-[#50A0FF]",
+    shadow: "3px 3px 0 0 #101010",
+    activeShadow: "0 0 0 0 #101010",
   },
 };
 
@@ -40,7 +46,7 @@ const sizes = {
 };
 
 export function PixelButton({
-  children, className, variant = "primary", size = "md", ...props
+  children, className, variant = "primary", size = "md", style, ...props
 }: PixelButtonProps) {
   const v = variants[variant];
   return (
@@ -48,23 +54,14 @@ export function PixelButton({
       className={cn(
         "border-4 font-[family-name:var(--font-pixel)] cursor-pointer select-none",
         "transition-all duration-75",
-        "active:translate-x-[4px] active:translate-y-[4px]",
+        "active:translate-x-[3px] active:translate-y-[3px]",
         "disabled:opacity-40 disabled:cursor-not-allowed",
         "disabled:active:translate-x-0 disabled:active:translate-y-0",
         v.base,
         sizes[size],
         className
       )}
-      style={{ boxShadow: v.shadow }}
-      onMouseDown={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 0 0 #101010";
-      }}
-      onMouseUp={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.boxShadow = v.shadow;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.boxShadow = v.shadow;
-      }}
+      style={{ boxShadow: v.shadow, ...style }}
       {...props}
     >
       {children}

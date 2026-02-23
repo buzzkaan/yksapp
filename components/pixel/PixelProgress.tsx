@@ -4,15 +4,14 @@ interface PixelProgressProps {
   label?: string;
   showPercent?: boolean;
   size?: "sm" | "md" | "lg";
-  /** Shows HP/EXP label prefix */
   hpLabel?: string;
 }
 
 function fillColor(v: number, custom?: string) {
   if (custom) return custom;
-  if (v >= 50) return "#18C018";
-  if (v >= 25) return "#E8D800";
-  return "#D81818";
+  if (v >= 50) return "#48B848";
+  if (v >= 25) return "#F8D030";
+  return "#E04048";
 }
 
 const heights: Record<string, number> = { sm: 14, md: 20, lg: 28 };
@@ -20,10 +19,10 @@ const heights: Record<string, number> = { sm: 14, md: 20, lg: 28 };
 export function PixelProgress({
   value, color, label, showPercent = false, size = "md", hpLabel,
 }: PixelProgressProps) {
-  const clamped  = Math.max(0, Math.min(100, value));
-  const fill     = fillColor(clamped, color);
+  const clamped = Math.max(0, Math.min(100, value));
+  const fill = fillColor(clamped, color);
   const isDanger = !color && clamped < 25;
-  const h        = heights[size];
+  const h = heights[size];
 
   return (
     <div className="w-full">
@@ -43,7 +42,7 @@ export function PixelProgress({
         </div>
       )}
 
-      {/* Bar shell — dark track like real GBC HP bar */}
+      {/* Bar shell — GBC HP bar */}
       <div
         className="w-full relative overflow-hidden border-4 border-[#101010]"
         style={{

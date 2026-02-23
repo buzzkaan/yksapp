@@ -4,41 +4,43 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-gbc-green:   #18C018;
-  --color-gbc-yellow:  #F0D000;
-  --color-gbc-orange:  #E87820;
-  --color-gbc-red:     #D81818;
-  --color-gbc-blue:    #1860C8;
-  --color-gbc-navy:    #181828;
-  --color-gbc-screen:  #E8E8F0;
-  --color-gbc-border:  #101010;
-  --color-gbc-frame:   #4060D0;
+  /* ─── Pokémon GBC Palette ─── */
+  --color-poke-red: #E04048;
+  --color-poke-blue: #4088F0;
+  --color-poke-yellow: #F8D030;
+  --color-poke-green: #48B848;
+  --color-poke-navy: #181828;
+  --color-poke-screen: #F0F0E8;
+  --color-poke-cream: #F8F8F0;
+  --color-poke-border: #101010;
+  --color-poke-muted: #585868;
+  --color-poke-light: #C0C0D0;
 
   --color-pixel-border: #101010;
-  --color-pixel-bg:     #E8E8F0;
+  --color-pixel-bg: #F8F8F0;
   --color-pixel-shadow: #101010;
 
   --font-pixel: var(--font-pixel-start);
-  --font-body:  var(--font-vt323);
+  --font-body: var(--font-vt323);
 
-  --color-background:        var(--background);
-  --color-foreground:        var(--foreground);
-  --color-border:            var(--border);
-  --color-input:             var(--input);
-  --color-ring:              var(--ring);
-  --color-primary:           var(--primary);
-  --color-primary-foreground:var(--primary-foreground);
-  --color-secondary:         var(--secondary);
-  --color-secondary-foreground:var(--secondary-foreground);
-  --color-destructive:       var(--destructive);
-  --color-muted:             var(--muted);
-  --color-muted-foreground:  var(--muted-foreground);
-  --color-accent:            var(--accent);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-card:              var(--card);
-  --color-card-foreground:   var(--card-foreground);
-  --color-popover:           var(--popover);
-  --color-popover-foreground:var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -46,38 +48,38 @@
 
 :root {
   --radius: 0;
-  --background:                 #E8E8F0;
-  --foreground:                 #101010;
-  --card:                       #FFFFFF;
-  --card-foreground:            #101010;
-  --popover:                    #FFFFFF;
-  --popover-foreground:         #101010;
-  --primary:                    #18C018;
-  --primary-foreground:         #FFFFFF;
-  --secondary:                  #E87820;
-  --secondary-foreground:       #FFFFFF;
-  --muted:                      #D0D0DC;
-  --muted-foreground:           #505068;
-  --accent:                     #F0D000;
-  --accent-foreground:          #101010;
-  --destructive:                #D81818;
-  --border:                     #101010;
-  --input:                      #D0D0DC;
-  --ring:                       #18C018;
+  --background: #E8E0D0;
+  --foreground: #101010;
+  --card: #F8F8F0;
+  --card-foreground: #101010;
+  --popover: #F8F8F0;
+  --popover-foreground: #101010;
+  --primary: #4088F0;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E04048;
+  --secondary-foreground: #FFFFFF;
+  --muted: #C0C0D0;
+  --muted-foreground: #585868;
+  --accent: #F8D030;
+  --accent-foreground: #101010;
+  --destructive: #E04048;
+  --border: #101010;
+  --input: #C0C0D0;
+  --ring: #4088F0;
 }
 
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 @layer base {
   * {
-    @apply border-[#101010] outline-[#18C018]/50;
+    @apply border-[#101010] outline-[#4088F0]/50;
     box-sizing: border-box;
   }
 
   body {
-    background-color: #181828;
+    background-color: #E8E0D0;
     background-image:
-      linear-gradient(rgba(64,96,208,0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(64,96,208,0.07) 1px, transparent 1px);
+      linear-gradient(rgba(16, 16, 16, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16, 16, 16, 0.04) 1px, transparent 1px);
     background-size: 16px 16px;
     color: #101010;
     font-family: var(--font-vt323), monospace;
@@ -86,44 +88,145 @@
 }
 
 /* ─── Pixel scrollbar ─────────────────────────────────────────────────────── */
-::-webkit-scrollbar       { width: 10px; }
-::-webkit-scrollbar-track { background: #181828; border-left: 2px solid #4060D0; }
-::-webkit-scrollbar-thumb { background: #4060D0; border: 2px solid #101010; }
-::-webkit-scrollbar-thumb:hover { background: #F0D000; }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #181828;
+  border-left: 2px solid #101010;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4088F0;
+  border: 2px solid #101010;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F8D030;
+}
 
 /* ─── Animations ──────────────────────────────────────────────────────────── */
-@keyframes pixel-blink   { 0%,100%{opacity:1}  50%{opacity:0}       }
-@keyframes pixel-bounce  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-@keyframes pixel-float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
-@keyframes pixel-shake   { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
-@keyframes pixel-glow    { 0%,100%{box-shadow:0 0 0 0 #F0D00088} 50%{box-shadow:0 0 12px 4px #F0D00066} }
+@keyframes pixel-blink {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
+}
+
+@keyframes pixel-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-6px)
+  }
+}
+
+@keyframes pixel-float {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-3px)
+  }
+}
+
+@keyframes pixel-shake {
+
+  0%,
+  100% {
+    transform: translateX(0)
+  }
+
+  25% {
+    transform: translateX(-4px)
+  }
+
+  75% {
+    transform: translateX(4px)
+  }
+}
+
+@keyframes pixel-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 #F8D03088
+  }
+
+  50% {
+    box-shadow: 0 0 12px 4px #F8D03066
+  }
+}
+
 @keyframes hp-pulse {
-  0%,100% { opacity: 1; }
-  50%     { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* ─── Utilities ───────────────────────────────────────────────────────────── */
 @layer utilities {
-  .font-pixel { font-family: var(--font-pixel-start), monospace; }
-  .font-body  { font-family: var(--font-vt323), monospace; }
+  .font-pixel {
+    font-family: var(--font-pixel-start), monospace;
+  }
 
-  .animate-pixel-blink   { animation: pixel-blink   1s   step-end  infinite; }
-  .animate-pixel-bounce  { animation: pixel-bounce  0.6s steps(4)  infinite; }
-  .animate-pixel-float   { animation: pixel-float   2s   ease-in-out infinite; }
-  .animate-pixel-glow    { animation: pixel-glow    1.5s step-end  infinite; }
-  .animate-hp-pulse      { animation: hp-pulse      0.8s step-end  infinite; }
+  .font-body {
+    font-family: var(--font-vt323), monospace;
+  }
+
+  .animate-pixel-blink {
+    animation: pixel-blink 1s step-end infinite;
+  }
+
+  .animate-pixel-bounce {
+    animation: pixel-bounce 0.6s steps(4) infinite;
+  }
+
+  .animate-pixel-float {
+    animation: pixel-float 2s ease-in-out infinite;
+  }
+
+  .animate-pixel-glow {
+    animation: pixel-glow 1.5s step-end infinite;
+  }
+
+  .animate-hp-pulse {
+    animation: hp-pulse 0.8s step-end infinite;
+  }
 
   /* ── Hard pixel shadows ── */
-  .pixel-shadow-sm  { box-shadow: 2px 2px 0 0 #101010; }
-  .pixel-shadow     { box-shadow: 4px 4px 0 0 #101010; }
-  .pixel-shadow-lg  { box-shadow: 6px 6px 0 0 #101010; }
-  .pixel-shadow-gold{ box-shadow: 4px 4px 0 0 #504000; }
+  .pixel-shadow-sm {
+    box-shadow: 2px 2px 0 0 #101010;
+  }
 
-  /* ── Pixel grid bg for content areas ── */
-  .pixel-grid-bg {
-    background-image:
-      linear-gradient(rgba(64,96,208,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(64,96,208,0.08) 1px, transparent 1px);
-    background-size: 8px 8px;
+  .pixel-shadow {
+    box-shadow: 4px 4px 0 0 #101010;
+  }
+
+  .pixel-shadow-lg {
+    box-shadow: 6px 6px 0 0 #101010;
+  }
+
+  .pixel-shadow-gold {
+    box-shadow: 4px 4px 0 0 #504000;
   }
 }

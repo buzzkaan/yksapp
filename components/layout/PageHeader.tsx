@@ -10,15 +10,15 @@ export function PageHeader({ icon, title, subtitle, action }: PageHeaderProps) {
     <div
       className="relative border-b-4 px-4 py-5"
       style={{
-        background:  "#181828",
-        borderColor: "#4060D0",
-        boxShadow:   "0 4px 0 0 #080818",
+        background: "#181828",
+        borderColor: "#4088F0",
+        boxShadow: "0 4px 0 0 #080818",
       }}
     >
       {/* Left accent bar */}
       <div
         className="absolute left-0 top-0 bottom-0 w-1"
-        style={{ background: "#F0D000" }}
+        style={{ background: "#F8D030" }}
       />
 
       {/* Content */}
@@ -31,9 +31,9 @@ export function PageHeader({ icon, title, subtitle, action }: PageHeaderProps) {
             <h1
               className="font-[family-name:var(--font-pixel)] leading-tight truncate"
               style={{
-                fontSize:      "11px",
-                color:         "#F0D000",
-                textShadow:    "2px 2px 0 #504000",
+                fontSize: "11px",
+                color: "#F8D030",
+                textShadow: "2px 2px 0 #504000",
                 letterSpacing: "0.1em",
               }}
             >

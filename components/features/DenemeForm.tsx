@@ -47,7 +47,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
     setSubmitting(true);
     try {
       await denemeEkle({ tur, tarih: new Date(tarih), dersler });
-      toast.success(`📝 ${tur} denemesi kaydedildi! Net: ${toplamNet.toFixed(2)}`);
+      toast.success(`📊 ${tur} denemesi kaydedildi! Net: ${toplamNet.toFixed(2)}`);
       onClose();
     } catch {
       toast.error("Bir hata oluştu!");
@@ -87,13 +87,13 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
             type="date"
             value={tarih}
             onChange={(e) => setTarih(e.target.value)}
-            className="border-4 border-[#101010] bg-white px-3 py-1 font-[family-name:var(--font-body)] text-lg text-[#101010] w-full outline-none focus:border-[#18C018]"
+            className="border-4 border-[#101010] bg-white px-3 py-1 font-[family-name:var(--font-body)] text-lg text-[#101010] w-full outline-none focus:border-[#4088F0]"
           />
         </div>
 
         {/* Dersler */}
         <div className="flex flex-col gap-2">
-          <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-sm text-[#505068]">
+          <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-sm text-[#585868]">
             <span>Ders</span>
             <span className="text-center">Doğru</span>
             <span className="text-center">Yanlış</span>
@@ -111,7 +111,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
                   min="0"
                   value={ders[field]}
                   onChange={(e) => updateDers(idx, field, parseInt(e.target.value) || 0)}
-                  className="border-4 border-[#101010] bg-white px-1 py-1 font-[family-name:var(--font-body)] text-lg text-center text-[#101010] w-full outline-none focus:border-[#18C018]"
+                  className="border-4 border-[#101010] bg-white px-1 py-1 font-[family-name:var(--font-body)] text-lg text-center text-[#101010] w-full outline-none focus:border-[#4088F0]"
                 />
               ))}
             </div>
@@ -123,7 +123,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
           <span className="font-[family-name:var(--font-body)] text-lg text-[#101010]">
             Toplam Net:
           </span>
-          <span className="font-[family-name:var(--font-pixel)] text-sm text-[#18C018]">
+          <span className="font-[family-name:var(--font-pixel)] text-sm text-[#48B848]">
             {toplamNet.toFixed(2)}
           </span>
         </div>

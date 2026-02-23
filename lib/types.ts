@@ -1,15 +1,9 @@
-import type { Konu, Ders, PomodoroOturum, Deneme, DenemeDetay, GunlukGorev } from "@prisma/client";
+import type { Konu, Ders, PomodoroOturum, Deneme, DenemeDetay, GunlukGorev, Prisma } from "@prisma/client";
 import { DenemeType } from "@prisma/client";
 
 export type { Konu, Ders, PomodoroOturum, Deneme, DenemeDetay, GunlukGorev };
 export { DenemeType };
 
-export type DersWithKonular = Ders & {
-  konular: Konu[];
-};
-
-export type DenemeWithDetay = Deneme & {
-  dersDetay: DenemeDetay[];
-};
-
+export type DersWithKonular = Prisma.DersGetPayload<{ include: { konular: true } }>;
+export type DenemeWithDetay = Prisma.DenemeGetPayload<{ include: { dersDetay: true } }>;
 export type Gorev = GunlukGorev;

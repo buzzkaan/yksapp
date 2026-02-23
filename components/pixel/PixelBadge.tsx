@@ -7,11 +7,11 @@ interface PixelBadgeProps {
 }
 
 const variantStyles: Record<string, { cls: string; shadow: string }> = {
-  green:  { cls: "bg-[#18C018] border-[#0A5A0A] text-white",    shadow: "2px 2px 0 0 #101010" },
-  gold:   { cls: "bg-[#F0D000] border-[#906000] text-[#101010]", shadow: "2px 2px 0 0 #504000" },
-  red:    { cls: "bg-[#D81818] border-[#780A0A] text-white",    shadow: "2px 2px 0 0 #101010" },
-  purple: { cls: "bg-[#9040C8] border-[#5A1878] text-white",    shadow: "2px 2px 0 0 #101010" },
-  blue:   { cls: "bg-[#1860C8] border-[#0A3870] text-white",    shadow: "2px 2px 0 0 #101010" },
+  green: { cls: "bg-[#48B848] border-[#186818] text-white", shadow: "2px 2px 0 0 #101010" },
+  gold: { cls: "bg-[#F8D030] border-[#906000] text-[#101010]", shadow: "2px 2px 0 0 #504000" },
+  red: { cls: "bg-[#E04048] border-[#901820] text-white", shadow: "2px 2px 0 0 #101010" },
+  purple: { cls: "bg-[#9048C8] border-[#5A1878] text-white", shadow: "2px 2px 0 0 #101010" },
+  blue: { cls: "bg-[#4088F0] border-[#1858A0] text-white", shadow: "2px 2px 0 0 #101010" },
 };
 
 export function PixelBadge({ children, variant = "green", className }: PixelBadgeProps) {

@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { LS_SINAV_KEY, SINAV_META, type SinavTipi } from "@/lib/sinav-data";
+import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
+import { getSinavTipi, setSinavTipi } from "@/lib/utils/sinav";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelButton } from "@/components/pixel/PixelButton";
@@ -13,15 +14,11 @@ const SINAV_LISTESI: SinavTipi[] = ["YKS", "DGS", "KPSS"];
 export default function AyarlarPage() {
   const router = useRouter();
   const { user } = useUser();
-  const [secili, setSecili] = useState<SinavTipi>(() => {
-    if (typeof window === "undefined") return "YKS";
-    const stored = localStorage.getItem(LS_SINAV_KEY) as SinavTipi | null;
-    return stored && SINAV_LISTESI.includes(stored) ? stored : "YKS";
-  });
+  const [secili, setSecili] = useState<SinavTipi>(getSinavTipi);
   const [kaydedildi, setKaydedildi] = useState(false);
 
   function handleKaydet() {
-    localStorage.setItem(LS_SINAV_KEY, secili);
+    setSinavTipi(secili);
     setKaydedildi(true);
     toast.success(`${SINAV_META[secili].icon} ${SINAV_META[secili].isim} seçildi!`);
     setTimeout(() => router.push("/yks"), 800);
@@ -29,19 +26,19 @@ export default function AyarlarPage() {
 
   return (
     <div>
-      <PageHeader icon="⚙️" title="AYARLAR" subtitle="Sınav ve tercihlerini ayarla" />
+      <PageHeader icon="⚙️" title="AYARLAR" subtitle="Trainer ayarlarını yönet" />
 
-      <div className="p-4 flex flex-col gap-4">
+      <div className="p-4 flex flex-col gap-4 max-w-4xl mx-auto">
         {/* Profil */}
         <PixelCard>
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] mb-3">
-            👤 Profil
+            👤 Trainer Profili
           </p>
           <div className="flex items-center gap-4">
             <UserButton
               appearance={{
                 elements: {
-                  avatarBox: { width: 48, height: 48, border: "3px solid #4060D0", borderRadius: "0" },
+                  avatarBox: { width: 48, height: 48, border: "4px solid #101010", borderRadius: "0" },
                 },
               }}
             />
@@ -49,7 +46,7 @@ export default function AyarlarPage() {
               <div className="font-[family-name:var(--font-body)] text-lg text-[#101010] truncate">
                 {user?.fullName || user?.username || "—"}
               </div>
-              <div className="font-[family-name:var(--font-body)] text-sm text-[#505068] truncate">
+              <div className="font-[family-name:var(--font-body)] text-sm text-[#585868] truncate">
                 {user?.primaryEmailAddress?.emailAddress || "—"}
               </div>
             </div>
@@ -59,9 +56,9 @@ export default function AyarlarPage() {
         {/* Sınav Seçimi */}
         <PixelCard>
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] mb-1">
-            🎓 Hangi Sınava Çalışıyorsun?
+            🎓 Hangi Boss&apos;a Hazırlanıyorsun?
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#505068] mb-4">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868] mb-4">
             Seçtiğin sınava göre konular ve içerikler değişir.
           </p>
 
@@ -73,12 +70,14 @@ export default function AyarlarPage() {
                 <button
                   key={tip}
                   onClick={() => { setSecili(tip); setKaydedildi(false); }}
-                  className={`w-full border-4 p-3 text-left transition-all ${
-                    isSecili
-                      ? "border-[#101010] shadow-none translate-y-0.5"
-                      : "border-[#A0A8C0] shadow-[3px_3px_0px_0px_#101010] hover:border-[#505068]"
-                  }`}
-                  style={isSecili ? { backgroundColor: meta.renk } : { backgroundColor: "#FFFFFF" }}
+                  className="w-full border-4 border-[#101010] p-3 text-left transition-all cursor-pointer"
+                  style={isSecili ? {
+                    backgroundColor: meta.renk,
+                    boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.2), 4px 4px 0px 0px #101010",
+                  } : {
+                    backgroundColor: "#F8F8F0",
+                    boxShadow: "3px 3px 0px 0px #101010",
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{meta.icon}</span>
@@ -104,7 +103,7 @@ export default function AyarlarPage() {
                       </p>
                       <p
                         className="font-[family-name:var(--font-body)] text-sm"
-                        style={{ color: isSecili ? "rgba(255,255,255,0.75)" : "#505068" }}
+                        style={{ color: isSecili ? "rgba(255,255,255,0.75)" : "#585868" }}
                       >
                         {meta.aciklama}
                       </p>
@@ -116,7 +115,6 @@ export default function AyarlarPage() {
           </div>
         </PixelCard>
 
-        {/* Kaydet butonu */}
         <PixelButton
           variant="primary"
           className="w-full"
@@ -125,9 +123,8 @@ export default function AyarlarPage() {
           {kaydedildi ? "✓ Kaydedildi!" : "💾 Kaydet ve Uygula"}
         </PixelButton>
 
-        {/* Bilgi */}
-        <div className="border-2 border-dashed border-[#4060D0] px-3 py-2 bg-[#E8E8F8]">
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#505068]">
+        <div className="border-2 border-dashed border-[#4088F0] bg-[#F0F0F8] px-3 py-2">
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#585868]">
             ℹ️ Sınav seçimin yalnızca bu cihazda saklanır. İstediğin zaman değiştirebilirsin.
           </p>
         </div>
