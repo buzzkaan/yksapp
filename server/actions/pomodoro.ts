@@ -2,6 +2,7 @@
 import { db } from "@/lib/db";
 import { requireUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import type { PomodoroOturum } from "@/lib/types";
 
 export async function pomodoroKaydet(data: {
   baslangic: Date;
@@ -10,13 +11,13 @@ export async function pomodoroKaydet(data: {
   tamamlandi: boolean;
   konuId?: string;
   notlar?: string;
-}) {
+}): Promise<void> {
   const userId = await requireUserId();
   await db.pomodoroOturum.create({ data: { ...data, userId } });
   revalidatePath("/pomodoro");
 }
 
-export async function bugunPomodorolariGetir() {
+export async function bugunPomodorolariGetir(): Promise<PomodoroOturum[]> {
   const userId = await requireUserId();
   const bugun = new Date();
   bugun.setHours(0, 0, 0, 0);
@@ -30,10 +31,10 @@ export async function bugunPomodorolariGetir() {
       tamamlandi: true,
     },
     orderBy: { baslangic: "desc" },
-  });
+  }) as Promise<PomodoroOturum[]>;
 }
 
-export async function toplamPomodoroGetir() {
+export async function toplamPomodoroGetir(): Promise<number> {
   const userId = await requireUserId();
   return db.pomodoroOturum.count({ where: { userId, tamamlandi: true } });
 }

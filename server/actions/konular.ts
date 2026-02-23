@@ -2,8 +2,9 @@
 import { db } from "@/lib/db";
 import { requireUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import type { DersWithKonular, Konu } from "@/lib/types";
 
-export async function derslerGetir() {
+export async function derslerGetir(): Promise<DersWithKonular[]> {
   const userId = await requireUserId();
   return db.ders.findMany({
     where: { userId },
@@ -13,7 +14,7 @@ export async function derslerGetir() {
       },
     },
     orderBy: { createdAt: "asc" },
-  });
+  }) as Promise<DersWithKonular[]>;
 }
 
 export async function dersEkle(data: { ad: string; renk: string; icon: string }) {
@@ -65,10 +66,10 @@ export async function konuSil(id: string) {
   revalidatePath("/konular");
 }
 
-export async function konularGetir(dersId: string) {
+export async function konularGetir(dersId: string): Promise<Konu[]> {
   const userId = await requireUserId();
   return db.konu.findMany({
     where: { dersId, userId },
     orderBy: [{ tamamlandi: "asc" }, { oncelik: "desc" }],
-  });
+  }) as Promise<Konu[]>;
 }

@@ -8,6 +8,7 @@ import { bugunPomodorolariGetir } from "@/server/actions/pomodoro";
 import { bugunGorevleriGetir } from "@/server/actions/takvim";
 import { denemeleriGetir } from "@/server/actions/denemeler";
 import { derslerGetir } from "@/server/actions/konular";
+import type { DersWithKonular, DenemeWithDetay, Gorev, PomodoroOturum } from "@/lib/types";
 import Link from "next/link";
 
 const AYLAR  = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
@@ -21,7 +22,12 @@ function weatherIcon(n: number) {
 }
 
 export default async function HomePage() {
-  const [pomodorolar, gorevler, denemeler, dersler] = await Promise.all([
+  const [pomodorolar, gorevler, denemeler, dersler]: [
+    PomodoroOturum[],
+    Gorev[],
+    DenemeWithDetay[],
+    DersWithKonular[]
+  ] = await Promise.all([
     bugunPomodorolariGetir(),
     bugunGorevleriGetir(),
     denemeleriGetir(),
@@ -32,11 +38,11 @@ export default async function HomePage() {
   const tarihStr          = `${now.getDate()} ${AYLAR[now.getMonth()]}`;
   const gunStr            = GUNLER[now.getDay()];
   const bugunPomodoro     = pomodorolar.length;
-  const tumKonular        = dersler.flatMap((d) => d.konular);
+  const tumKonular        = dersler.flatMap((d: DersWithKonular) => d.konular);
   const tamamlananKonular = tumKonular.filter((k) => k.tamamlandi).length;
   const toplamKonular     = tumKonular.length;
   const sonDeneme         = denemeler[0];
-  const tamamlananGorev   = gorevler.filter((g) => g.tamamlandi).length;
+  const tamamlananGorev   = gorevler.filter((g: Gorev) => g.tamamlandi).length;
   const toplamGorev       = gorevler.length;
   const gorevProgress     = toplamGorev > 0 ? (tamamlananGorev / toplamGorev) * 100 : 0;
 
