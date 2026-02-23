@@ -1,8 +1,11 @@
 "use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { SINAV_META } from "@/lib/sinav-data";
 import { getSinavTipi } from "@/lib/utils/sinav";
 import { hesaplaGunler } from "@/lib/utils/date";
 import { SINAV_TARIHLERI, aciliyetRengi, mesaj } from "@/lib/config/sinav-tarihleri";
+import type { SinavTipi } from "@/lib/sinav-data";
 
 const CORNER_POSITIONS = [
   "absolute top-[-2px] left-[-2px]",
@@ -12,7 +15,12 @@ const CORNER_POSITIONS = [
 ];
 
 export function SinavGeriSayim() {
-  const sinav = getSinavTipi();
+  const [sinav, setSinav] = useState<SinavTipi>("YKS");
+
+  useEffect(() => {
+    setSinav(getSinavTipi());
+  }, []);
+
   const gunler = hesaplaGunler(SINAV_TARIHLERI[sinav].tarih);
 
   const meta = SINAV_META[sinav];
@@ -39,7 +47,7 @@ export function SinavGeriSayim() {
       {/* Top strip */}
       <div className="flex items-center justify-between px-4 py-2 border-b-2 border-[#2A2A48]">
         <div className="flex items-center gap-2">
-          <span className="text-xl leading-none">{meta.icon}</span>
+          <Image src={meta.icon} alt={meta.isim} width={20} height={20} className="w-5 h-5" />
           <span
             className="font-[family-name:var(--font-pixel)] text-[10px] leading-tight tracking-wider"
             style={{ color: meta.renk }}
@@ -90,7 +98,8 @@ export function SinavGeriSayim() {
               className="font-[family-name:var(--font-body)] text-base border border-[#2A2A48] px-2 py-0.5 leading-tight"
               style={{ color: "#A0A8C0", background: "#101010" }}
             >
-              📅 {tarihBilgi.etiket}
+              <Image src="/icon/calendar.png" alt="tarih" width={14} height={14} className="inline w-3.5 h-3.5 mr-1" />
+              {tarihBilgi.etiket}
             </span>
           </div>
         </div>

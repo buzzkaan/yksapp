@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+import Image from "next/image";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelProgress } from "@/components/pixel/PixelProgress";
 import { PixelButton } from "@/components/pixel/PixelButton";
@@ -10,7 +12,6 @@ import { denemeleriGetir } from "@/server/actions/denemeler";
 import { derslerGetir } from "@/server/actions/konular";
 import { AYLAR_TAM, GUNLER_TAM } from "@/lib/constants/ui";
 import type { DersWithKonular, DenemeWithDetay, Gorev, PomodoroOturum } from "@/lib/types";
-import Link from "next/link";
 
 function weatherIcon(n: number) {
   if (n >= 8) return "⚡";
@@ -59,10 +60,11 @@ export default async function HomePage() {
           <div className="flex items-start justify-between gap-3">
             <div>
               <h1
-                className="font-[family-name:var(--font-pixel)] leading-tight"
+                className="font-[family-name:var(--font-pixel)] leading-tight flex items-center gap-1"
                 style={{ fontSize: "14px", color: "#F8D030", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
               >
-                ⚔️ YKS QUEST
+                <Image src="/icon/flag.png" alt="quest" width={16} height={16} className="w-4 h-4" />
+                YKS QUEST
               </h1>
               <p className="font-[family-name:var(--font-body)] text-2xl mt-1" style={{ color: "#A0A8C0" }}>
                 {weatherIcon(bugunPomodoro)} {gunStr} · {tarihStr}
@@ -80,7 +82,9 @@ export default async function HomePage() {
                 </div>
               )}
             </div>
-            <Link href="/ayarlar" className="text-2xl leading-none mt-1 opacity-70 hover:opacity-100 transition-opacity">⚙️</Link>
+            <Link href="/ayarlar" className="w-6 h-6 mt-1 opacity-70 hover:opacity-100 transition-opacity relative">
+              <Image src="/icon/flag.png" alt="ayarlar" fill className="object-contain" />
+            </Link>
           </div>
         </div>
 
@@ -112,7 +116,9 @@ export default async function HomePage() {
           </PixelCard>
 
           <PixelCard variant="dark" className="text-center p-3">
-            <div className="text-3xl mb-1">📊</div>
+            <div className="w-8 h-8 mx-auto mb-1 relative">
+              <Image src="/icon/docs.png" alt="deneme" fill className="object-contain" />
+            </div>
             {sonDeneme ? (
               <>
                 <div className="font-[family-name:var(--font-pixel)] text-[9px] text-[#585868]">
@@ -173,13 +179,15 @@ export default async function HomePage() {
               </PixelButton>
             </Link>
             <Link href="/denemeler">
-              <PixelButton variant="ghost" className="w-full justify-center">
-                📊 Deneme
+              <PixelButton variant="ghost" className="w-full justify-center gap-2">
+                <Image src="/icon/docs.png" alt="deneme" width={16} height={16} className="w-4 h-4" />
+                Deneme
               </PixelButton>
             </Link>
             <Link href="/todo">
-              <PixelButton variant="ghost" className="w-full justify-center">
-                📅 Takvim
+              <PixelButton variant="ghost" className="w-full justify-center gap-2">
+                <Image src="/icon/calendar.png" alt="takvim" width={16} height={16} className="w-4 h-4" />
+                Takvim
               </PixelButton>
             </Link>
           </div>
@@ -189,8 +197,9 @@ export default async function HomePage() {
         {denemeler.length > 0 && (
           <PixelCard>
             <div className="flex items-center justify-between mb-3">
-              <p className="font-[family-name:var(--font-body)] text-2xl text-[#101010]">
-                📊 Son Denemeler
+              <p className="font-[family-name:var(--font-body)] text-2xl text-[#101010] flex items-center gap-2">
+                <Image src="/icon/docs.png" alt="deneme" width={24} height={24} className="w-6 h-6" />
+                Son Denemeler
               </p>
               <Link href="/denemeler">
                 <span className="font-[family-name:var(--font-body)] text-lg text-[#4088F0]" style={{ borderBottom: "2px dotted #4088F0" }}>

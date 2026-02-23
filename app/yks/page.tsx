@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { KATEGORILER, DERSLER, type KategoriAdi } from "@/lib/yks-categories";
 import {
   type SinavTipi,
@@ -405,7 +406,7 @@ function GenelSinavView({
         className="border-4 border-[#101010] p-3 flex items-center gap-3 bg-[#F8F8F0]"
         style={{ borderLeftColor: meta.renk, borderLeftWidth: 8, boxShadow: "4px 4px 0 0 #101010" }}
       >
-        <span className="text-3xl">{meta.icon}</span>
+        <Image src={meta.icon} alt={meta.isim} width={36} height={36} className="w-9 h-9" />
         <div className="flex-1">
           <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] leading-tight">
             {meta.tamIsim}
@@ -445,8 +446,9 @@ export default function SinavPage() {
       >
         <div className="flex items-center justify-between max-w-4xl mx-auto">
           <div>
-            <h1 className="font-[family-name:var(--font-pixel)] text-xs text-[#F8D030] leading-tight" style={{ textShadow: "2px 2px 0 #504000" }}>
-              {meta.icon} {meta.isim} KAZANIMLARI
+            <h1 className="font-[family-name:var(--font-pixel)] text-xs text-[#F8D030] leading-tight flex items-center gap-1" style={{ textShadow: "2px 2px 0 #504000" }}>
+              <Image src={meta.icon} alt={meta.isim} width={14} height={14} className="w-3.5 h-3.5" />
+              {meta.isim} KAZANIMLARI
             </h1>
             <p className="font-[family-name:var(--font-body)] text-base text-[#A0A8C0] mt-1">
               Konuları tamamla, level atla!
@@ -464,11 +466,12 @@ export default function SinavPage() {
         </div>
         <div className="mt-2 max-w-4xl mx-auto">
           <span
-            className="inline-flex items-center border-2 px-2 py-0.5"
+            className="inline-flex items-center gap-1 border-2 px-2 py-0.5"
             style={{ borderColor: meta.renk, color: meta.renk }}
           >
+            <Image src={meta.icon} alt={meta.isim} width={16} height={16} className="w-4 h-4" />
             <span className="font-[family-name:var(--font-body)] text-base">
-              {meta.icon} {meta.isim} modunda çalışıyorsun
+              {meta.isim} modunda çalışıyorsun
             </span>
           </span>
         </div>

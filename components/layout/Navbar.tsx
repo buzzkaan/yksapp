@@ -1,23 +1,20 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { type SinavTipi } from "@/lib/sinav-data";
+import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
 import { getSinavTipi } from "@/lib/utils/sinav";
 
-const SINAV_ICON: Record<SinavTipi, string> = {
-  YKS: "🎯", DGS: "🏫", KPSS: "🏛️",
-};
-
 const navItems = [
-  { href: "/", icon: "🏠", label: "Köy" },
-  { href: "/todo", icon: "⚔️", label: "Görevler" },
-  { href: "/pomodoro", icon: "⏱️", label: "Pomodoro" },
-  { href: "/denemeler", icon: "📊", label: "Denemeler" },
-  { href: "/ayarlar", icon: "⚙️", label: "Ayarlar" },
+  { href: "/", iconSrc: "/icon/home.png", iconAlt: "home", label: "Köy" },
+  { href: "/todo", iconSrc: "/icon/chat.png", iconAlt: "tasks", label: "Görevler" },
+  { href: "/pomodoro", iconSrc: "/icon/hourglass.png", iconAlt: "pomodoro", label: "Pomodoro" },
+  { href: "/denemeler", iconSrc: "/icon/docs.png", iconAlt: "exams", label: "Denemeler" },
+  { href: "/ayarlar", iconSrc: "/icon/flag.png", iconAlt: "settings", label: "Ayarlar" },
 ];
 
-type NavItem = { href: string; icon: string; label: string };
+type NavItem = { href: string; iconSrc: string; iconAlt: string; label: string };
 
 function NavItem({ item, active, mobile = false }: { item: NavItem; active: boolean; mobile?: boolean }) {
   const [hovered, setHovered] = useState(false);
@@ -33,9 +30,9 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
         {active && (
           <span className="absolute top-0 left-1 right-1 h-[3px]" style={{ background: "#F8D030" }} />
         )}
-        <span className={`text-2xl leading-none transition-transform ${active ? "scale-125" : ""}`}>
-          {item.icon}
-        </span>
+        <div className={`relative w-6 h-6 transition-transform ${active ? "scale-125" : ""}`}>
+          <Image src={item.iconSrc} alt={item.iconAlt} fill className="object-contain" />
+        </div>
         <span
           className="font-[family-name:var(--font-body)] text-sm leading-none truncate"
           style={{ color: active ? "#F8D030" : "#A0A8C0" }}
@@ -61,9 +58,9 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
       {active && (
         <span className="absolute left-0 top-1 bottom-1 w-[3px]" style={{ background: "#F8D030" }} />
       )}
-      <span className="text-2xl w-8 text-center leading-none flex-shrink-0">
-        {item.icon}
-      </span>
+      <div className="w-8 h-8 relative flex-shrink-0">
+        <Image src={item.iconSrc} alt={item.iconAlt} fill className="object-contain" />
+      </div>
       <span className="font-[family-name:var(--font-body)] text-xl leading-none flex-1">
         {item.label}
       </span>
@@ -87,7 +84,7 @@ export function Navbar() {
     setSinavTipi(getSinavTipi());
   }, []);
 
-  const sinavItem: NavItem = { href: "/yks", icon: SINAV_ICON[sinavTipi], label: sinavTipi };
+  const sinavItem: NavItem = { href: "/yks", iconSrc: SINAV_META[sinavTipi].icon, iconAlt: SINAV_META[sinavTipi].isim, label: sinavTipi };
   const allItems: NavItem[] = [navItems[0], navItems[1], sinavItem, navItems[2], navItems[3], navItems[4]];
 
   return (
@@ -129,7 +126,9 @@ export function Navbar() {
               boxShadow: "2px 2px 0 0 #504000",
             }}
           >
-            <span className="text-xl leading-none">{SINAV_ICON[sinavTipi]}</span>
+            <div className="w-6 h-6 relative">
+              <Image src={SINAV_META[sinavTipi].icon} alt={SINAV_META[sinavTipi].isim} fill className="object-contain" />
+            </div>
             <div className="min-w-0 flex-1">
               <div
                 className="font-[family-name:var(--font-pixel)] text-[9px] leading-tight"

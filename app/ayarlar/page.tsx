@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
@@ -20,7 +21,7 @@ export default function AyarlarPage() {
   function handleKaydet() {
     setSinavTipi(secili);
     setKaydedildi(true);
-    toast.success(`${SINAV_META[secili].icon} ${SINAV_META[secili].isim} seçildi!`);
+    toast.success(`${SINAV_META[secili].isim} seçildi!`);
     setTimeout(() => router.push("/yks"), 800);
   }
 
@@ -80,7 +81,7 @@ export default function AyarlarPage() {
                   }}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">{meta.icon}</span>
+                    <Image src={meta.icon} alt={meta.isim} width={36} height={36} className="w-9 h-9" />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span
