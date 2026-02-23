@@ -30,7 +30,7 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
           <span className="absolute top-0 left-1 right-1 h-[3px]" style={{ background: "#FFD000" }} />
         )}
         <div className={`relative w-6 h-6 transition-transform ${active ? "scale-125" : ""}`}>
-          <Image src={item.iconSrc} alt={item.iconAlt} fill className="object-contain" />
+          <Image src={item.iconSrc} alt={item.iconAlt} width={24} height={24} className="object-contain" />
         </div>
         <span
           className="font-[family-name:var(--font-body)] text-sm leading-none truncate"
@@ -58,7 +58,7 @@ function NavItem({ item, active, mobile = false }: { item: NavItem; active: bool
         <span className="absolute left-0 top-1 bottom-1 w-[3px]" style={{ background: "#FFD000" }} />
       )}
       <div className="w-8 h-8 relative flex-shrink-0">
-        <Image src={item.iconSrc} alt={item.iconAlt} fill className="object-contain" />
+        <Image src={item.iconSrc} alt={item.iconAlt} width={32} height={32} className="object-contain" />
       </div>
       <span className="font-[family-name:var(--font-body)] text-xl leading-none flex-1">
         {item.label}
@@ -126,7 +126,7 @@ export function Navbar() {
             }}
           >
             <div className="w-6 h-6 relative">
-              <Image src={SINAV_META[sinavTipi].icon} alt={SINAV_META[sinavTipi].isim} fill className="object-contain" />
+              <Image src={SINAV_META[sinavTipi].icon} alt={SINAV_META[sinavTipi].isim} width={24} height={24} className="object-contain" />
             </div>
             <div className="min-w-0 flex-1">
               <div
