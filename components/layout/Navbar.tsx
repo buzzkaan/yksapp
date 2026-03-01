@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
 import { getSinavTipi } from "@/lib/utils/sinav";
 import { UserLevelBadge } from "@/components/UserLevelBadge";
@@ -103,7 +103,11 @@ function NavItemMobile({ item, active }: { item: NavItem; active: boolean }) {
 
 // Sınav modu badge — kendi state'ini yönetir
 function NavSinavMode() {
-  const [sinavTipi] = useState<SinavTipi>(getSinavTipi);
+  const [sinavTipi, setSinavTipi] = useState<SinavTipi>("YKS");
+
+  useEffect(() => {
+    setSinavTipi(getSinavTipi());
+  }, []);
 
   return (
     <div className="px-3 py-2.5 border-b-2" style={{ borderColor: "#101010" }}>
