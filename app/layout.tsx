@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Press_Start_2P, VT323 } from "next/font/google";
+import { Press_Start_2P, VT323, Nunito } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Navbar } from "@/components/layout/Navbar";
@@ -17,6 +17,12 @@ const bodyFont = VT323({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-vt323",
+});
+
+const modernFont = Nunito({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-modern",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -53,7 +59,9 @@ export default function RootLayout({
         <head>
           <link rel="apple-touch-icon" href="/icon/flag.png" />
         </head>
-        <body className={`${pixelFont.variable} ${bodyFont.variable}`}>
+        <body className={`${pixelFont.variable} ${bodyFont.variable} ${modernFont.variable}`}>
+          {/* Yazı ayarlarını sayfa yüklenmeden önce uygula (FOUC önleme) */}
+          <script dangerouslySetInnerHTML={{ __html: `(function(){try{var b=localStorage.getItem('yaziBoyutu')||'normal';var s=localStorage.getItem('yaziStili')||'pixel';if(b!=='normal')document.documentElement.dataset.boyut=b;if(s!=='pixel')document.documentElement.dataset.stil=s;}catch(e){}})();` }} />
           <PWAInit />
           <DailyLoginBonus />
           <Navbar />

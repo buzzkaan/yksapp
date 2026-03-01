@@ -68,6 +68,17 @@
   --ring: #2878F8;
 }
 
+/* ─── Yazı boyutu & stil ayarları ───────────────────────────────────────── */
+:root[data-boyut="kucuk"] { font-size: 13px; }
+:root[data-boyut="buyuk"] { font-size: 20px; }
+
+:root[data-stil="modern"] {
+  --font-vt323: var(--font-modern);
+  font-size: 13px;
+}
+:root[data-stil="modern"][data-boyut="kucuk"] { font-size: 11px; }
+:root[data-stil="modern"][data-boyut="buyuk"] { font-size: 15px; }
+
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 @layer base {
   * {

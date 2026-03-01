@@ -20,6 +20,8 @@ export default function AyarlarPage() {
   const router = useRouter();
   const [secili, setSecili] = useState<SinavTipi>(getSinavTipi);
   const [hedef, setHedef] = useState({ uni: "", bolum: "", net: "" });
+  const [boyut, setBoyut] = useState("normal");
+  const [stil, setStil] = useState("pixel");
 
   useEffect(() => {
     const saved = localStorage.getItem("hedefler");
@@ -27,12 +29,34 @@ export default function AyarlarPage() {
       const h = JSON.parse(saved);
       setHedef({ uni: h.uni || "", bolum: h.bolum || "", net: h.net?.toString() || "" });
     }
+    setBoyut(localStorage.getItem("yaziBoyutu") || "normal");
+    setStil(localStorage.getItem("yaziStili") || "pixel");
   }, []);
 
   function handleKaydet() {
     setSinavTipi(secili);
     toast.success(`${SINAV_META[secili].isim} seçildi!`);
     setTimeout(() => router.push("/yks"), 800);
+  }
+
+  function handleBoyutDegis(yeniBoyut: string) {
+    setBoyut(yeniBoyut);
+    localStorage.setItem("yaziBoyutu", yeniBoyut);
+    if (yeniBoyut === "normal") {
+      delete document.documentElement.dataset.boyut;
+    } else {
+      document.documentElement.dataset.boyut = yeniBoyut;
+    }
+  }
+
+  function handleStilDegis(yeniStil: string) {
+    setStil(yeniStil);
+    localStorage.setItem("yaziStili", yeniStil);
+    if (yeniStil === "pixel") {
+      delete document.documentElement.dataset.stil;
+    } else {
+      document.documentElement.dataset.stil = yeniStil;
+    }
   }
 
   function hedefKaydet() {
@@ -131,6 +155,81 @@ export default function AyarlarPage() {
         >
           💾 Kaydet ve Uygula
         </PixelButton>
+
+        {/* Görünüm Ayarları */}
+        <PixelCard>
+          <p className="font-[family-name:var(--font-body)] text-xl text-[#101010] mb-1">
+            🎨 Görünüm Ayarları
+          </p>
+          <p className="font-[family-name:var(--font-body)] text-sm text-[#484858] mb-4">
+            Yazı boyutu ve stilini kişiselleştir.
+          </p>
+
+          {/* Yazı Boyutu */}
+          <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#484858] mb-2">YAZI BOYUTU</p>
+          <div className="flex gap-2 mb-5">
+            {[
+              { key: "kucuk", label: "Küçük", sub: "S" },
+              { key: "normal", label: "Normal", sub: "M" },
+              { key: "buyuk", label: "Büyük", sub: "L" },
+            ].map(({ key, label, sub }) => (
+              <button
+                key={key}
+                onClick={() => handleBoyutDegis(key)}
+                className="flex-1 border-4 border-[#101010] py-2 px-1 text-center cursor-pointer transition-all"
+                style={boyut === key ? {
+                  backgroundColor: "#2878F8",
+                  boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.2)",
+                } : {
+                  backgroundColor: "#F8F0DC",
+                  boxShadow: "3px 3px 0px 0px #101010",
+                }}
+              >
+                <span
+                  className="font-[family-name:var(--font-pixel)] block"
+                  style={{ fontSize: key === "kucuk" ? "9px" : key === "buyuk" ? "14px" : "11px", color: boyut === key ? "#FFF" : "#101010" }}
+                >{sub}</span>
+                <span
+                  className="font-[family-name:var(--font-body)] text-base block mt-1"
+                  style={{ color: boyut === key ? "rgba(255,255,255,0.85)" : "#484858" }}
+                >{label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Yazı Stili */}
+          <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#484858] mb-2">YAZI STİLİ</p>
+          <div className="flex gap-2 mb-5">
+            {[
+              { key: "pixel", label: "🎮 Pixel", aciklama: "Retro piksel yazı" },
+              { key: "modern", label: "📖 Modern", aciklama: "Temiz, okunaklı yazı" },
+            ].map(({ key, label, aciklama }) => (
+              <button
+                key={key}
+                onClick={() => handleStilDegis(key)}
+                className="flex-1 border-4 border-[#101010] py-3 px-3 text-left cursor-pointer transition-all"
+                style={stil === key ? {
+                  backgroundColor: "#FFD000",
+                  boxShadow: "inset 0 0 0 2px rgba(0,0,0,0.1)",
+                } : {
+                  backgroundColor: "#F8F0DC",
+                  boxShadow: "3px 3px 0px 0px #101010",
+                }}
+              >
+                <span className="font-[family-name:var(--font-body)] text-lg block" style={{ color: "#101010" }}>{label}</span>
+                <span className="font-[family-name:var(--font-body)] text-sm block" style={{ color: "#484858" }}>{aciklama}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Önizleme */}
+          <div className="border-2 border-dashed border-[#484858] p-3" style={{ backgroundColor: "#F0E8D0" }}>
+            <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#484858] mb-2">ÖNİZLEME</p>
+            <p className="font-[family-name:var(--font-body)] text-2xl text-[#101010] leading-tight">YKS Quest</p>
+            <p className="font-[family-name:var(--font-body)] text-xl text-[#484858]">Türkçe • Matematik • Geometri</p>
+            <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#2878F8] mt-1">STREAK: 7 GÜN 🔥</p>
+          </div>
+        </PixelCard>
 
         {/* Hedef Takibi */}
         <PixelCard>
