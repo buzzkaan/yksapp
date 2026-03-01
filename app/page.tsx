@@ -2,6 +2,8 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { PageContainer } from "@/components/layout/PageContainer";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelProgress } from "@/components/pixel/PixelProgress";
 import { PixelButton } from "@/components/pixel/PixelButton";
@@ -67,62 +69,39 @@ export default async function HomePage() {
   const streakInfo = hesaplaStreak(streakDates);
   const alinti = getRandomAlinti();
 
+  const headerAction = (
+    <div className="flex items-center gap-2">
+      {bugunPomodoro > 0 && (
+        <div className="flex items-center gap-1.5 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
+          <span className="text-sm">🔥</span>
+          <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
+            {bugunPomodoro} COMBO
+          </span>
+        </div>
+      )}
+      {streakInfo.current > 0 && (
+        <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#FFD000", border: "2px solid #101010" }}>
+          <span className="text-sm">🔥</span>
+          <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
+            {streakInfo.current} GÜN
+          </span>
+        </div>
+      )}
+      {streakInfo.best > 0 && (
+        <div className="hidden sm:flex items-center gap-1 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
+          <span className="text-sm">🏆</span>
+          <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
+            {streakInfo.best}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
-      {/* ── Header ── */}
-      <div
-        className="relative border-b-4 px-4 py-5 w-full"
-        style={{ background: "#181838", borderColor: "#FFD000", boxShadow: "0 4px 0 0 #504000" }}
-      >
-        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: "#FFD000" }} />
-        <div className="flex items-center justify-between pl-3 max-w-4xl mx-auto">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 relative flex-shrink-0">
-              <Image src="/icon/flag.png" alt="quest" fill className="object-contain" />
-            </div>
-            <div>
-              <h1
-                className="font-[family-name:var(--font-pixel)] leading-tight"
-                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
-              >
-                YKS QUEST
-              </h1>
-              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#8890B8" }}>
-                {gunStr} · {tarihStr}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {bugunPomodoro > 0 && (
-              <div className="flex items-center gap-1.5 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
-                <span className="text-sm">🔥</span>
-                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
-                  {bugunPomodoro} COMBO
-                </span>
-              </div>
-            )}
-            {streakInfo.current > 0 && (
-              <div className="flex items-center gap-1 px-2 py-1" style={{ background: "#FFD000", border: "2px solid #101010" }}>
-                <span className="text-sm">🔥</span>
-                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
-                  {streakInfo.current} GÜN
-                </span>
-              </div>
-            )}
-            {streakInfo.best > 0 && (
-              <div className="hidden sm:flex items-center gap-1 px-2 py-1" style={{ background: "#101010", border: "2px solid #FFD000" }}>
-                <span className="text-sm">🏆</span>
-                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
-                  {streakInfo.best}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col py-4 px-3 sm:px-4">
-      <div className="max-w-4xl mx-auto w-full flex flex-col gap-3">
+      <PageHeader icon="⚔️" title="YKS QUEST" subtitle={`${gunStr} · ${tarihStr}`} action={headerAction} />
+      <PageContainer>
 
         {/* ── Sınav geri sayım ─────────────────────────────────────────── */}
         <SinavGeriSayim />
@@ -395,8 +374,7 @@ export default async function HomePage() {
           </PixelCard>
         )}
 
-      </div>
-      </div>
+      </PageContainer>
     </>
   );
 }

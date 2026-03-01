@@ -1,8 +1,9 @@
 interface PixelLineChartProps {
   data: { label: string; value: number }[];
+  color?: string;
 }
 
-export function PixelLineChart({ data }: PixelLineChartProps) {
+export function PixelLineChart({ data, color }: PixelLineChartProps) {
   if (data.length < 2) return null;
 
   const W = 280;
@@ -30,7 +31,7 @@ export function PixelLineChart({ data }: PixelLineChartProps) {
             stroke="#D0D0E8" strokeWidth="1" strokeDasharray="4 4" />
         );
       })}
-      <path d={pathD} fill="none" stroke="#2878F8" strokeWidth="3" strokeLinejoin="miter" />
+      <path d={pathD} fill="none" stroke={color || "#2878F8"} strokeWidth="3" strokeLinejoin="miter" />
       {points.map((p, i) => (
         <rect key={i} x={p.x - 4} y={p.y - 4} width="8" height="8"
           fill="#FFD000" stroke="#101010" strokeWidth="2" />

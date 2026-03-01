@@ -4,6 +4,11 @@ export function formatDateStr(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+export function parseDateStr(str: string): Date {
+  const [y, m, d] = str.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
 export function todayBoundaries(): { bugun: Date; yarin: Date } {
   const bugun = new Date();
   bugun.setHours(0, 0, 0, 0);

@@ -6,6 +6,82 @@ datasource db {
   provider = "postgresql"
 }
 
+// ─── KULLANICI AYARLARI ────────────────────────────────
+model UserAyarlar {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  sinavTipi       String   @default("YKS")
+  hedefUni        String?
+  hedefBolum      String?
+  hedefNet        Float?
+  
+  // YKS Skorları
+  yksXp           Int      @default(0)
+  yksSeviye       Int      @default(1)
+  
+  // DGS Skorları
+  dgsXp           Int      @default(0)
+  dgsSeviye       Int      @default(1)
+  
+  // KPSS Skorları
+  kpssXp          Int      @default(0)
+  kpssSeviye      Int      @default(1)
+  
+  // Ortak (genel istatistikler)
+  xp              Int      @default(0)
+  seviye          Int      @default(1)
+  sonGirisTarih   DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ─── BAŞARIMLAR ──────────────────────────────────────
+model Basarim {
+  id          String   @id @default(cuid())
+  userId      String
+  tur         String   // "streak", "pomodoro", "gorev", "konu", "deneme"
+  anahtar     String   // "7_gun_streak", "100_pomodoro", vs.
+  ad          String
+  aciklama    String
+  puan        Int      @default(10)
+  kazanildi   Boolean  @default(false)
+  kazanildiTarih DateTime?
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, anahtar])
+  @@index([userId])
+}
+
+// ─── HAFTALIK PROGRAM ─────────────────────────────────
+model HaftalikProgram {
+  id          String   @id @default(cuid())
+  userId      String
+  gun         Int      // 0=Pazartesi, 6=Pazar
+  ders        String
+  baslangic   String   // "09:00"
+  bitis       String   // "10:00"
+  aktif       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+// ─── KONU NOTLARI ─────────────────────────────────────
+model KonuNot {
+  id          String   @id @default(cuid())
+  userId      String
+  konuId      String
+  icerik      String
+  kaynakLink  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, konuId])
+  @@index([userId])
+}
+
 // ─── KONULAR ───────────────────────────────────────────
 model Ders {
   id        String   @id @default(cuid())

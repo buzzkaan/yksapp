@@ -1,8 +1,10 @@
+import type { ReactNode } from "react";
+
 interface PageHeaderProps {
   icon: string;
   title: string;
   subtitle?: string;
-  action?: React.ReactNode;
+  action?: ReactNode;
 }
 
 export function PageHeader({ icon, title, subtitle, action }: PageHeaderProps) {
@@ -22,7 +24,7 @@ export function PageHeader({ icon, title, subtitle, action }: PageHeaderProps) {
       />
 
       {/* Content */}
-      <div className="flex items-center justify-between gap-4 pl-3">
+      <div className="flex items-center justify-between gap-4 pl-3 max-w-4xl mx-auto">
         <div className="flex items-center gap-3 min-w-0">
           <span className="text-4xl leading-none flex-shrink-0">
             {icon}

@@ -3,6 +3,8 @@ import { Press_Start_2P, VT323 } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Navbar } from "@/components/layout/Navbar";
+import { PWAInit } from "@/components/PWAInit";
+import { DailyLoginBonus } from "@/components/DailyLoginBonus";
 import "./globals.css";
 
 const pixelFont = Press_Start_2P({
@@ -52,6 +54,8 @@ export default function RootLayout({
           <link rel="apple-touch-icon" href="/icon/flag.png" />
         </head>
         <body className={`${pixelFont.variable} ${bodyFont.variable}`}>
+          <PWAInit />
+          <DailyLoginBonus />
           <Navbar />
           <main
             className="min-h-screen pb-20 lg:pb-6 lg:ml-64"

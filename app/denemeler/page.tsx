@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { PageContainer } from "@/components/layout/PageContainer";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelButton } from "@/components/pixel/PixelButton";
 import { PixelBadge } from "@/components/pixel/PixelBadge";
@@ -14,6 +15,7 @@ export default function DenemellerPage() {
   const [denemeler, setDenemeler] = useState<DenemeWithDetay[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [analizExpanded, setAnalizExpanded] = useState(true);
 
   async function handleSil(id: string) {
     await denemeSil(id);
@@ -33,11 +35,44 @@ export default function DenemellerPage() {
       value: d.net,
     }));
 
-  return (
-    <div>
-      <PageHeader icon="📊" title="DENEME KAYITLARI" subtitle="Her deneme bir boss fight!" />
+  const analiz = useMemo(() => {
+    if (denemeler.length === 0) return null;
+    
+    const dersIstatistik: Record<string, { toplamNet: number; sayi: number; dogru: number; yanlis: number }> = {};
+    
+    denemeler.forEach(d => {
+      d.dersDetay.forEach(dd => {
+        if (!dersIstatistik[dd.dersAdi]) {
+          dersIstatistik[dd.dersAdi] = { toplamNet: 0, sayi: 0, dogru: 0, yanlis: 0 };
+        }
+        dersIstatistik[dd.dersAdi].toplamNet += dd.net;
+        dersIstatistik[dd.dersAdi].dogru += dd.dogru;
+        dersIstatistik[dd.dersAdi].yanlis += dd.yanlis;
+        dersIstatistik[dd.dersAdi].sayi += 1;
+      });
+    });
+    
+    const dersler = Object.entries(dersIstatistik).map(([ad, ist]) => ({
+      ad,
+      ortalamaNet: ist.sayi > 0 ? ist.toplamNet / ist.sayi : 0,
+      toplamDogru: ist.dogru,
+      toplamYanlis: ist.yanlis,
+      sayi: ist.sayi,
+    })).sort((a, b) => b.ortalamaNet - a.ortalamaNet);
+    
+    const ortalamalar = {
+      net: denemeler.reduce((sum, d) => sum + d.net, 0) / denemeler.length,
+      dogru: denemeler.reduce((sum, d) => sum + d.dogru, 0) / denemeler.length,
+      yanlis: denemeler.reduce((sum, d) => sum + d.yanlis, 0) / denemeler.length,
+    };
+    
+    return { dersler, ortalamalar };
+  }, [denemeler]);
 
-      <div className="p-4 flex flex-col gap-3 max-w-4xl mx-auto">
+  return (
+    <>
+      <PageHeader icon="📝" title="DENEME KAYITLARI" subtitle="Her deneme bir boss fight!" />
+      <PageContainer>
         {!showForm ? (
           <PixelButton onClick={() => setShowForm(true)} variant="primary" className="w-full">
             + Yeni Deneme Ekle
@@ -65,6 +100,71 @@ export default function DenemellerPage() {
                 {chartData[chartData.length - 1]?.label}
               </span>
             </div>
+          </PixelCard>
+        )}
+
+        {/* Deneme Analizi */}
+        {analiz && (
+          <PixelCard>
+            <button 
+              onClick={() => setAnalizExpanded(!analizExpanded)}
+              className="w-full flex items-center justify-between"
+            >
+              <p className="font-[family-name:var(--font-body)] text-lg text-[#101010]">
+                📊 Deneme Analizi
+              </p>
+              <span className="font-[family-name:var(--font-body)] text-lg text-[#2878F8]">
+                {analizExpanded ? "▲" : "▼"}
+              </span>
+            </button>
+            
+            {analizExpanded && (
+              <div className="mt-3 space-y-3">
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="border-2 border-[#D0D0E8] px-2 py-2 text-center" style={{ background: "#F0E8D0" }}>
+                    <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878]">ORTALAMA NET</div>
+                    <div className="font-[family-name:var(--font-pixel)] text-xl text-[#2878F8]">
+                      {analiz.ortalamalar.net.toFixed(1)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-[#D0D0E8] px-2 py-2 text-center" style={{ background: "#F0E8D0" }}>
+                    <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878]">ORT. DOĞRU</div>
+                    <div className="font-[family-name:var(--font-pixel)] text-xl text-[#18C840]">
+                      {analiz.ortalamalar.dogru.toFixed(1)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-[#D0D0E8] px-2 py-2 text-center" style={{ background: "#F0E8D0" }}>
+                    <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878]">ORT. YANLIŞ</div>
+                    <div className="font-[family-name:var(--font-pixel)] text-xl text-[#E01828]">
+                      {analiz.ortalamalar.yanlis.toFixed(1)}
+                    </div>
+                  </div>
+                </div>
+
+                {analiz.dersler.length > 0 && (
+                  <div>
+                    <p className="font-[family-name:var(--font-body)] text-base text-[#101010] mb-2">
+                      Ders Bazlı Ortalama:
+                    </p>
+                    <div className="space-y-1">
+                      {analiz.dersler.map((ders, i) => (
+                        <div key={ders.ad} className="flex items-center gap-2 border border-[#D0D0E8] px-2 py-1" style={{ background: i === 0 ? "#D4ECC8" : i === analiz.dersler.length - 1 ? "#F4E0E0" : "#F8F4F0" }}>
+                          <span className="font-[family-name:var(--font-pixel)] text-[9px] text-[#606878] w-4">
+                            #{i + 1}
+                          </span>
+                          <span className="flex-1 font-[family-name:var(--font-body)] text-base text-[#101010] truncate">
+                            {ders.ad}
+                          </span>
+                          <span className="font-[family-name:var(--font-pixel)] text-sm" style={{ color: ders.ortalamaNet > 10 ? "#18C840" : ders.ortalamaNet > 5 ? "#F89000" : "#E01828" }}>
+                            {ders.ortalamaNet.toFixed(1)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </PixelCard>
         )}
 
@@ -139,7 +239,7 @@ export default function DenemellerPage() {
             </PixelCard>
           ))
         )}
-      </div>
-    </div>
+      </PageContainer>
+    </>
   );
 }
