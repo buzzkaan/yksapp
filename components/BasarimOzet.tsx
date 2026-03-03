@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { PixelCard } from "@/components/pixel/PixelCard";
+import { ICONS } from "@/lib/constants/icons";
 
 type Basarim = {
   id: string;
@@ -51,7 +52,7 @@ export function BasarimOzet() {
       </p>
       <div className="flex items-center gap-3">
         <div className="w-12 h-12 relative flex-shrink-0">
-          <Image src="/icon/flag.png" alt="seviye" fill className="object-contain" unoptimized />
+          <Image src={ICONS.flag} alt="seviye" fill className="object-contain" unoptimized />
         </div>
         <div className="flex-1">
           <div className="flex justify-between items-center mb-1">

@@ -6,12 +6,13 @@ interface PixelBadgeProps {
   className?: string;
 }
 
+// Mario Badge Variants: Boru Yeşil | Jeton Altın | Mario Kırmızı | Mor | Yeraltı Mavi
 const variantStyles: Record<string, { cls: string; shadow: string }> = {
-  green: { cls: "bg-[#18C840] border-[#107030] text-white", shadow: "2px 2px 0 0 #101010" },
-  gold: { cls: "bg-[#FFD000] border-[#806000] text-[#101010]", shadow: "2px 2px 0 0 #504000" },
-  red: { cls: "bg-[#E01828] border-[#780010] text-white", shadow: "2px 2px 0 0 #101010" },
-  purple: { cls: "bg-[#8838C8] border-[#501870] text-white", shadow: "2px 2px 0 0 #101010" },
-  blue: { cls: "bg-[#2878F8] border-[#1060C0] text-white", shadow: "2px 2px 0 0 #101010" },
+  green:  { cls: "bg-[#00A800] border-[#000000] text-white",    shadow: "2px 2px 0 0 #006800" },
+  gold:   { cls: "bg-[#FFD000] border-[#000000] text-[#000000]",shadow: "2px 2px 0 0 #804000" },
+  red:    { cls: "bg-[#E40000] border-[#000000] text-white",    shadow: "2px 2px 0 0 #880000" },
+  purple: { cls: "bg-[#8838C8] border-[#000000] text-white",    shadow: "2px 2px 0 0 #000000" },
+  blue:   { cls: "bg-[#0058F8] border-[#000000] text-white",    shadow: "2px 2px 0 0 #000000" },
 };
 
 export function PixelBadge({ children, variant = "green", className }: PixelBadgeProps) {

@@ -5,6 +5,7 @@ import { PixelCard } from "@/components/pixel/PixelCard";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { basarimlariGetir, userAyarlariniGetir } from "@/server/actions/basarim";
+import { ICONS } from "@/lib/constants/icons";
 
 type Basarim = {
   id: string;
@@ -42,7 +43,7 @@ export default async function BasarimlarPage() {
           <PixelCard variant="dark">
             <div className="flex items-center gap-3">
               <div className="w-16 h-16 relative">
-                <Image src="/icon/flag.png" alt="seviye" fill className="object-contain" unoptimized />
+                <Image src={ICONS.flag} alt="seviye" fill className="object-contain" unoptimized />
               </div>
               <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
@@ -53,7 +54,7 @@ export default async function BasarimlarPage() {
                     {ayarlar.xp % 100} / 100 XP
                   </span>
                 </div>
-                <div className="h-4 border-2 border-[#FFD000]" style={{ background: "#101010" }}>
+                <div className="h-4 border-2 border-[#FFD000]" style={{ background: "#000058" }}>
                   <div 
                     className="h-full transition-all"
                     style={{ 
@@ -69,7 +70,7 @@ export default async function BasarimlarPage() {
           {/* Kazanılan Başarımlar */}
           {kazanilan.length > 0 && (
             <PixelCard>
-              <p className="font-[family-name:var(--font-body)] text-lg text-[#101010] mb-3">
+              <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
                 🏆 Kazanılan ({kazanilan.length})
               </p>
               <div className="flex flex-col gap-2">
@@ -77,18 +78,18 @@ export default async function BasarimlarPage() {
                   <div 
                     key={b.id}
                     className="flex items-center gap-3 border-2 px-3 py-2"
-                    style={{ borderColor: "#18C840", background: "#E8F4E0" }}
+                    style={{ borderColor: "#00A800", background: "#006800" }}
                   >
                     <span className="text-2xl">🏅</span>
                     <div className="flex-1">
-                      <div className="font-[family-name:var(--font-body)] text-xl text-[#101010]">
+                      <div className="font-[family-name:var(--font-body)] text-xl text-[#FFD000]">
                         {b.ad}
                       </div>
-                      <div className="font-[family-name:var(--font-body)] text-sm text-[#606878]">
+                      <div className="font-[family-name:var(--font-body)] text-sm text-[#A8C8F8]">
                         {b.aciklama}
                       </div>
                     </div>
-                    <span className="font-[family-name:var(--font-pixel)] text-sm text-[#18C840]">
+                    <span className="font-[family-name:var(--font-pixel)] text-sm text-[#00A800]">
                       +{b.puan} XP
                     </span>
                   </div>
@@ -100,7 +101,7 @@ export default async function BasarimlarPage() {
           {/* Kilitli Başarımlar */}
           {kazanilmamis.length > 0 && (
             <PixelCard>
-              <p className="font-[family-name:var(--font-body)] text-lg text-[#101010] mb-3">
+              <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
                 🔒 Kilitli ({kazanilmamis.length})
               </p>
               <div className="flex flex-col gap-2">
@@ -108,18 +109,18 @@ export default async function BasarimlarPage() {
                   <div 
                     key={b.id}
                     className="flex items-center gap-3 border-2 px-3 py-2 opacity-60"
-                    style={{ borderColor: "#D0D0E8", background: "#F0F0F0" }}
+                    style={{ borderColor: "#000000", background: "#505050" }}
                   >
                     <span className="text-2xl">🔒</span>
                     <div className="flex-1">
-                      <div className="font-[family-name:var(--font-body)] text-xl text-[#606878]">
+                      <div className="font-[family-name:var(--font-body)] text-xl text-[#A8A8A8]">
                         {b.ad}
                       </div>
-                      <div className="font-[family-name:var(--font-body)] text-sm text-[#909090]">
+                      <div className="font-[family-name:var(--font-body)] text-sm text-[#808080]">
                         {b.aciklama}
                       </div>
                     </div>
-                    <span className="font-[family-name:var(--font-pixel)] text-sm text-[#909090]">
+                    <span className="font-[family-name:var(--font-pixel)] text-sm text-[#808080]">
                       +{b.puan} XP
                     </span>
                   </div>

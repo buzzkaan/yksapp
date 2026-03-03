@@ -673,20 +673,258 @@ npm run dev
 - [x] Navbar tek kaynak (CORE_ITEMS, NavSinavMode sub-component)
 - [x] istatistik.ts query optimizasyonu (13 → 6 DB sorgusu)
 
-### Planlanan 🗓️
-- [ ] Push notification desteği (pomodoro bitiş, streak hatırlatma)
-- [ ] Konu notu ekleme (KonuNot modeli hazır, UI yok)
-- [ ] Gerçek harita sayfası (bölge bazlı ilerleme görselleştirme)
-- [ ] Arkadaş sistemi (liderlik tablosunda isim görünümü)
-- [ ] Deneme analizi: zaman bazlı trend grafiği
-- [ ] Program sayfası: DB entegrasyonu (şu an localStorage)
-- [ ] Konu tekrar sistemi (spaced repetition önerisi)
-- [ ] Dark mode toggle (şu an koyu sidebar, açık içerik)
-- [ ] Bildirim sistemi (offline-first, SW push)
-- [ ] Takvim görünümü geliştirme (aylık görünüm)
+---
+
+## 12. Gelecek Özellikler
+
+### 🔴 Yüksek Öncelikli
+
+#### 12.1 Push Bildirimleri & Hatırlatmalar
+| Özellik | Açıklama |
+|---|---|
+| Pomodoro bitiş bildirimi | Timer dolduğunda anlık bildirim |
+| Streak hatırlatması | Günlük streak devamı için bildirim |
+| Görev hatırlatması | Öncelikli görevler için bildirim |
+| Haftalık özet | Pazar günleri haftalık istatistik özeti |
+| Sınav yaklaşımı | 30/7/1 gün kala hatırlatma |
+
+#### 12.2 Konu Notları & Kaynaklar
+| Özellik | Açıklama |
+|---|---|
+| Konu notu ekleme | Her konu için markdown not |
+| Kaynak linkleri | YouTube, PDF, web sitesi linkleri |
+| Konu dosya ekleme | Ek dosya/belge yükleme (S3/Cloudflare R2) |
+| Not paylaşımı | Toplulukla paylaşımlık notlar |
+
+#### 12.3 Spaced Repetition (Tekrar Sistemi)
+| Özellik | Açıklama |
+|---|---|
+| Konu tekrar önerisi | SM-2 algoritması ile öneriler |
+| Tekrar takvimi | Her konu için tekrar tarihi hesabı |
+| Unutma eğrisi | Zamanla zayıflayan konuları tespit |
+| Zayıf konu analizi | En çok unutulan konuları listele |
+
+#### 12.4 Dark Mode
+| Özellik | Açıklama |
+|---|---|
+| Sistem teması takibi | OS tercihine göre otomatik |
+| Manuel toggle | Açık/koyu mod geçişi |
+| Tema hafızası | Tercih localStorage'da sakla |
+| Pixel uyarlamaları | Her tema için ayrı renk paleti |
+
+---
+
+### 🟡 Orta Öncelikli
+
+#### 12.5 Sosyal & Topluluk
+| Özellik | Açıklama |
+|---|---|
+| Arkadaş sistemi | Arkadaş ekleme, XP karşılaştırma |
+| Takım/Clan | Takım oluşturma, takım liderliği |
+| Grup çalışması | Ortak hedef belirleme |
+| Topluluk forumu | Soru-cevap bölümü |
+| Paylaşımlık kaynaklar | Kullanıcıların paylaştığı notlar/dersler |
+
+#### 12.6 Gelişmiş İstatistik & Analiz
+| Özellik | Açıklama |
+|---|---|
+| Deneme zaman analizi | Her denemeye harcanan süre |
+| Konu bazlı güçlü/zayıf | Hangi konularda iyi/kötü |
+| Zaman dilimi analizi | Hangi saatlerde daha verimli |
+| Hedef net analizi | Hedefe ne kadar yakın |
+| AI öneriler | Çalışma önerileri (basit ML) |
+| PDF rapor indirme | Haftalık/aylık PDF özet |
+
+#### 12.7 Program & Planlama
+| Özellik | Açıklama |
+|---|---|
+| DB entegrasyonu | Haftalık program veritabanında |
+| Ders tekrarı | Ders programında tekrar hatırlatması |
+| Goal tracking | Günlük/haftalık hedef belirleme |
+| Otomatik planlama | Hedefe göre AI plan önerisi |
+
+#### 12.8 Gamification Genişletme
+| Özellik | Açıklama |
+|---|---|
+| Günlük/haftalık quest | Rastgele görevler (örn: 3 pomodoro tamamla) |
+| Rozet sistemi | Özel rozetler (ilk deneme, 7 gün streak...) |
+| Avatar özelleştirme | Pixel avatar seçimi/ödül |
+| Dükkan sistemi | XP ile öğeler satın alma |
+| Ev/Hayvan besleme | Köyde sanal evcilik |
+| Seasonal etkinlikler | Bayram özel görevler |
+
+---
+
+### 🟢 Düşük Öncelikli / Eğlence
+
+#### 12.9 RPG Genişletme
+| Özellik | Açıklama |
+|---|---|
+| Bölge boss'ları | Her konu bölgesinde boss sınavı |
+| Dünya haritası | Gerçek harita üzerinde ilerleme |
+| Yan görevler | Ana hedef dışı ek görevler |
+| Macera modu | Hikaye tabanlı ilerleme |
+| Altın/gümüş bronz madalyon | Deneme performansına göre |
+
+#### 12.10 Çalışma Modları
+| Özellik | Açıklama |
+|---|---|
+| Focus mode | Sadece timer, minimal UI |
+| Challenge mode | Zamanlı zorlu görevler |
+| Group study | Arkadaşla eşzamanlı çalışma |
+| Zen mode | Sessiz, müziksiz çalışma |
+
+#### 12.11 Entegrasyonlar
+| Özellik | Açıklama |
+|---|---|
+| Google Calendar | Otomatik etkinlik aktarımı |
+| Notion sync | Notion'a çalışma verisi aktarımı |
+| Apple Health | Çalışma süresi kaydı |
+| Widget | Android/iOS home screen widget |
+
+#### 12.12 Ses & Medya
+| Özellik | Açıklama |
+|---|---|
+| Pomodoro sesi | Bitiş sesi seçimi |
+| Beyaz gürültü | Focus için arka plan sesi |
+| Spotify entegrasyonu | Şarkı durumu gösterme |
+| Konuşan asistan | Sesli bildirimler |
+
+---
+
+### 🔵 Altyapı & Teknik
+
+#### 12.13 Performans & Optimizasyon
+| Özellik | Açıklama |
+|---|---|
+| Optimistic UI | Hılı UI güncellemeleri |
+| Infinite scroll | Liste sayfalaması |
+| Bundle analizi | Code splitting |
+| Service worker cache | Offline veri önbelleği |
+| Edge caching | Vercel Edge üzerinde |
+
+#### 12.14 Veri Yönetimi
+| Özellik | Açıklama |
+|---|---|
+| Veri ihracatı | JSON/CSV export |
+| Veri yedekleme | Otomatik yedekleme |
+| Hesap silme | GDPR uyumluluğu |
+| Çoklu cihaz sync | Cross-device veri eşitleme |
+
+#### 12.15 Erişilebilirlik
+| Özellik | Açıklama |
+|---|---|
+| Screen reader | Tam destek |
+| Keyboard navigation | Tam klavye kontrolü |
+| High contrast | Yüksek kontrast modu |
+| Font scaling | Büyük metin desteği |
+
+---
+
+### 📋 Yapılacaklar Listesi
+
+#### Hemen (Bu Sprint)
+- [ ] Push notification altyapısı (Firebase/Vapid)
+- [ ] Konu notu UI ekleme
+- [ ] Dark mode toggle
+- [ ] Konu tekrar sistemi
+
+#### Yakın (1-2 Ay)
+- [ ] Arkadaş sistemi
+- [ ] DB entegrasyonu (program)
+- [ ] PDF rapor indirme
+- [ ] Daily quest sistemi
+- [ ] Rozet sistemi genişletme
+
+#### Orta Vade (3-6 Ay)
+- [ ] Takım/Clan sistemi
+- [ ] Bölge boss'ları
+- [ ] AI öneriler
+- [ ] Dükkan sistemi
+- [ ] Entegrasyonlar (Calendar, Notion)
+
+#### Uzun Vade (6+ Ay)
+- [ ] Tam RPG deneyimi
+- [ ] Topluluk forumu
+- [ ] Mobil native app
+- [ ] AI chatbot asistan
+
+---
+
+### 🎯 Başarım Genişletme
+
+#### Yeni Başarım Kategorileri
+| Kategori | Örnek Başarımlar |
+|---|---|
+| `calisma` | İlk 100 pomodoro, 1000 saat toplam |
+| `deneme` | TYT/AYT full net, 50 deneme |
+| `social` | İlk arkadaş, Takım kurma |
+| `streak` | 100 gün streak, yıl boyu günlük giriş |
+| `special` | Yılbaşı etkinlik, özel günler |
+| `secret` | Gizli easter egg başarımları |
+
+#### Başarım Rozet Tasarımları
+- 🏆 Altın kupa
+- 🥈 Gümüş kupa  
+- 🥉 Bronz kupa
+- ⭐ Yıldız
+- 🔥 Ateş/Flame
+- 💎 Elmas
+- 👑 Taç
+- 🎖️ Madalya
+- 🌟 Parlak yıldız
+- ⚡ Şimşek
+
+---
+
+### 📊 Hedef Kitle Özellikleri
+
+#### Öğrenci Motivasyonları
+| Motivasyon | Feature |
+|---|---|
+| Rekabet | Liderlik, sıralama |
+| Ödül | XP, rozet, avatar |
+| İlerleme | Grafikler, istatistik |
+| Sosyal | Arkadaş, takım |
+| Oyunlaştırma | Quest, boss, achievement |
+| Pratiklik | Takvim, hatırlatma |
+
+---
+
+### 🗺️ Geliştirme Aşamaları
+
+```
+Aşama 1: Temel (Tamamlandı)
+├── Konu/Görev/Pomodoro sistemi
+├── XP/Seviye/Leaderboard
+└── PWA
+
+Aşama 2: Büyüme (Yakın)
+├── Push bildirimleri
+├── Konu notları
+├── Dark mode
+└── Spaced repetition
+
+Aşama 3: Topluluk (Orta)
+├── Arkadaş sistemi
+├── Takım/Clan
+├── Paylaşımlık içerik
+└── Forum
+
+Aşama 4: Premium (Uzun)
+├── AI asistan
+├── Native app
+├── Özel içerik market
+└── Abonelik sistemi
+```
+
+---
 
 ### Teknik Borç 🔧
-- [ ] `viewport` metadata uyarıları giderilmeli (Next.js 16 `export const viewport` API'ine geçiş)
-- [ ] `app/takvim/page.tsx` redirect'i temizlenmeli
-- [ ] `server/actions/istatistik.ts` → `getOzetIstatistik` testler eklenmeli
-- [ ] Liderlik tablosunda kullanıcı adı gösterimi (şu an "Oyuncu #N")
+- [x] `viewport` metadata uyarıları (Next.js 16 geçiş)
+- [ ] `/takvim` redirect temizliği
+- [ ] `server/actions/istatistik.ts` → testler eklenmeli
+- [ ] Liderlik tablosunda kullanıcı adı gösterimi
+- [x] TypeScript strict mode tam aktif
+- [ ] Unit test coverage (%80 hedef)
+- [ ] E2E test yazımı

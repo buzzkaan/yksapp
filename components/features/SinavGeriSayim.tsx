@@ -6,6 +6,7 @@ import { getSinavTipi } from "@/lib/utils/sinav";
 import { hesaplaGunler } from "@/lib/utils/date";
 import { SINAV_TARIHLERI, aciliyetRengi, mesaj } from "@/lib/config/sinav-tarihleri";
 import type { SinavTipi } from "@/lib/sinav-data";
+import { ICONS } from "@/lib/constants/icons";
 
 const CORNER_POSITIONS = [
   "absolute top-[-2px] left-[-2px]",
@@ -30,16 +31,16 @@ export function SinavGeriSayim() {
 
   return (
     <div
-      className="relative border-4 border-[#101010] overflow-hidden"
+      className="relative border-4 border-[#000000] overflow-hidden"
       style={{
-        background: "#181838",
-        boxShadow: "4px 4px 0 0 #101010",
+        background: "#000058",
+        boxShadow: "4px 4px 0 0 #000000",
       }}
     >
       {CORNER_POSITIONS.map((pos) => (
         <div
           key={pos}
-          className={`${pos} w-[10px] h-[10px] border-2 border-[#101010] z-10`}
+          className={`${pos} w-[10px] h-[10px] border-2 border-[#000000] z-10`}
           style={{ background: meta.renk }}
         />
       ))}
@@ -57,7 +58,7 @@ export function SinavGeriSayim() {
         </div>
         <span
           className="font-[family-name:var(--font-body)] text-sm border border-[#1E1E40] px-2 py-0.5"
-          style={{ color: "#484858" }}
+          style={{ color: "#6878A8" }}
         >
           yaklaşık tarih
         </span>
@@ -79,7 +80,7 @@ export function SinavGeriSayim() {
           {!bitti && (
             <span
               className="font-[family-name:var(--font-body)] text-base mt-1 tracking-widest"
-              style={{ color: "#8890B8" }}
+              style={{ color: "#A8C8F8" }}
             >
               GÜN KALDI
             </span>
@@ -96,9 +97,9 @@ export function SinavGeriSayim() {
           <div className="flex items-center gap-1.5 flex-wrap">
             <span
               className="font-[family-name:var(--font-body)] text-base border border-[#1E1E40] px-2 py-0.5 leading-tight"
-              style={{ color: "#8890B8", background: "#101010" }}
+              style={{ color: "#A8C8F8", background: "#000000" }}
             >
-              <Image src="/icon/calendar.png" alt="tarih" width={14} height={14} className="inline w-3.5 h-3.5 mr-1" />
+              <Image src={ICONS.calendar} alt="tarih" width={14} height={14} className="inline w-3.5 h-3.5 mr-1" />
               {tarihBilgi.etiket}
             </span>
           </div>

@@ -20,7 +20,7 @@ export function UserLevelBadge() {
 
   if (!ayarlar) {
     return (
-      <div className="animate-pulse flex items-center gap-2 px-3 py-2 border-2" style={{ borderColor: "#FFD000", background: "#181838" }}>
+      <div className="animate-pulse flex items-center gap-2 px-3 py-2 border-2" style={{ borderColor: "#FFD000", background: "#000030" }}>
         <div className="w-6 h-6 bg-[#FFD000]/20 rounded" />
         <div className="flex-1 h-8 bg-[#FFD000]/20 rounded" />
       </div>
@@ -35,8 +35,8 @@ export function UserLevelBadge() {
       className="flex items-center gap-2 px-3 py-2 border-2 transition-all hover:scale-[1.02]"
       style={{
         borderColor: "#FFD000",
-        background: "#181838",
-        boxShadow: "2px 2px 0 0 #504000",
+        background: "#000030",
+        boxShadow: "2px 2px 0 0 #804000",
       }}
     >
       <div className="w-6 h-6 relative flex-shrink-0">
@@ -57,12 +57,12 @@ export function UserLevelBadge() {
           </span>
           <span
             className="font-[family-name:var(--font-body)] text-xs"
-            style={{ color: "#8890B8" }}
+            style={{ color: "#A8C8F8" }}
           >
             {ayarlar.xp} XP
           </span>
         </div>
-        <div className="h-1.5 mt-1 border border-[#FFD000]/50" style={{ background: "#101010" }}>
+        <div className="h-1.5 mt-1 border-2 border-[#000000]" style={{ background: "#000058" }}>
           <div
             className="h-full transition-all"
             style={{ width: `${ilerleme}%`, background: "#FFD000" }}

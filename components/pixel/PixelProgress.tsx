@@ -7,11 +7,12 @@ interface PixelProgressProps {
   hpLabel?: string;
 }
 
+// Mario HP bar: Boru yeşil (yüksek) → Jeton altın (orta) → Mario kırmızı (düşük)
 function fillColor(v: number, custom?: string) {
   if (custom) return custom;
-  if (v >= 50) return "#18C840";
+  if (v >= 50) return "#00A800";
   if (v >= 25) return "#FFD000";
-  return "#E01828";
+  return "#E40000";
 }
 
 const heights: Record<string, number> = { sm: 14, md: 20, lg: 28 };
@@ -28,7 +29,7 @@ export function PixelProgress({
     <div className="w-full">
       {(label || showPercent || hpLabel) && (
         <div className="flex justify-between items-center mb-1">
-          <span className="font-[family-name:var(--font-pixel)] text-[9px] text-[#101010] tracking-wide">
+          <span className="font-[family-name:var(--font-pixel)] text-[9px] text-[#000000] tracking-wide">
             {hpLabel ?? label}
           </span>
           {showPercent && (
@@ -44,10 +45,10 @@ export function PixelProgress({
 
       {/* Bar shell — GBC HP bar */}
       <div
-        className="w-full relative overflow-hidden border-4 border-[#101010]"
+        className="w-full relative overflow-hidden border-4 border-[#000000]"
         style={{
           height: h,
-          background: "#181838",
+          background: "#000058",
           imageRendering: "pixelated",
         }}
       >
@@ -70,7 +71,7 @@ export function PixelProgress({
             style={{
               left: `${pct}%`,
               width: 2,
-              background: "#101010",
+              background: "#000000",
               zIndex: 2,
             }}
           />

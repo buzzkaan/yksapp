@@ -6,36 +6,41 @@ interface PixelButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   size?: "sm" | "md" | "lg";
 }
 
+// Mario Button Variants:
+// primary   → Mario Kırmızı  | secondary → Boru Yeşili
+// danger    → Koyu Kırmızı   | ghost     → Taş Gri
+// gold      → Jeton Altın    | blue      → Yeraltı Mavi
+
 const variants: Record<string, { base: string; shadow: string; activeShadow: string }> = {
   primary: {
-    base: "bg-[#2878F8] border-[#1060C0] text-white hover:bg-[#2060D0]",
-    shadow: "3px 3px 0 0 #101010",
-    activeShadow: "0 0 0 0 #101010",
+    base:        "bg-[#E40000] border-[#880000] text-white hover:bg-[#C00000]",
+    shadow:      "3px 3px 0 0 #000000",
+    activeShadow:"0 0 0 0 #000000",
   },
   secondary: {
-    base: "bg-[#E01828] border-[#780010] text-white hover:bg-[#C01020]",
-    shadow: "3px 3px 0 0 #101010",
-    activeShadow: "0 0 0 0 #101010",
+    base:        "bg-[#00A800] border-[#006800] text-white hover:bg-[#008800]",
+    shadow:      "3px 3px 0 0 #000000",
+    activeShadow:"0 0 0 0 #000000",
   },
   danger: {
-    base: "bg-[#E01828] border-[#780010] text-white hover:bg-[#C01020]",
-    shadow: "3px 3px 0 0 #101010",
-    activeShadow: "0 0 0 0 #101010",
+    base:        "bg-[#880000] border-[#440000] text-white hover:bg-[#660000]",
+    shadow:      "3px 3px 0 0 #000000",
+    activeShadow:"0 0 0 0 #000000",
   },
   ghost: {
-    base: "bg-[#F8F0DC] border-[#101010] text-[#101010] hover:bg-[#E8E0C8]",
-    shadow: "3px 3px 0 0 #101010",
-    activeShadow: "0 0 0 0 #101010",
+    base:        "bg-[#A8A8A8] border-[#000000] text-[#000000] hover:bg-[#C8C8C8]",
+    shadow:      "3px 3px 0 0 #505050",
+    activeShadow:"0 0 0 0 #505050",
   },
   gold: {
-    base: "bg-[#FFD000] border-[#806000] text-[#101010] hover:bg-[#FFDC00]",
-    shadow: "3px 3px 0 0 #504000",
-    activeShadow: "0 0 0 0 #504000",
+    base:        "bg-[#FFD000] border-[#000000] text-[#000000] hover:bg-[#FFE040]",
+    shadow:      "3px 3px 0 0 #804000",
+    activeShadow:"0 0 0 0 #804000",
   },
   blue: {
-    base: "bg-[#2878F8] border-[#1060C0] text-white hover:bg-[#2060D0]",
-    shadow: "3px 3px 0 0 #101010",
-    activeShadow: "0 0 0 0 #101010",
+    base:        "bg-[#0058F8] border-[#003090] text-white hover:bg-[#0048D0]",
+    shadow:      "3px 3px 0 0 #000000",
+    activeShadow:"0 0 0 0 #000000",
   },
 };
 

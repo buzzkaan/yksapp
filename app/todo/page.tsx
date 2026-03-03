@@ -15,6 +15,7 @@ import { SubjectPanel } from "@/components/todo/SubjectPanel";
 import { RENKLER, GOREV_RENKLER, IKONLAR } from "@/components/todo/constants";
 import type { DersWithKonular, Gorev } from "@/lib/types";
 import toast from "react-hot-toast";
+import { ICONS } from "@/lib/constants/icons";
 
 type Filtre = "aktif" | "tamamlanan" | "tumu";
 type Tab = "takvim" | "konular";
@@ -149,32 +150,33 @@ export default function YapilacaklarPage() {
       <div
         className="relative border-b-4 px-4 py-5"
         style={{
-          background: "#181838",
-          borderColor: "#FFD000",
-          boxShadow: "0 4px 0 0 #504000",
+          background: "#000058",
+          borderColor: "#000000",
+          boxShadow: "0 4px 0 0 #000000",
         }}
       >
-        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ background: "#FFD000" }} />
-        <div className="flex items-center justify-between pl-3">
+        <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: "#FFD000" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-1.5" style={{ background: "#FFD000" }} />
+        <div className="flex items-center justify-between pl-3 pr-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 relative flex-shrink-0">
-              <Image src="/icon/chat.png" alt="yapilacaklar" fill className="object-contain" />
+              <Image src={ICONS.chat} alt="yapilacaklar" fill className="object-contain" />
             </div>
             <div>
               <h1
                 className="font-[family-name:var(--font-pixel)] leading-tight"
-                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #504000", letterSpacing: "0.1em" }}
+                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #804000", letterSpacing: "0.1em" }}
               >
                 YAPILACAKLAR
               </h1>
-              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#8890B8" }}>
+              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#A8C8F8" }}>
                 Görevler &amp; Konular
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             {streakInfo.best > 0 && (
-              <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#101010", border: "3px solid #FFD000" }}>
+              <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#000000", border: "3px solid #FFD000" }}>
                 <span className="text-sm">🏆</span>
                 <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
                   {streakInfo.best}
@@ -182,9 +184,9 @@ export default function YapilacaklarPage() {
               </div>
             )}
             {streakInfo.current > 0 && (
-              <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#FFD000", border: "3px solid #101010" }}>
+              <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#FFD000", border: "3px solid #000000" }}>
                 <span className="text-base">🔥</span>
-                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#101010" }}>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#000000" }}>
                   {streakInfo.current} GÜN
                 </span>
               </div>
@@ -199,21 +201,21 @@ export default function YapilacaklarPage() {
         {/* İstatistik kartları */}
         {aktifTab === "takvim" && (
           <div className="grid grid-cols-4 gap-2">
-            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#484858" }}>BUGÜN</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#2878F8" }}>{istatistikler.bugun.length}</div>
+            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#000058", boxShadow: "3px 3px 0 0 #000000" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#A8C8F8" }}>BUGÜN</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#0058F8" }}>{istatistikler.bugun.length}</div>
             </div>
-            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#CCF0B8", boxShadow: "3px 3px 0 0 #101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#18C840" }}>TAMAM</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#18C840" }}>{istatistikler.bugunTamamlanan}</div>
+            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#006800", boxShadow: "3px 3px 0 0 #000000" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>TAMAM</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#00A800" }}>{istatistikler.bugunTamamlanan}</div>
             </div>
-            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#FFF8E0", boxShadow: "3px 3px 0 0 #101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#F89000" }}>AKTİF</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#F89000" }}>{istatistikler.bugunAktif}</div>
+            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#804000", boxShadow: "3px 3px 0 0 #000000" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>AKTİF</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#FFD000" }}>{istatistikler.bugunAktif}</div>
             </div>
-            <div className="border-3 border-[#101010] p-2 text-center" style={{ background: "#FFE0E0", boxShadow: "3px 3px 0 0 #101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#E01828" }}>ACİL</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#E01828" }}>{istatistikler.yuksekOncelik}</div>
+            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#880000", boxShadow: "3px 3px 0 0 #000000" }}>
+              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>ACİL</div>
+              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#E40000" }}>{istatistikler.yuksekOncelik}</div>
             </div>
           </div>
         )}
@@ -229,10 +231,10 @@ export default function YapilacaklarPage() {
               onClick={() => setAktifTab(tab.key)}
               className="flex-1 py-2.5 font-[family-name:var(--font-pixel)] text-[11px] transition-all cursor-pointer select-none"
               style={aktifTab === tab.key ? {
-                background: "#F8F0DC", borderTop: "4px solid #101010", borderLeft: "4px solid #101010", borderRight: "4px solid #101010", borderBottom: "4px solid #F8F0DC",
-                color: "#2878F8", marginBottom: "-4px", position: "relative", zIndex: 2,
+                background: "#C88040", borderTop: "4px solid #000000", borderLeft: "4px solid #000000", borderRight: "4px solid #000000", borderBottom: "4px solid #C88040",
+                color: "#000000", marginBottom: "-4px", position: "relative", zIndex: 2,
               } : {
-                background: "#181838", borderTop: "4px solid #101010", borderLeft: "4px solid #101010", borderRight: "4px solid #101010", borderBottom: "4px solid #101010", color: "#8890B8", boxShadow: "2px 2px 0 0 #101010",
+                background: "#000058", borderTop: "4px solid #000000", borderLeft: "4px solid #000000", borderRight: "4px solid #000000", borderBottom: "4px solid #000000", color: "#A8C8F8", boxShadow: "2px 2px 0 0 #000000",
               }}
             >
               {tab.label}

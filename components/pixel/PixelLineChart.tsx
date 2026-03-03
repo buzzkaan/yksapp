@@ -1,14 +1,15 @@
 interface PixelLineChartProps {
   data: { label: string; value: number }[];
   color?: string;
+  height?: number;
 }
 
-export function PixelLineChart({ data, color }: PixelLineChartProps) {
+export function PixelLineChart({ data, color, height = 100 }: PixelLineChartProps) {
   if (data.length < 2) return null;
 
-  const W = 280;
-  const H = 80;
-  const pad = 20;
+  const W = 560;
+  const H = height;
+  const pad = 24;
   const min = Math.min(...data.map((d) => d.value));
   const max = Math.max(...data.map((d) => d.value));
   const range = max - min || 1;
@@ -23,7 +24,7 @@ export function PixelLineChart({ data, color }: PixelLineChartProps) {
   const pathD = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
 
   return (
-    <svg width={W} height={H} className="overflow-visible" style={{ imageRendering: "pixelated" }}>
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} className="overflow-visible" style={{ imageRendering: "pixelated" }}>
       {[0, 25, 50, 75, 100].map((pct) => {
         const y = pad + (1 - pct / 100) * (H - pad * 2);
         return (

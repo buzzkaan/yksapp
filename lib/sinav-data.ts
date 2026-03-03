@@ -1,3 +1,5 @@
+import { ICONS } from "./constants/icons";
+
 export type SinavTipi = "YKS" | "DGS" | "KPSS";
 
 export const LS_SINAV_KEY = "yks_farm_sinav_v1";
@@ -33,7 +35,7 @@ export const SINAV_META: Record<SinavTipi, SinavMeta> = {
     tip: "YKS",
     isim: "YKS",
     tamIsim: "Yükseköğretim Kurumları Sınavı",
-    icon: "/icon/flag.png",
+    icon: ICONS.flag,
     renk: "#3498DB",
     aciklama: "TYT + AYT · Üniversite giriş sınavı",
   },
@@ -41,7 +43,7 @@ export const SINAV_META: Record<SinavTipi, SinavMeta> = {
     tip: "DGS",
     isim: "DGS",
     tamIsim: "Dikey Geçiş Sınavı",
-    icon: "/icon/degree.png",
+    icon: ICONS.degree,
     renk: "#27AE60",
     aciklama: "Sayısal + Sözel · Önlisanstan lisansa geçiş",
   },
@@ -49,7 +51,7 @@ export const SINAV_META: Record<SinavTipi, SinavMeta> = {
     tip: "KPSS",
     isim: "KPSS",
     tamIsim: "Kamu Personeli Seçme Sınavı",
-    icon: "/icon/party-card.png",
+    icon: ICONS.partyCard,
     renk: "#8E44AD",
     aciklama: "GY + GK · Kamu kurumu personel sınavı",
   },

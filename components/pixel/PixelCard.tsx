@@ -6,36 +6,40 @@ interface PixelCardProps {
   variant?: "wood" | "stone" | "gold" | "dark" | "green";
 }
 
+// Mario Block Variants:
+// wood  → Tuğla Blok   | stone → Taş Blok | gold → ? Blok
+// dark  → Yeraltı      | green → Boru
+
 const variants: Record<string, { bg: string; border: string; shadow: string; text?: string; corner: string }> = {
   wood: {
-    bg: "#F8F0DC",
-    border: "#101010",
-    shadow: "4px 4px 0 0 #101010",
+    bg:     "#C88040",
+    border: "#000000",
+    shadow: "4px 4px 0 0 #8B4000",
     corner: "#FFD000",
   },
   stone: {
-    bg: "#D0D0E8",
-    border: "#101010",
-    shadow: "4px 4px 0 0 #101010",
-    corner: "#2878F8",
+    bg:     "#A8A8A8",
+    border: "#000000",
+    shadow: "4px 4px 0 0 #505050",
+    corner: "#FFFFFF",
   },
   gold: {
-    bg: "#FFD000",
-    border: "#806000",
-    shadow: "4px 4px 0 0 #504000",
+    bg:     "#FFD000",
+    border: "#000000",
+    shadow: "4px 4px 0 0 #804000",
     corner: "#FFFFFF",
   },
   dark: {
-    bg: "#181838",
-    border: "#101010",
-    shadow: "4px 4px 0 0 #080828",
-    text: "#F0F0F0",
+    bg:     "#000058",
+    border: "#000000",
+    shadow: "4px 4px 0 0 #000030",
+    text:   "#FFFFFF",
     corner: "#FFD000",
   },
   green: {
-    bg: "#B8F0A0",
-    border: "#107010",
-    shadow: "4px 4px 0 0 #064818",
+    bg:     "#00A800",
+    border: "#000000",
+    shadow: "4px 4px 0 0 #006800",
     corner: "#FFD000",
   },
 };
@@ -64,7 +68,7 @@ export function PixelCard({ children, className, variant = "wood" }: PixelCardPr
         <div
           key={pos}
           className={pos}
-          style={{ position: "absolute", width: 10, height: 10, background: v.corner, border: "2px solid #101010", zIndex: 1 }}
+          style={{ position: "absolute", width: 10, height: 10, background: v.corner, border: "2px solid #000000", zIndex: 1 }}
         />
       ))}
       {children}

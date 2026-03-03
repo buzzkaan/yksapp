@@ -48,27 +48,27 @@ export function CalendarGrid({
   return (
     <div
       style={{
-        background: "#F8F0DC",
-        border: "4px solid #101010",
-        boxShadow: "4px 4px 0 0 #101010",
+        background: "#A8A8A8",
+        border: "4px solid #000000",
+        boxShadow: "4px 4px 0 0 #000000",
       }}
     >
       {/* ── Başlık: GBC menü stili ── */}
       <div
         className="flex items-center justify-between px-4 py-2.5"
         style={{
-          background: "#181838",
-          borderBottom: "4px solid #101010",
+          background: "#000058",
+          borderBottom: "4px solid #000000",
         }}
       >
         <button
           onClick={prevMonth}
           className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
           style={{
-            color: "#F8F0DC",
-            background: "#101010",
+            color: "#A8A8A8",
+            background: "#000000",
             border: "3px solid #FFD000",
-            boxShadow: "2px 2px 0 0 #504000",
+            boxShadow: "2px 2px 0 0 #804000",
           }}
         >
           ◀
@@ -77,7 +77,7 @@ export function CalendarGrid({
           <span className="text-base">◆</span>
           <span
             className="font-[family-name:var(--font-pixel)] text-[14px]"
-            style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
+            style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
           >
             {AYLAR_TAM[ay - 1].toUpperCase()} {yil}
           </span>
@@ -87,10 +87,10 @@ export function CalendarGrid({
           onClick={nextMonth}
           className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
           style={{
-            color: "#F8F0DC",
-            background: "#101010",
+            color: "#A8A8A8",
+            background: "#000000",
             border: "3px solid #FFD000",
-            boxShadow: "2px 2px 0 0 #504000",
+            boxShadow: "2px 2px 0 0 #804000",
           }}
         >
           ▶
@@ -102,7 +102,7 @@ export function CalendarGrid({
         className="grid grid-cols-7"
         style={{
           background: "#E8D4B0",
-          borderBottom: "3px solid #D0D0E8",
+          borderBottom: "3px solid #000000",
         }}
       >
         {GUNLER_KISALT.map((g, i) => (
@@ -110,8 +110,8 @@ export function CalendarGrid({
             key={g}
             className="text-center py-1.5 font-[family-name:var(--font-pixel)] text-[10px]"
             style={{
-              color: i >= 5 ? "#E01828" : "#101010",
-              borderRight: i < 6 ? "2px solid #D0D0E8" : "none",
+              color: i >= 5 ? "#E01828" : "#000000",
+              borderRight: i < 6 ? "2px solid #000000" : "none",
             }}
           >
             {g}
@@ -128,9 +128,9 @@ export function CalendarGrid({
                 key={`empty-${idx}`}
                 className="h-11 sm:h-12"
                 style={{
-                  background: "#F0E8D0",
-                  borderRight: "2px solid #D0D0E8",
-                  borderBottom: "2px solid #D0D0E8",
+                  background: "#A8A8A8",
+                  borderRight: "2px solid #000000",
+                  borderBottom: "2px solid #000000",
                 }}
               />
             );
@@ -152,9 +152,9 @@ export function CalendarGrid({
                   ? "#2878F8"
                   : isToday
                     ? "#FFD000"
-                    : "#F8F0DC",
-                borderRight: "2px solid #D0D0E8",
-                borderBottom: "2px solid #D0D0E8",
+                    : "#A8A8A8",
+                borderRight: "2px solid #000000",
+                borderBottom: "2px solid #000000",
                 boxShadow: isSelected
                   ? "inset 0 0 0 2px #1060C0"
                   : isToday
@@ -168,10 +168,10 @@ export function CalendarGrid({
                   color: isSelected
                     ? "#FFFFFF"
                     : isToday
-                      ? "#101010"
+                      ? "#000000"
                       : isWeekend
                         ? "#E01828"
-                        : "#101010",
+                        : "#000000",
                 }}
               >
                 {gun}
@@ -183,7 +183,7 @@ export function CalendarGrid({
                     <div
                       className="w-[5px] h-[5px]"
                       style={{
-                        backgroundColor: isSelected ? "#FFF" : "#18C840",
+                        backgroundColor: isSelected ? "#FFF" : "#00A800",
                         border: `1px solid ${isSelected ? "#1060C0" : "#107030"}`,
                       }}
                       title="Tümü tamamlandı"
@@ -193,7 +193,7 @@ export function CalendarGrid({
                       <div
                         className="w-[5px] h-[5px]"
                         style={{
-                          backgroundColor: isSelected ? "#FFD000" : "#18C840",
+                          backgroundColor: isSelected ? "#FFD000" : "#00A800",
                           border: `1px solid ${isSelected ? "#C09000" : "#107030"}`,
                         }}
                         title={`${gorevInfo.tamamlandi}/${gorevInfo.count} tamamlandı`}
@@ -202,7 +202,7 @@ export function CalendarGrid({
                         className="w-[5px] h-[5px]"
                         style={{
                           backgroundColor: isSelected ? "#FFF" : gorevInfo.renk,
-                          border: `1px solid ${isSelected ? "#1060C0" : "#101010"}`,
+                          border: `1px solid ${isSelected ? "#1060C0" : "#000000"}`,
                         }}
                       />
                     </>
