@@ -65,17 +65,17 @@ export function SubjectPanel({
       {/* Alt başlık + ders ekle */}
       <DarkBox className="px-4 py-2.5">
         <div className="flex items-center justify-between">
-          <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#8890B8" }}>
+          <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#A8C8F8" }}>
             📦 {dersler.length} ders
           </span>
           <button
             onClick={() => onShowDersForm(v => !v)}
             className="font-[family-name:var(--font-pixel)] text-[10px] px-3 py-1 cursor-pointer transition-all hover:scale-105"
             style={{
-              background: "#101010",
-              color: "#8890B8",
+              background: "#000000",
+              color: "#A8C8F8",
               border: "3px solid #FFD000",
-              boxShadow: "2px 2px 0 0 #504000",
+              boxShadow: "2px 2px 0 0 #804000",
             }}
           >
             + DERS
@@ -95,9 +95,9 @@ export function SubjectPanel({
               onChange={e => onDersAd(e.target.value)}
               className="px-3 py-2 font-[family-name:var(--font-body)] text-lg outline-none w-full"
               style={{
-                background: "#F8F0DC",
-                border: "3px solid #101010",
-                color: "#101010",
+                background: "#A8A8A8",
+                border: "3px solid #000000",
+                color: "#000000",
               }}
             />
             <div className="flex gap-2 flex-wrap">
@@ -107,9 +107,9 @@ export function SubjectPanel({
                   className="w-8 h-8 transition-transform cursor-pointer"
                   style={{
                     backgroundColor: r,
-                    border: `3px solid ${dersRenk === r ? "#101010" : "#D0D0E8"}`,
+                    border: `3px solid ${dersRenk === r ? "#000000" : "#000000"}`,
                     transform: dersRenk === r ? "scale(1.15)" : "scale(1)",
-                    boxShadow: dersRenk === r ? "2px 2px 0 0 #101010" : "none",
+                    boxShadow: dersRenk === r ? "2px 2px 0 0 #000000" : "none",
                   }}
                 />
               ))}
@@ -120,8 +120,8 @@ export function SubjectPanel({
                   key={ic} type="button" onClick={() => onDersIcon(ic)}
                   className="text-xl w-9 h-9 transition-all cursor-pointer"
                   style={{
-                    border: `3px solid ${dersIcon === ic ? "#101010" : "#D0D0E8"}`,
-                    backgroundColor: dersIcon === ic ? "#FFD000" : "#F8F0DC",
+                    border: `3px solid ${dersIcon === ic ? "#000000" : "#000000"}`,
+                    backgroundColor: dersIcon === ic ? "#FFD000" : "#A8A8A8",
                   }}
                 >
                   {ic}
@@ -133,7 +133,7 @@ export function SubjectPanel({
                 type="submit" disabled={isPending || !dersAd.trim()}
                 className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-1.5 cursor-pointer disabled:opacity-50"
                 style={{
-                  background: "#18D030",
+                  background: "#00A800",
                   color: "#FFF",
                   border: "3px solid #0A5A0A",
                   boxShadow: "2px 2px 0 0 #3A2010",
@@ -145,9 +145,9 @@ export function SubjectPanel({
                 type="button" onClick={() => onShowDersForm(false)}
                 className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-1.5 cursor-pointer"
                 style={{
-                  background: "#F8F0DC",
-                  color: "#484858",
-                  border: "3px solid #D0D0E8",
+                  background: "#A8A8A8",
+                  color: "#6878A8",
+                  border: "3px solid #000000",
                 }}
               >
                 İPTAL
@@ -171,14 +171,14 @@ export function SubjectPanel({
                   style={isAktif ? {
                     backgroundColor: d.renk,
                     color: "#FFF",
-                    border: "4px solid #101010",
+                    border: "4px solid #000000",
                     boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.3)",
-                    textShadow: "1px 1px 0 #101010",
+                    textShadow: "1px 1px 0 #000000",
                   } : {
-                    backgroundColor: "#F8F0DC",
-                    color: "#101010",
-                    border: "4px solid #D0D0E8",
-                    boxShadow: "3px 3px 0 0 #101010",
+                    backgroundColor: "#A8A8A8",
+                    color: "#000000",
+                    border: "4px solid #000000",
+                    boxShadow: "3px 3px 0 0 #000000",
                   }}
                 >
                   <span>{d.icon}</span>
@@ -188,7 +188,7 @@ export function SubjectPanel({
                       className="text-xs px-1 leading-tight"
                       style={isAktif
                         ? { border: "2px solid rgba(255,255,255,0.5)", color: "rgba(255,255,255,0.9)" }
-                        : { border: "2px solid #D0D0E8", color: "#484858" }}
+                        : { border: "2px solid #000000", color: "#6878A8" }}
                     >
                       {aktifKonuSayi}
                     </span>
@@ -207,7 +207,7 @@ export function SubjectPanel({
                       <button
                         onClick={() => onDersSilId(null)}
                         className="px-2 font-[family-name:var(--font-body)] text-sm cursor-pointer"
-                        style={{ background: "#F8F0DC", color: "#484858", borderLeft: "2px solid #E01828" }}
+                        style={{ background: "#A8A8A8", color: "#6878A8", borderLeft: "2px solid #E01828" }}
                       >
                         İptal
                       </button>
@@ -217,13 +217,13 @@ export function SubjectPanel({
                       onClick={() => onDersSilId(d.id)}
                       className="px-2 font-[family-name:var(--font-body)] text-base cursor-pointer transition-colors"
                       style={{
-                        background: "#F8F0DC",
-                        color: "#8890B8",
-                        border: "4px solid #101010",
+                        background: "#A8A8A8",
+                        color: "#A8C8F8",
+                        border: "4px solid #000000",
                         borderLeft: "none",
                       }}
                       onMouseEnter={e => (e.currentTarget.style.color = "#E01828")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "#8890B8")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "#A8C8F8")}
                       title="Dersi sil"
                     >
                       ✕
@@ -240,7 +240,7 @@ export function SubjectPanel({
       {!aktifDers ? (
         <GameBox className="py-14 text-center">
           <span className="text-5xl block mb-3">📚</span>
-          <p className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#484858" }}>
+          <p className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#6878A8" }}>
             {dersler.length === 0
               ? "Henüz ders yok. Yukarıdan ders ekle!"
               : "Yukarıdan bir ders seç."}
@@ -260,15 +260,15 @@ export function SubjectPanel({
             <div className="flex items-center justify-between mb-2">
               <span
                 className="font-[family-name:var(--font-pixel)] text-[12px]"
-                style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
+                style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
               >
                 {aktifDers.icon} {aktifDers.ad.toUpperCase()}
               </span>
-              <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#8890B8" }}>
+              <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#A8C8F8" }}>
                 {tamamSayi}/{konular.length} ✅
               </span>
             </div>
-            <div className="h-5 relative overflow-hidden" style={{ background: "#181838", border: "3px solid #101010" }}>
+            <div className="h-5 relative overflow-hidden" style={{ background: "#000058", border: "3px solid #000000" }}>
               <div
                 className="absolute inset-y-0 left-0 transition-all duration-700"
                 style={{
@@ -281,7 +281,7 @@ export function SubjectPanel({
               />
               {progress === 100 && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#101010", textShadow: "0 1px 0 #FFD000" }}>
+                  <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#000000", textShadow: "0 1px 0 #FFD000" }}>
                     🏆 CLEAR!
                   </span>
                 </div>
@@ -324,7 +324,7 @@ export function SubjectPanel({
                 type="button"
                 onClick={() => onShowNote(v => !v)}
                 className="w-10 h-10 flex items-center justify-center text-lg flex-shrink-0 transition-all cursor-pointer"
-                style={{ background: showNote ? "#FFD000" : "#F8F0DC", border: "3px solid #101010" }}
+                style={{ background: showNote ? "#FFD000" : "#A8A8A8", border: "3px solid #000000" }}
                 title="Not ekle"
               >
                 📝
@@ -334,7 +334,7 @@ export function SubjectPanel({
                 disabled={isPending || !konuBaslik.trim()}
                 className="font-[family-name:var(--font-pixel)] text-[10px] px-3 h-10 flex-shrink-0 transition-all disabled:opacity-40 cursor-pointer"
                 style={{
-                  background: "#18D030",
+                  background: "#00A800",
                   color: "#FFF",
                   border: "3px solid #0A5A0A",
                   boxShadow: "2px 2px 0 0 #3A2010",
@@ -351,9 +351,9 @@ export function SubjectPanel({
                 onChange={e => onKonuAciklama(e.target.value)}
                 className="px-3 py-1.5 font-[family-name:var(--font-body)] text-base outline-none w-full"
                 style={{
-                  background: "#F8F0DC",
-                  border: "3px solid #D0D0E8",
-                  color: "#101010",
+                  background: "#A8A8A8",
+                  border: "3px solid #000000",
+                  color: "#000000",
                 }}
               />
             )}
@@ -363,7 +363,7 @@ export function SubjectPanel({
                   key={o.val} type="button" onClick={() => onKonuOncelik(o.val)}
                   className="font-[family-name:var(--font-body)] text-sm flex items-center gap-1 transition-all cursor-pointer"
                   style={{
-                    color: konuOncelik === o.val ? o.renk : "#8890B8",
+                    color: konuOncelik === o.val ? o.renk : "#A8C8F8",
                     fontWeight: konuOncelik === o.val ? "bold" : "normal",
                   }}
                 >
@@ -374,7 +374,7 @@ export function SubjectPanel({
           </form>
 
           {/* Filtre sekmeleri */}
-          <div className="flex" style={{ borderBottom: "3px solid #D0D0E8" }}>
+          <div className="flex" style={{ borderBottom: "3px solid #000000" }}>
             {([
               { key: "aktif", label: "Aktif", sayi: aktifSayi },
               { key: "tamamlanan", label: "Tamamlanan", sayi: tamamSayi },
@@ -385,13 +385,13 @@ export function SubjectPanel({
                 onClick={() => onFiltre(f.key)}
                 className="flex-1 py-2 flex items-center justify-center gap-1.5 font-[family-name:var(--font-body)] text-base transition-all cursor-pointer"
                 style={filtre === f.key ? {
-                  background: "#101010",
+                  background: "#000000",
                   color: "#FFD000",
-                  borderRight: "3px solid #101010",
+                  borderRight: "3px solid #000000",
                 } : {
-                  background: "#F8F0DC",
-                  color: "#484858",
-                  borderRight: "3px solid #D0D0E8",
+                  background: "#A8A8A8",
+                  color: "#6878A8",
+                  borderRight: "3px solid #000000",
                 }}
               >
                 {f.label}
@@ -400,7 +400,7 @@ export function SubjectPanel({
                     className="text-xs px-1 leading-tight"
                     style={filtre === f.key
                       ? { border: "2px solid #FFFFFF", color: "#FFFFFF" }
-                      : { border: "2px solid #D0D0E8", color: "#484858" }}
+                      : { border: "2px solid #000000", color: "#6878A8" }}
                   >
                     {f.sayi}
                   </span>
@@ -412,11 +412,11 @@ export function SubjectPanel({
           {/* Konu listesi */}
           <div className="flex flex-col">
             {filtreliKonular.length === 0 ? (
-              <div className="py-10 text-center" style={{ background: "#F8F0DC" }}>
+              <div className="py-10 text-center" style={{ background: "#A8A8A8" }}>
                 <span className="text-4xl block mb-2">
                   {filtre === "aktif" ? "🏆" : filtre === "tamamlanan" ? "📭" : "📝"}
                 </span>
-                <p className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#484858" }}>
+                <p className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#6878A8" }}>
                   {filtre === "aktif"
                     ? "Tüm konular tamamlandı, harika!"
                     : filtre === "tamamlanan"

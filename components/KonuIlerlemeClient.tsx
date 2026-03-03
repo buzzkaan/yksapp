@@ -41,26 +41,26 @@ export function KonuIlerlemeClient() {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <span className="font-[family-name:var(--font-body)] text-lg text-[#101010]">
+        <span className="font-[family-name:var(--font-body)] text-lg text-[#000000]">
           Tamamlanan Konular
         </span>
         <span
           className="font-[family-name:var(--font-pixel)] text-lg"
-          style={{ color: pct === 100 ? "#FFD000" : "#18C840" }}
+          style={{ color: pct === 100 ? "#FFD000" : "#00A800" }}
         >
           %{pct}
         </span>
       </div>
 
-      <div className="h-6 border-2 border-[#101010] bg-[#181838] relative overflow-hidden mb-3">
+      <div className="h-6 border-2 border-[#000000] bg-[#000058] relative overflow-hidden mb-3">
         <div
           className="absolute inset-y-0 left-0 transition-all duration-500"
           style={{
             width: `${pct}%`,
             background:
               pct === 100
-                ? "linear-gradient(90deg,#18C840,#FFD000)"
-                : "#18C840",
+                ? "linear-gradient(90deg,#00A800,#FFD000)"
+                : "#00A800",
           }}
         />
         {[25, 50, 75].map((p) => (
@@ -73,7 +73,7 @@ export function KonuIlerlemeClient() {
         <div className="absolute inset-0 flex items-center justify-center">
           <span
             className="font-[family-name:var(--font-body)] text-sm"
-            style={{ color: pct > 45 ? "#fff" : "#8890B8" }}
+            style={{ color: pct > 45 ? "#fff" : "#A8C8F8" }}
           >
             {tamamlanan} / {toplam} konu
           </span>
@@ -82,13 +82,13 @@ export function KonuIlerlemeClient() {
 
       <div className="grid grid-cols-3 gap-2">
         {[
-          { label: "Toplam",     value: toplam,            renk: "#484858" },
-          { label: "Tamamlanan", value: tamamlanan,        renk: "#18C840" },
+          { label: "Toplam",     value: toplam,            renk: "#6878A8" },
+          { label: "Tamamlanan", value: tamamlanan,        renk: "#00A800" },
           { label: "Kalan",      value: toplam - tamamlanan, renk: "#E01828" },
         ].map((s) => (
           <div
             key={s.label}
-            className="border-2 border-[#D0D0E8] py-2 text-center bg-white"
+            className="border-2 border-[#000000] py-2 text-center bg-[#000040]"
           >
             <p
               className="font-[family-name:var(--font-pixel)] text-base"
@@ -96,7 +96,7 @@ export function KonuIlerlemeClient() {
             >
               {s.value}
             </p>
-            <p className="font-[family-name:var(--font-body)] text-sm text-[#484858]">
+            <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8]">
               {s.label}
             </p>
           </div>

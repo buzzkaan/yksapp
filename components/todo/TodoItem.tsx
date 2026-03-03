@@ -31,21 +31,21 @@ export function TodoItem({
     <div
       className={`flex items-start gap-3 px-4 py-3 transition-all ${pending ? "opacity-50 pointer-events-none" : ""}`}
       style={{
-        background: konu.tamamlandi ? "#CCF0B8" : "#F8F0DC",
-        borderBottom: "3px solid #D0D0E8",
+        background: konu.tamamlandi ? "#006800" : "#A8A8A8",
+        borderBottom: "3px solid #000000",
       }}
     >
       <button
         onClick={toggle}
         className="mt-0.5 w-7 h-7 flex-shrink-0 flex items-center justify-center transition-all hover:scale-110 cursor-pointer"
         style={{
-          backgroundColor: konu.tamamlandi ? dersRenk : "#F8F0DC",
-          border: "3px solid #101010",
-          boxShadow: konu.tamamlandi ? "none" : "2px 2px 0 0 #101010",
+          backgroundColor: konu.tamamlandi ? dersRenk : "#A8A8A8",
+          border: "3px solid #000000",
+          boxShadow: konu.tamamlandi ? "none" : "2px 2px 0 0 #000000",
         }}
       >
         {konu.tamamlandi && (
-          <span className="text-white text-base leading-none font-bold" style={{ textShadow: "1px 1px 0 #101010" }}>✓</span>
+          <span className="text-white text-base leading-none font-bold" style={{ textShadow: "1px 1px 0 #000000" }}>✓</span>
         )}
       </button>
 
@@ -53,14 +53,14 @@ export function TodoItem({
         <p
           className="font-[family-name:var(--font-body)] text-lg leading-snug"
           style={{
-            color: konu.tamamlandi ? "#484858" : "#101010",
+            color: konu.tamamlandi ? "#6878A8" : "#000000",
             textDecoration: konu.tamamlandi ? "line-through" : "none",
           }}
         >
           {konu.baslik}
         </p>
         {konu.aciklama && (
-          <p className="font-[family-name:var(--font-body)] text-sm mt-0.5 leading-snug" style={{ color: "#484858" }}>
+          <p className="font-[family-name:var(--font-body)] text-sm mt-0.5 leading-snug" style={{ color: "#6878A8" }}>
             {konu.aciklama}
           </p>
         )}
@@ -78,9 +78,9 @@ export function TodoItem({
           onClick={sil}
           className="w-6 h-6 flex items-center justify-center transition-colors font-[family-name:var(--font-body)] text-lg leading-none cursor-pointer"
           title="Sil"
-          style={{ color: "#8890B8" }}
+          style={{ color: "#A8C8F8" }}
           onMouseEnter={e => (e.currentTarget.style.color = "#E01828")}
-          onMouseLeave={e => (e.currentTarget.style.color = "#8890B8")}
+          onMouseLeave={e => (e.currentTarget.style.color = "#A8C8F8")}
         >
           ✕
         </button>

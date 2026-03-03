@@ -59,7 +59,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
   return (
     <PixelCard className="w-full">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <h2 className="font-[family-name:var(--font-pixel)] text-xs text-[#101010]">
+        <h2 className="font-[family-name:var(--font-pixel)] text-xs text-[#000000]">
           Yeni Deneme Ekle
         </h2>
 
@@ -80,20 +80,20 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
 
         {/* Tarih */}
         <div>
-          <label className="font-[family-name:var(--font-body)] text-lg text-[#101010] block mb-1">
+          <label className="font-[family-name:var(--font-body)] text-lg text-[#000000] block mb-1">
             Tarih:
           </label>
           <input
             type="date"
             value={tarih}
             onChange={(e) => setTarih(e.target.value)}
-            className="border-4 border-[#101010] bg-white px-3 py-1 font-[family-name:var(--font-body)] text-lg text-[#101010] w-full outline-none focus:border-[#2878F8]"
+            className="border-4 border-[#000000] bg-white px-3 py-1 font-[family-name:var(--font-body)] text-lg text-[#000000] w-full outline-none focus:border-[#2878F8]"
           />
         </div>
 
         {/* Dersler */}
         <div className="flex flex-col gap-2">
-          <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-sm text-[#484858]">
+          <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-sm text-[#6878A8]">
             <span>Ders</span>
             <span className="text-center">Doğru</span>
             <span className="text-center">Yanlış</span>
@@ -101,7 +101,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
           </div>
           {dersler.map((ders, idx) => (
             <div key={ders.dersAdi} className="grid grid-cols-4 gap-1 items-center">
-              <span className="font-[family-name:var(--font-body)] text-sm text-[#101010] truncate">
+              <span className="font-[family-name:var(--font-body)] text-sm text-[#000000] truncate">
                 {ders.dersAdi}
               </span>
               {(["dogru", "yanlis", "bos"] as const).map((field) => (
@@ -111,7 +111,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
                   min="0"
                   value={ders[field]}
                   onChange={(e) => updateDers(idx, field, parseInt(e.target.value) || 0)}
-                  className="border-4 border-[#101010] bg-white px-1 py-1 font-[family-name:var(--font-body)] text-lg text-center text-[#101010] w-full outline-none focus:border-[#2878F8]"
+                  className="border-4 border-[#000000] bg-white px-1 py-1 font-[family-name:var(--font-body)] text-lg text-center text-[#000000] w-full outline-none focus:border-[#2878F8]"
                 />
               ))}
             </div>
@@ -119,11 +119,11 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
         </div>
 
         {/* Toplam net */}
-        <div className="border-t-4 border-[#101010] pt-3 flex justify-between items-center">
-          <span className="font-[family-name:var(--font-body)] text-lg text-[#101010]">
+        <div className="border-t-4 border-[#000000] pt-3 flex justify-between items-center">
+          <span className="font-[family-name:var(--font-body)] text-lg text-[#000000]">
             Toplam Net:
           </span>
-          <span className="font-[family-name:var(--font-pixel)] text-sm text-[#18C840]">
+          <span className="font-[family-name:var(--font-pixel)] text-sm text-[#00A800]">
             {toplamNet.toFixed(2)}
           </span>
         </div>

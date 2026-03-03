@@ -75,15 +75,15 @@ export function TaskPanel({
           <div
             className="flex items-center justify-between px-4 py-2.5"
             style={{
-              background: "#181838",
-              borderBottom: "4px solid #101010",
+              background: "#000058",
+              borderBottom: "4px solid #000000",
             }}
           >
             <div className="flex items-center gap-2 min-w-0">
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#606878" }}>◆</span>
+              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>◆</span>
               <span
                 className="font-[family-name:var(--font-pixel)] text-[11px] truncate"
-                style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
+                style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
               >
                 {selectedDateLabel}
               </span>
@@ -91,9 +91,9 @@ export function TaskPanel({
                 <span
                   className="font-[family-name:var(--font-pixel)] text-[9px] px-1.5 py-0.5 flex-shrink-0"
                   style={{
-                    background: tamamlanan === toplam ? "#18C840" : "#101010",
-                    color: tamamlanan === toplam ? "#FFF" : "#8890B8",
-                    border: "2px solid #101010",
+                    background: tamamlanan === toplam ? "#00A800" : "#000000",
+                    color: tamamlanan === toplam ? "#FFF" : "#A8C8F8",
+                    border: "2px solid #000000",
                   }}
                 >
                   {tamamlanan}/{toplam}
@@ -104,10 +104,10 @@ export function TaskPanel({
               onClick={() => onShowGorevForm(v => !v)}
               className="font-[family-name:var(--font-pixel)] text-[10px] px-3 py-1.5 transition-all cursor-pointer flex-shrink-0"
               style={{
-                background: showGorevForm ? "#484858" : "#18C840",
+                background: showGorevForm ? "#6878A8" : "#00A800",
                 color: "#FFF",
-                border: "3px solid #101010",
-                boxShadow: showGorevForm ? "none" : "2px 2px 0 0 #101010",
+                border: "3px solid #000000",
+                boxShadow: showGorevForm ? "none" : "2px 2px 0 0 #000000",
               }}
             >
               {showGorevForm ? "✕ İPTAL" : "+ GÖREV"}
@@ -119,7 +119,7 @@ export function TaskPanel({
             <form
               onSubmit={onGorevEkle}
               className="px-4 py-3 flex flex-col gap-2.5"
-              style={{ background: "#F0E8D8", borderBottom: "4px solid #101010" }}
+              style={{ background: "#F0E8D8", borderBottom: "4px solid #000000" }}
             >
               <input
                 type="text"
@@ -130,8 +130,8 @@ export function TaskPanel({
                 className="px-3 py-2 font-[family-name:var(--font-body)] text-xl outline-none w-full"
                 style={{
                   background: "#FAFAF0",
-                  border: "3px solid #101010",
-                  color: "#101010",
+                  border: "3px solid #000000",
+                  color: "#000000",
                   boxShadow: "inset 2px 2px 0 0 #D0C8B0",
                 }}
               />
@@ -144,16 +144,16 @@ export function TaskPanel({
                 style={{
                   background: "#FAFAF0",
                   border: "2px solid #C0B890",
-                  color: "#484858",
+                  color: "#6878A8",
                   boxShadow: "inset 1px 1px 0 0 #D0C8B0",
                 }}
               />
 
               {/* Öncelik */}
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#606878" }}>ÖNCELİK</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>ÖNCELİK</span>
                 {[
-                  { val: 1, label: "DÜŞÜK", color: "#18C840", dark: "#107030" },
+                  { val: 1, label: "DÜŞÜK", color: "#00A800", dark: "#107030" },
                   { val: 2, label: "ORTA", color: "#F89000", dark: "#C07000" },
                   { val: 3, label: "YÜKSEK", color: "#E01828", dark: "#A01020" },
                 ].map(p => (
@@ -164,9 +164,9 @@ export function TaskPanel({
                     className="font-[family-name:var(--font-pixel)] text-[9px] px-2.5 py-1 cursor-pointer transition-all"
                     style={{
                       background: gorevOncelik === p.val ? p.color : "#E8E0D0",
-                      color: gorevOncelik === p.val ? "#FFF" : "#606878",
-                      border: `2px solid ${gorevOncelik === p.val ? "#101010" : "#C0B890"}`,
-                      boxShadow: gorevOncelik === p.val ? "2px 2px 0 0 #101010" : "none",
+                      color: gorevOncelik === p.val ? "#FFF" : "#6878A8",
+                      border: `2px solid ${gorevOncelik === p.val ? "#000000" : "#C0B890"}`,
+                      boxShadow: gorevOncelik === p.val ? "2px 2px 0 0 #000000" : "none",
                     }}
                   >
                     {p.label}
@@ -176,16 +176,16 @@ export function TaskPanel({
 
               {/* Renk */}
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#606878" }}>RENK</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>RENK</span>
                 {GOREV_RENKLER.map(r => (
                   <button
                     key={r} type="button" onClick={() => onGorevRenk(r)}
                     className="w-6 h-6 cursor-pointer transition-transform"
                     style={{
                       backgroundColor: r,
-                      border: `3px solid ${gorevRenk === r ? "#101010" : "#C0B890"}`,
+                      border: `3px solid ${gorevRenk === r ? "#000000" : "#C0B890"}`,
                       transform: gorevRenk === r ? "scale(1.2)" : "scale(1)",
-                      boxShadow: gorevRenk === r ? "2px 2px 0 0 #101010" : "none",
+                      boxShadow: gorevRenk === r ? "2px 2px 0 0 #000000" : "none",
                     }}
                   />
                 ))}
@@ -196,10 +196,10 @@ export function TaskPanel({
                   type="submit"
                   className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-2 cursor-pointer"
                   style={{
-                    background: "#18C840",
+                    background: "#00A800",
                     color: "#FFF",
-                    border: "3px solid #101010",
-                    boxShadow: "2px 2px 0 0 #101010",
+                    border: "3px solid #000000",
+                    boxShadow: "2px 2px 0 0 #000000",
                   }}
                 >
                   ✓ EKLE
@@ -210,7 +210,7 @@ export function TaskPanel({
                   className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-2 cursor-pointer"
                   style={{
                     background: "#E8E0D0",
-                    color: "#484858",
+                    color: "#6878A8",
                     border: "3px solid #C0B890",
                   }}
                 >
@@ -241,16 +241,16 @@ export function TaskPanel({
             <div className="flex flex-col">
               {selectedGorevler.map((g, idx) => {
                 const isOverdue = !g.tamamlandi && selectedDate < todayStr;
-                const oncelikColor = g.oncelik === 3 ? "#E01828" : g.oncelik === 2 ? "#F89000" : "#18C840";
+                const oncelikColor = g.oncelik === 3 ? "#E01828" : g.oncelik === 2 ? "#F89000" : "#00A800";
                 const oncelikLabel = g.oncelik === 3 ? "!" : g.oncelik === 2 ? "·" : "";
                 return (
                   <div
                     key={g.id}
                     className="flex items-center gap-3 px-4 py-3"
                     style={{
-                      background: g.tamamlandi ? "#E8F4E0" : isOverdue ? "#FFF0F0" : "#F8F0DC",
+                      background: g.tamamlandi ? "#006800" : isOverdue ? "#FFF0F0" : "#A8A8A8",
                       borderBottom: idx < selectedGorevler.length - 1 ? "2px solid #D8D0C0" : "none",
-                      borderLeft: `5px solid ${g.tamamlandi ? "#18C840" : g.renk}`,
+                      borderLeft: `5px solid ${g.tamamlandi ? "#00A800" : g.renk}`,
                     }}
                   >
                     {/* Checkbox */}
@@ -258,9 +258,9 @@ export function TaskPanel({
                       onClick={() => !g.tamamlandi && onGorevTamamla(g.id)}
                       className="w-7 h-7 flex-shrink-0 flex items-center justify-center transition-all cursor-pointer"
                       style={{
-                        background: g.tamamlandi ? "#18C840" : "#FAFAF0",
-                        border: `3px solid ${g.tamamlandi ? "#107030" : "#101010"}`,
-                        boxShadow: g.tamamlandi ? "none" : "2px 2px 0 0 #101010",
+                        background: g.tamamlandi ? "#00A800" : "#FAFAF0",
+                        border: `3px solid ${g.tamamlandi ? "#107030" : "#000000"}`,
+                        boxShadow: g.tamamlandi ? "none" : "2px 2px 0 0 #000000",
                       }}
                       disabled={g.tamamlandi}
                     >
@@ -275,7 +275,7 @@ export function TaskPanel({
                         <span
                           className="font-[family-name:var(--font-body)] text-xl leading-tight"
                           style={{
-                            color: g.tamamlandi ? "#70A060" : "#101010",
+                            color: g.tamamlandi ? "#A8C8F8" : "#000000",
                             textDecoration: g.tamamlandi ? "line-through" : "none",
                           }}
                         >
@@ -284,7 +284,7 @@ export function TaskPanel({
                         {!g.tamamlandi && g.oncelik !== 1 && (
                           <span
                             className="font-[family-name:var(--font-pixel)] text-[8px] px-1.5 py-0.5 flex-shrink-0"
-                            style={{ background: oncelikColor, color: "#FFF", border: "2px solid #101010" }}
+                            style={{ background: oncelikColor, color: "#FFF", border: "2px solid #000000" }}
                           >
                             {g.oncelik === 3 ? "YÜKSEK" : "ORTA"}
                           </span>
@@ -292,7 +292,7 @@ export function TaskPanel({
                         {isOverdue && (
                           <span
                             className="font-[family-name:var(--font-pixel)] text-[8px] px-1.5 py-0.5 flex-shrink-0"
-                            style={{ background: "#E01828", color: "#FFF", border: "2px solid #101010" }}
+                            style={{ background: "#E01828", color: "#FFF", border: "2px solid #000000" }}
                           >
                             GEÇ
                           </span>
@@ -335,7 +335,7 @@ export function TaskPanel({
               {tamamlanan === toplam && toplam > 0 && (
                 <div
                   className="px-4 py-2.5 text-center"
-                  style={{ background: "#D4ECC8", borderTop: "3px solid #18C840" }}
+                  style={{ background: "#D4ECC8", borderTop: "3px solid #00A800" }}
                 >
                   <span className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#107030" }}>
                     🏆 Günün görevleri tamamlandı!
@@ -354,7 +354,7 @@ export function TaskPanel({
             >
               [ GÜN SEÇİLMEDİ ]
             </div>
-            <p className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#606878" }}>
+            <p className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#6878A8" }}>
               Takvimden bir gün seç
             </p>
           </div>

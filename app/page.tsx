@@ -156,7 +156,7 @@ export default async function HomePage() {
 
               {/* Pomodoro */}
               <div className="flex flex-col items-center justify-center px-2 py-4 gap-1 text-center">
-                <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#909090" }}>
+                <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#6878A8" }}>
                   POMODORO
                 </span>
                 <span
@@ -172,7 +172,7 @@ export default async function HomePage() {
 
               {/* Görevler */}
               <div className="flex flex-col items-center justify-center px-3 py-4 gap-1.5 text-center">
-                <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#909090" }}>
+                <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#6878A8" }}>
                   GÖREVLER
                 </span>
                 <div className="flex items-baseline gap-1">
@@ -183,7 +183,7 @@ export default async function HomePage() {
                     {toplamGorev === 0 ? "—" : tamamlananGorev}
                   </span>
                   {toplamGorev > 0 && (
-                    <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#909090" }}>
+                    <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#6878A8" }}>
                       /{toplamGorev}
                     </span>
                   )}
@@ -212,7 +212,7 @@ export default async function HomePage() {
 
               {/* Son Deneme */}
               <div className="flex flex-col items-center justify-center px-2 py-4 gap-1 text-center">
-                <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#909090" }}>
+                <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#6878A8" }}>
                   SON DENEME
                 </span>
                 <span
@@ -365,14 +365,14 @@ export default async function HomePage() {
               className="border-4 border-[#101010] p-3 flex flex-col gap-1"
               style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}
             >
-              <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#909090" }}>
+              <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#6878A8" }}>
                 BU HAFTA · GÖREV
               </span>
               <div className="flex items-baseline gap-1">
                 <span className="font-[family-name:var(--font-pixel)] text-2xl" style={{ color: "#F89000" }}>
                   {istatistik.haftaGorev.tamamlanan}
                 </span>
-                <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#909090" }}>
+                <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#6878A8" }}>
                   /{istatistik.haftaGorev.toplam} tamamlandı
                 </span>
               </div>
@@ -393,14 +393,14 @@ export default async function HomePage() {
               className="border-4 border-[#101010] p-3 flex flex-col gap-1"
               style={{ background: "#F8F0DC", boxShadow: "3px 3px 0 0 #101010" }}
             >
-              <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#909090" }}>
+              <span className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#6878A8" }}>
                 BU HAFTA · POMODORO
               </span>
               <div className="flex items-baseline gap-1">
                 <span className="font-[family-name:var(--font-pixel)] text-2xl" style={{ color: "#E01828" }}>
                   {istatistik.haftaPomodoro}
                 </span>
-                <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#909090" }}>
+                <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#6878A8" }}>
                   oturum
                 </span>
               </div>
