@@ -1,13 +1,6 @@
 export function DarkBox({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div
-      className={className}
-      style={{
-        background: "#000058",
-        border: "4px solid #000000",
-        boxShadow: "4px 4px 0 0 #080828",
-      }}
-    >
+    <div className={`bg-mario-navy border-4 border-black shadow-pixel-navy ${className}`}>
       {children}
     </div>
   );

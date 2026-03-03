@@ -6,11 +6,12 @@ export const SINAV_TARIHLERI: Record<SinavTipi, { tarih: Date; etiket: string }>
   KPSS: { tarih: new Date(2026, 6, 5), etiket: "GY/GK · 5 Temmuz 2026" },
 };
 
+// Returns Mario palette hex values for urgency indicators
 export function aciliyetRengi(gun: number): string {
-  if (gun <= 0) return "#A0A8C0";
-  if (gun <= 30) return "#E04048";
-  if (gun <= 90) return "#F8D030";
-  return "#48B848";
+  if (gun <= 0)  return "#A8A8A8"; // mario-stone  (done)
+  if (gun <= 30) return "#E40000"; // mario-red    (urgent)
+  if (gun <= 90) return "#FFD000"; // mario-gold   (warning)
+  return "#00A800";                // mario-green  (safe)
 }
 
 export function mesaj(gun: number): string {

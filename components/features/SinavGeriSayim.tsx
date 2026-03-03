@@ -8,12 +8,12 @@ import { SINAV_TARIHLERI, aciliyetRengi, mesaj } from "@/lib/config/sinav-tarihl
 import type { SinavTipi } from "@/lib/sinav-data";
 import { ICONS } from "@/lib/constants/icons";
 
-const CORNER_POSITIONS = [
-  "absolute top-[-2px] left-[-2px]",
-  "absolute top-[-2px] right-[-2px]",
-  "absolute bottom-[-2px] left-[-2px]",
-  "absolute bottom-[-2px] right-[-2px]",
-];
+const CORNERS = [
+  "top-[-2px] left-[-2px]",
+  "top-[-2px] right-[-2px]",
+  "bottom-[-2px] left-[-2px]",
+  "bottom-[-2px] right-[-2px]",
+] as const;
 
 export function SinavGeriSayim() {
   const [sinav, setSinav] = useState<SinavTipi>("YKS");
@@ -22,93 +22,70 @@ export function SinavGeriSayim() {
     setSinav(getSinavTipi());
   }, []);
 
-  const gunler = hesaplaGunler(SINAV_TARIHLERI[sinav].tarih);
-
-  const meta = SINAV_META[sinav];
+  const gunler    = hesaplaGunler(SINAV_TARIHLERI[sinav].tarih);
+  const meta      = SINAV_META[sinav];
   const tarihBilgi = SINAV_TARIHLERI[sinav];
-  const renk = aciliyetRengi(gunler);
-  const bitti = gunler <= 0;
+  const renk      = aciliyetRengi(gunler);
+  const bitti     = gunler <= 0;
+  const fontSize  = bitti ? "28px" : gunler >= 100 ? "36px" : "44px";
 
   return (
-    <div
-      className="relative border-4 border-[#000000] overflow-hidden"
-      style={{
-        background: "#000058",
-        boxShadow: "4px 4px 0 0 #000000",
-      }}
-    >
-      {CORNER_POSITIONS.map((pos) => (
+    <div className="relative border-4 border-black bg-mario-navy shadow-pixel overflow-hidden">
+      {/* Corner dots in exam color */}
+      {CORNERS.map((pos) => (
         <div
           key={pos}
-          className={`${pos} w-[10px] h-[10px] border-2 border-[#000000] z-10`}
+          className={`absolute ${pos} w-[10px] h-[10px] border-2 border-black z-10`}
           style={{ background: meta.renk }}
         />
       ))}
 
       {/* Top strip */}
-      <div className="flex items-center justify-between px-4 py-2 border-b-2 border-[#1E1E40]">
+      <div className="flex items-center justify-between px-4 py-2 border-b-2 border-mario-navy-dark">
         <div className="flex items-center gap-2">
           <Image src={meta.icon} alt={meta.isim} width={20} height={20} className="w-5 h-5" />
           <span
-            className="font-[family-name:var(--font-pixel)] text-[10px] leading-tight tracking-wider"
+            className="font-pixel text-[10px] leading-tight tracking-wider"
             style={{ color: meta.renk }}
           >
             {meta.isim} 2026
           </span>
         </div>
-        <span
-          className="font-[family-name:var(--font-body)] text-sm border border-[#1E1E40] px-2 py-0.5"
-          style={{ color: "#6878A8" }}
-        >
+        <span className="font-body text-sm border border-mario-navy-dark px-2 py-0.5 text-mario-slate">
           yaklaşık tarih
         </span>
       </div>
 
       {/* Main counter */}
       <div className="flex items-center justify-between px-4 py-4 gap-4">
-        <div className="flex flex-col items-center flex-shrink-0">
+        <div className="flex flex-col items-center shrink-0">
           <span
-            className="font-[family-name:var(--font-pixel)] leading-none tabular-nums"
-            style={{
-              fontSize: bitti ? "28px" : gunler >= 100 ? "36px" : "44px",
-              color: renk,
-              textShadow: `2px 2px 0 ${renk}40`,
-            }}
+            className="font-pixel leading-none tabular-nums"
+            style={{ fontSize, color: renk, textShadow: `2px 2px 0 ${renk}40` }}
           >
             {bitti ? "✓" : gunler}
           </span>
           {!bitti && (
-            <span
-              className="font-[family-name:var(--font-body)] text-base mt-1 tracking-widest"
-              style={{ color: "#A8C8F8" }}
-            >
+            <span className="font-body text-base mt-1 tracking-widest text-mario-light">
               GÜN KALDI
             </span>
           )}
         </div>
 
         <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-          <p
-            className="font-[family-name:var(--font-body)] text-lg leading-snug"
-            style={{ color: "#F0F0F0" }}
-          >
+          <p className="font-body text-lg leading-snug text-white">
             {mesaj(gunler)}
           </p>
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span
-              className="font-[family-name:var(--font-body)] text-base border border-[#1E1E40] px-2 py-0.5 leading-tight"
-              style={{ color: "#A8C8F8", background: "#000000" }}
-            >
-              <Image src={ICONS.calendar} alt="tarih" width={14} height={14} className="inline w-3.5 h-3.5 mr-1" />
-              {tarihBilgi.etiket}
-            </span>
-          </div>
+          <span className="font-body text-base border border-mario-navy-dark px-2 py-0.5 leading-tight text-mario-light bg-black inline-flex items-center gap-1 w-fit">
+            <Image src={ICONS.calendar} alt="tarih" width={14} height={14} className="w-3.5 h-3.5" />
+            {tarihBilgi.etiket}
+          </span>
         </div>
       </div>
 
       {/* Bottom urgency bar */}
       {!bitti && (
-        <div className="border-t-2 border-[#1E1E40]">
+        <div className="border-t-2 border-mario-navy-dark">
           <div
             className="h-1.5 transition-all duration-1000"
             style={{

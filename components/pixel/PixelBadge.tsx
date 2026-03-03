@@ -1,31 +1,33 @@
 import { cn } from "@/lib/utils";
 
-interface PixelBadgeProps {
-  children: React.ReactNode;
-  variant?: "green" | "gold" | "red" | "purple" | "blue";
-  className?: string;
-}
+// Mario badge variants: Pipe Green | Coin Gold | Mario Red | Purple | Underground Blue
 
-// Mario Badge Variants: Boru Yeşil | Jeton Altın | Mario Kırmızı | Mor | Yeraltı Mavi
-const variantStyles: Record<string, { cls: string; shadow: string }> = {
-  green:  { cls: "bg-[#00A800] border-[#000000] text-white",    shadow: "2px 2px 0 0 #006800" },
-  gold:   { cls: "bg-[#FFD000] border-[#000000] text-[#000000]",shadow: "2px 2px 0 0 #804000" },
-  red:    { cls: "bg-[#E40000] border-[#000000] text-white",    shadow: "2px 2px 0 0 #880000" },
-  purple: { cls: "bg-[#8838C8] border-[#000000] text-white",    shadow: "2px 2px 0 0 #000000" },
-  blue:   { cls: "bg-[#0058F8] border-[#000000] text-white",    shadow: "2px 2px 0 0 #000000" },
+type Variant = "green" | "gold" | "red" | "purple" | "blue";
+
+const VARIANTS: Record<Variant, string> = {
+  green:  "bg-mario-green  border-black text-white  shadow-pixel-sm-green",
+  gold:   "bg-mario-gold   border-black text-black  shadow-pixel-sm-gold",
+  red:    "bg-mario-red    border-black text-white  shadow-pixel-sm-red",
+  purple: "bg-[#8838C8]    border-black text-white  shadow-pixel-sm",
+  blue:   "bg-mario-blue   border-black text-white  shadow-pixel-sm",
 };
 
-export function PixelBadge({ children, variant = "green", className }: PixelBadgeProps) {
-  const v = variantStyles[variant];
+export function PixelBadge({
+  children,
+  variant = "green",
+  className,
+}: {
+  children: React.ReactNode;
+  variant?: Variant;
+  className?: string;
+}) {
   return (
     <span
       className={cn(
-        "inline-block border-2 px-2 py-0.5",
-        "font-[family-name:var(--font-pixel)] text-[9px]",
-        v.cls,
+        "inline-block border-2 px-2 py-0.5 font-pixel text-[9px]",
+        VARIANTS[variant],
         className
       )}
-      style={{ boxShadow: v.shadow }}
     >
       {children}
     </span>

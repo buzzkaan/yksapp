@@ -1,74 +1,42 @@
 import { cn } from "@/lib/utils";
 
-interface PixelCardProps {
-  children: React.ReactNode;
-  className?: string;
-  variant?: "wood" | "stone" | "gold" | "dark" | "green";
-}
+// Mario block variants:
+// wood → Brick Block | stone → Stone Block | gold → ? Block
+// dark → Underground  | green → Pipe
 
-// Mario Block Variants:
-// wood  → Tuğla Blok   | stone → Taş Blok | gold → ? Blok
-// dark  → Yeraltı      | green → Boru
+type Variant = "wood" | "stone" | "gold" | "dark" | "green";
 
-const variants: Record<string, { bg: string; border: string; shadow: string; text?: string; corner: string }> = {
-  wood: {
-    bg:     "#C88040",
-    border: "#000000",
-    shadow: "4px 4px 0 0 #8B4000",
-    corner: "#FFD000",
-  },
-  stone: {
-    bg:     "#A8A8A8",
-    border: "#000000",
-    shadow: "4px 4px 0 0 #505050",
-    corner: "#FFFFFF",
-  },
-  gold: {
-    bg:     "#FFD000",
-    border: "#000000",
-    shadow: "4px 4px 0 0 #804000",
-    corner: "#FFFFFF",
-  },
-  dark: {
-    bg:     "#000058",
-    border: "#000000",
-    shadow: "4px 4px 0 0 #000030",
-    text:   "#FFFFFF",
-    corner: "#FFD000",
-  },
-  green: {
-    bg:     "#00A800",
-    border: "#000000",
-    shadow: "4px 4px 0 0 #006800",
-    corner: "#FFD000",
-  },
+const VARIANTS: Record<Variant, { card: string; shadow: string; corner: string }> = {
+  wood:  { card: "bg-mario-brown  border-black text-black", shadow: "shadow-pixel-brown", corner: "bg-mario-gold"  },
+  stone: { card: "bg-mario-stone  border-black text-black", shadow: "shadow-pixel-stone", corner: "bg-white"       },
+  gold:  { card: "bg-mario-gold   border-black text-black", shadow: "shadow-pixel-gold",  corner: "bg-white"       },
+  dark:  { card: "bg-mario-navy   border-black text-white", shadow: "shadow-pixel-navy",  corner: "bg-mario-gold"  },
+  green: { card: "bg-mario-green  border-black text-white", shadow: "shadow-pixel-green", corner: "bg-mario-gold"  },
 };
 
-const CORNER_POSITIONS = [
-  "absolute top-[-2px] left-[-2px]",
-  "absolute top-[-2px] right-[-2px]",
-  "absolute bottom-[-2px] left-[-2px]",
-  "absolute bottom-[-2px] right-[-2px]",
-];
+const CORNERS = [
+  "top-[-2px] left-[-2px]",
+  "top-[-2px] right-[-2px]",
+  "bottom-[-2px] left-[-2px]",
+  "bottom-[-2px] right-[-2px]",
+] as const;
 
-export function PixelCard({ children, className, variant = "wood" }: PixelCardProps) {
-  const v = variants[variant];
+export function PixelCard({
+  children,
+  className,
+  variant = "wood",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  variant?: Variant;
+}) {
+  const v = VARIANTS[variant];
   return (
-    <div
-      className={cn("relative border-4 p-4", className)}
-      style={{
-        background: v.bg,
-        borderColor: v.border,
-        color: v.text,
-        boxShadow: v.shadow,
-        imageRendering: "pixelated",
-      }}
-    >
-      {CORNER_POSITIONS.map((pos) => (
+    <div className={cn("relative border-4 p-4 image-pixel", v.card, v.shadow, className)}>
+      {CORNERS.map((pos) => (
         <div
           key={pos}
-          className={pos}
-          style={{ position: "absolute", width: 10, height: 10, background: v.corner, border: "2px solid #000000", zIndex: 1 }}
+          className={cn("absolute w-[10px] h-[10px] border-2 border-black z-10", pos, v.corner)}
         />
       ))}
       {children}

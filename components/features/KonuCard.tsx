@@ -1,9 +1,24 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { PixelBadge } from "@/components/pixel/PixelBadge";
 import { konuToggle, konuSil } from "@/server/actions/konular";
 import toast from "react-hot-toast";
 
-interface KonuCardProps {
+const ONCELIK_MAP = {
+  1: { label: "Düşük",  variant: "green" as const },
+  2: { label: "Orta",   variant: "gold"  as const },
+  3: { label: "Yüksek", variant: "red"   as const },
+};
+
+export function KonuCard({
+  id,
+  baslik,
+  aciklama,
+  tamamlandi,
+  oncelik,
+  dersRenk,
+  onRefresh,
+}: {
   id: string;
   baslik: string;
   aciklama?: string | null;
@@ -11,16 +26,8 @@ interface KonuCardProps {
   oncelik: number;
   dersRenk: string;
   onRefresh?: () => void;
-}
-
-const oncelikMap = {
-  1: { label: "Düşük", variant: "green" as const },
-  2: { label: "Orta",  variant: "gold"  as const },
-  3: { label: "Yüksek", variant: "red"  as const },
-};
-
-export function KonuCard({ id, baslik, aciklama, tamamlandi, oncelik, dersRenk, onRefresh }: KonuCardProps) {
-  const p = oncelikMap[oncelik as 1 | 2 | 3] ?? oncelikMap[1];
+}) {
+  const p = ONCELIK_MAP[oncelik as 1 | 2 | 3] ?? ONCELIK_MAP[1];
 
   async function handleToggle() {
     if (tamamlandi) return;
@@ -37,39 +44,37 @@ export function KonuCard({ id, baslik, aciklama, tamamlandi, oncelik, dersRenk, 
 
   return (
     <div
-      className={`flex items-start gap-3 border-4 border-[#000000] p-3 transition-all ${
-        tamamlandi ? "opacity-60 bg-[#006800]" : "bg-[#000040]"
-      }`}
-      style={{ borderLeftColor: dersRenk, borderLeftWidth: "8px" }}
+      className={cn(
+        "flex items-start gap-3 border-4 border-black p-3 border-l-[8px] transition-all",
+        tamamlandi ? "opacity-60 bg-mario-green-dark" : "bg-mario-navy"
+      )}
+      style={{ borderLeftColor: dersRenk }}
     >
       <button
         onClick={handleToggle}
-        className="mt-0.5 w-6 h-6 border-4 border-[#000000] flex-shrink-0 flex items-center justify-center bg-white hover:bg-[#00A800] transition-colors"
+        className="mt-0.5 w-6 h-6 border-4 border-black shrink-0 flex items-center justify-center bg-white hover:bg-mario-green transition-colors"
         title={tamamlandi ? "Tamamlandı" : "Tamamla"}
       >
         {tamamlandi && <span className="text-xs leading-none text-white">✓</span>}
       </button>
 
       <div className="flex-1 min-w-0">
-        <p
-          className={`font-[family-name:var(--font-body)] text-lg leading-tight ${
-            tamamlandi ? "line-through text-[#A8C8F8]" : "text-[#A8C8F8]"
-          }`}
-        >
+        <p className={cn(
+          "font-body text-lg leading-tight text-mario-light",
+          tamamlandi && "line-through"
+        )}>
           {baslik}
         </p>
         {aciklama && (
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#A8C8F8] mt-0.5">
-            {aciklama}
-          </p>
+          <p className="font-body text-sm text-mario-light mt-0.5">{aciklama}</p>
         )}
       </div>
 
-      <div className="flex items-center gap-2 flex-shrink-0">
+      <div className="flex items-center gap-2 shrink-0">
         <PixelBadge variant={p.variant}>{p.label}</PixelBadge>
         <button
           onClick={handleSil}
-          className="text-[#CC0820] hover:text-[#E00820] font-[family-name:var(--font-body)] text-lg"
+          className="font-body text-lg text-mario-red hover:text-mario-red-dark transition-colors"
           title="Sil"
         >
           ✕

@@ -5,24 +5,31 @@
 
 @theme inline {
   /* ─── Mario NES Palette ─── */
-  --color-poke-red:    #E40000;
-  --color-poke-blue:   #0058F8;
-  --color-poke-yellow: #FFD000;
-  --color-poke-green:  #00A800;
-  --color-poke-navy:   #000058;
-  --color-poke-screen: #C88040;
-  --color-poke-cream:  #E8D8A8;
-  --color-poke-border: #000000;
-  --color-poke-muted:  #A8A8A8;
-  --color-poke-light:  #A8C8F8;
-
-  --color-pixel-border: #000000;
-  --color-pixel-bg:     #C88040;
-  --color-pixel-shadow: #000000;
+  --color-mario-red:        #E40000;  /* Mario hat / danger      */
+  --color-mario-red-dark:   #880000;  /* Red shadow              */
+  --color-mario-gold:       #FFD000;  /* Coins / accent          */
+  --color-mario-gold-dark:  #804000;  /* Gold shadow             */
+  --color-mario-green:      #00A800;  /* Pipes / success         */
+  --color-mario-green-dark: #006800;  /* Pipe shadow             */
+  --color-mario-blue:       #0058F8;  /* Water / info            */
+  --color-mario-sky:        #5C94FC;  /* Sky background          */
+  --color-mario-navy:       #000058;  /* Night / sidebar         */
+  --color-mario-navy-dark:  #000030;  /* Deep night              */
+  --color-mario-brown:      #C88040;  /* Bricks / wood           */
+  --color-mario-brown-dark: #8B4000;  /* Wood shadow             */
+  --color-mario-stone:      #A8A8A8;  /* Stone blocks            */
+  --color-mario-stone-dark: #505050;  /* Stone shadow            */
+  --color-mario-light:      #A8C8F8;  /* Light sky               */
+  --color-mario-cream:      #E8D8A8;  /* Warm cream              */
+  --color-mario-slate:      #6878A8;  /* Muted blue-gray         */
+  --color-mario-slate-dark: #4858A8;  /* Dark slate              */
+  --color-mario-parchment:  #F8F0DC;  /* Parchment / warm white  */
+  --color-mario-inactive:   #D0C8B8;  /* Inactive / empty        */
 
   --font-pixel: var(--font-pixel-start);
   --font-body:  var(--font-vt323);
 
+  /* ─── shadcn/ui semantic tokens ─── */
   --color-background:           var(--background);
   --color-foreground:           var(--foreground);
   --color-border:               var(--border);
@@ -68,7 +75,7 @@
   --ring:                      #FFD000;
 }
 
-/* ─── Yazı boyutu & stil ayarları ───────────────────────────────────────── */
+/* ─── Yazı boyutu & stil ayarları ─── */
 :root[data-boyut="kucuk"] { font-size: 13px; }
 :root[data-boyut="buyuk"] { font-size: 20px; }
 
@@ -79,19 +86,17 @@
 :root[data-stil="modern"][data-boyut="kucuk"] { font-size: 11px; }
 :root[data-stil="modern"][data-boyut="buyuk"] { font-size: 15px; }
 
-/* ─── Base ───────────────────────────────────────────────────────────────── */
+/* ─── Base ─── */
 @layer base {
   * {
-    @apply border-black outline-[#FFD000]/50;
+    @apply border-black outline-mario-gold/50;
     box-sizing: border-box;
   }
 
   body {
     background-color: #5C94FC;
     background-image:
-      /* ─── Piksel Bulutlar (Mario gökyüzü) ─── */
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='160'%3E%3Crect x='40' y='16' width='24' height='4' fill='%23fff'/%3E%3Crect x='32' y='20' width='40' height='4' fill='%23fff'/%3E%3Crect x='24' y='24' width='56' height='4' fill='%23fff'/%3E%3Crect x='24' y='28' width='56' height='4' fill='%23fff'/%3E%3Crect x='316' y='10' width='16' height='4' fill='%23fff'/%3E%3Crect x='308' y='14' width='32' height='4' fill='%23fff'/%3E%3Crect x='304' y='18' width='40' height='4' fill='%23fff'/%3E%3Crect x='304' y='22' width='40' height='4' fill='%23fff'/%3E%3Crect x='184' y='96' width='24' height='4' fill='%23fff'/%3E%3Crect x='172' y='100' width='48' height='4' fill='%23fff'/%3E%3Crect x='156' y='104' width='72' height='4' fill='%23fff'/%3E%3Crect x='156' y='108' width='72' height='4' fill='%23fff'/%3E%3C/svg%3E"),
-      /* ─── Çok hafif piksel grid ─── */
       linear-gradient(to bottom, transparent 15px, rgba(0, 0, 80, 0.06) 15px),
       linear-gradient(to right,  transparent 15px, rgba(0, 0, 80, 0.06) 15px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
@@ -104,7 +109,7 @@
   }
 }
 
-/* ─── Mario Pipe Scrollbar ────────────────────────────────────────────────── */
+/* ─── Mario Pipe Scrollbar ─── */
 ::-webkit-scrollbar { width: 10px; }
 
 ::-webkit-scrollbar-track {
@@ -121,51 +126,53 @@
   background: #FFD000;
 }
 
-/* ─── Animations ──────────────────────────────────────────────────────────── */
-@keyframes pixel-blink {
-  0%, 100% { opacity: 1 }
-  50%       { opacity: 0 }
-}
+/* ─── Animations ─── */
+@keyframes pixel-blink  { 0%, 100% { opacity: 1 }           50% { opacity: 0 }          }
+@keyframes pixel-bounce { 0%, 100% { transform: translateY(0) }  50% { transform: translateY(-6px) } }
+@keyframes pixel-float  { 0%, 100% { transform: translateY(0) }  50% { transform: translateY(-3px) } }
+@keyframes pixel-shake  { 0%, 100% { transform: translateX(0) }  25% { transform: translateX(-4px) } 75% { transform: translateX(4px) } }
+@keyframes pixel-glow   { 0%, 100% { box-shadow: 0 0 0 0 #FFD00088 }  50% { box-shadow: 0 0 12px 4px #FFD00066 } }
+@keyframes hp-pulse     { 0%, 100% { opacity: 1 }           50% { opacity: 0.5 }         }
 
-@keyframes pixel-bounce {
-  0%, 100% { transform: translateY(0)  }
-  50%       { transform: translateY(-6px) }
-}
-
-@keyframes pixel-float {
-  0%, 100% { transform: translateY(0)  }
-  50%       { transform: translateY(-3px) }
-}
-
-@keyframes pixel-shake {
-  0%, 100% { transform: translateX(0)  }
-  25%       { transform: translateX(-4px) }
-  75%       { transform: translateX(4px)  }
-}
-
-@keyframes pixel-glow {
-  0%, 100% { box-shadow: 0 0 0 0 #FFD00088 }
-  50%       { box-shadow: 0 0 12px 4px #FFD00066 }
-}
-
-@keyframes hp-pulse {
-  0%, 100% { opacity: 1   }
-  50%       { opacity: 0.5 }
-}
-
-/* ─── Utilities ───────────────────────────────────────────────────────────── */
+/* ─── Utilities ─── */
 @layer utilities {
+  /* Fonts */
   .font-pixel { font-family: var(--font-pixel-start), monospace; }
   .font-body  { font-family: var(--font-vt323), monospace; }
 
+  /* Image rendering */
+  .image-pixel { image-rendering: pixelated; }
+
+  /* Text shadows */
+  .text-shadow-gold  { text-shadow: 2px 2px 0 #804000; }
+  .text-shadow-black { text-shadow: 1px 1px 0 rgba(0,0,0,0.4); }
+
+  /* ─── Pixel box shadows — 4px (cards / panels) ─── */
+  .shadow-pixel        { box-shadow: 4px 4px 0 0 #000000; }
+  .shadow-pixel-brown  { box-shadow: 4px 4px 0 0 #8B4000; }
+  .shadow-pixel-stone  { box-shadow: 4px 4px 0 0 #505050; }
+  .shadow-pixel-gold   { box-shadow: 4px 4px 0 0 #804000; }
+  .shadow-pixel-navy   { box-shadow: 4px 4px 0 0 #000030; }
+  .shadow-pixel-green  { box-shadow: 4px 4px 0 0 #006800; }
+  .shadow-pixel-red    { box-shadow: 4px 4px 0 0 #880000; }
+  .shadow-pixel-lg     { box-shadow: 6px 6px 0 0 #000000; }
+
+  /* ─── Pixel box shadows — 3px (buttons) ─── */
+  .shadow-pixel-btn        { box-shadow: 3px 3px 0 0 #000000; }
+  .shadow-pixel-btn-stone  { box-shadow: 3px 3px 0 0 #505050; }
+  .shadow-pixel-btn-gold   { box-shadow: 3px 3px 0 0 #804000; }
+
+  /* ─── Pixel box shadows — 2px (badges / small) ─── */
+  .shadow-pixel-sm         { box-shadow: 2px 2px 0 0 #000000; }
+  .shadow-pixel-sm-gold    { box-shadow: 2px 2px 0 0 #804000; }
+  .shadow-pixel-sm-green   { box-shadow: 2px 2px 0 0 #006800; }
+  .shadow-pixel-sm-red     { box-shadow: 2px 2px 0 0 #880000; }
+  .shadow-pixel-sm-stone   { box-shadow: 2px 2px 0 0 #505050; }
+
+  /* ─── Animations ─── */
   .animate-pixel-blink  { animation: pixel-blink  1s   step-end     infinite; }
   .animate-pixel-bounce { animation: pixel-bounce 0.6s steps(4)     infinite; }
   .animate-pixel-float  { animation: pixel-float  2s   ease-in-out  infinite; }
   .animate-pixel-glow   { animation: pixel-glow   1.5s step-end     infinite; }
   .animate-hp-pulse     { animation: hp-pulse     0.8s step-end     infinite; }
-
-  .pixel-shadow-sm   { box-shadow: 2px 2px 0 0 #000000; }
-  .pixel-shadow      { box-shadow: 4px 4px 0 0 #000000; }
-  .pixel-shadow-lg   { box-shadow: 6px 6px 0 0 #000000; }
-  .pixel-shadow-gold { box-shadow: 4px 4px 0 0 #804000; }
 }

@@ -7,12 +7,13 @@ import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
 import { getSinavTipi } from "@/lib/utils/sinav";
 import { UserLevelBadge } from "@/components/UserLevelBadge";
 import { ICONS } from "@/lib/constants/icons";
+import { cn } from "@/lib/utils";
 
-// ─── Types ──────────────────────────────────────────────────────────────────
+// ─── Types ───────────────────────────────────────────────────────────────────
 
 type NavItem = { href: string; iconSrc: string; iconAlt: string; label: string };
 
-// ─── Data (single source of truth) ──────────────────────────────────────────
+// ─── Data ────────────────────────────────────────────────────────────────────
 
 const CORE_ITEMS: NavItem[] = [
   { href: "/",         iconSrc: ICONS.home,      iconAlt: "home",     label: "Köy"      },
@@ -25,19 +26,18 @@ const SETTINGS_ITEM: NavItem = {
   href: "/ayarlar", iconSrc: ICONS.user, iconAlt: "ayarlar", label: "Ayarlar",
 };
 
-// Mobile uses the 4 core items + settings (label shortened to fit)
-const mobileItems: NavItem[] = [
+const MOBILE_ITEMS: NavItem[] = [
   ...CORE_ITEMS.map((i) => i.href === "/todo" ? { ...i, label: "Görev" } : i),
   { ...SETTINGS_ITEM, label: "Profil" },
 ];
 
-const desktopSections: { label?: string; items: NavItem[] }[] = [
+const DESKTOP_SECTIONS: { label?: string; items: NavItem[] }[] = [
   { items: CORE_ITEMS },
   {
     label: "ARAÇLAR",
     items: [
-      { href: "/denemeler", iconSrc: ICONS.docs,    iconAlt: "denemeler", label: "Denemeler" },
-      { href: "/program",   iconSrc: ICONS.calendar,iconAlt: "program",   label: "Program"   },
+      { href: "/denemeler", iconSrc: ICONS.docs,     iconAlt: "denemeler", label: "Denemeler" },
+      { href: "/program",   iconSrc: ICONS.calendar, iconAlt: "program",   label: "Program"   },
     ],
   },
   {
@@ -50,66 +50,54 @@ const desktopSections: { label?: string; items: NavItem[] }[] = [
   },
 ];
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
+// ─── Desktop nav item ─────────────────────────────────────────────────────────
 
 function NavItemDesktop({ item, active }: { item: NavItem; active: boolean }) {
   const [hovered, setHovered] = useState(false);
-  const showHover = !active && hovered;
 
   return (
     <Link
       href={item.href}
-      className="flex items-center gap-3 px-4 py-3 mx-2 my-0.5 border-2 transition-all duration-75 relative"
-      style={{
-        borderColor: active ? "#FFD000" : showHover ? "#FFD000" : "transparent",
-        background:  active ? "#000000" : showHover ? "#000030" : "transparent",
-        color:       active ? "#FFD000" : showHover ? "#A8C8F8" : "#6878A8",
-      }}
+      className={cn(
+        "flex items-center gap-3 px-4 py-3 mx-2 my-0.5 border-2 transition-all duration-75 relative",
+        active           && "border-mario-gold bg-black       text-mario-gold",
+        !active && hovered && "border-mario-gold bg-mario-navy-dark text-mario-light",
+        !active && !hovered && "border-transparent text-mario-slate"
+      )}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {active && <span className="absolute left-0 top-1 bottom-1 w-[3px]" style={{ background: "#FFD000" }} />}
-      <div className="w-8 h-8 relative flex-shrink-0">
+      {active && <span className="absolute left-0 inset-y-1 w-[3px] bg-mario-gold" />}
+      <div className="w-8 h-8 relative shrink-0">
         <Image src={item.iconSrc} alt={item.iconAlt} width={32} height={32} className="object-contain" />
       </div>
-      <span className="font-[family-name:var(--font-body)] text-xl leading-none flex-1">{item.label}</span>
-      {active && (
-        <span className="font-[family-name:var(--font-pixel)] text-[9px] animate-pixel-blink" style={{ color: "#FFD000" }}>▶</span>
-      )}
+      <span className="font-body text-xl leading-none flex-1">{item.label}</span>
+      {active && <span className="font-pixel text-[9px] text-mario-gold animate-pixel-blink">▶</span>}
     </Link>
   );
 }
 
+// ─── Mobile nav item ──────────────────────────────────────────────────────────
+
 function NavItemMobile({ item, active }: { item: NavItem; active: boolean }) {
   return (
-    <Link
-      href={item.href}
-      className="flex flex-col items-center gap-0.5 px-1.5 py-1.5 transition-all min-w-0 relative"
-    >
-      {active && (
-        <span
-          className="absolute top-0 left-1 right-1 h-[3px]"
-          style={{ background: "#FFD000" }}
-        />
-      )}
-      <div className={`relative w-6 h-6 transition-transform ${active ? "scale-125" : ""}`}>
+    <Link href={item.href} className="flex flex-col items-center gap-0.5 px-1.5 py-1.5 min-w-0 relative">
+      {active && <span className="absolute top-0 inset-x-1 h-[3px] bg-mario-gold" />}
+      <div className={cn("relative w-6 h-6 transition-transform", active && "scale-125")}>
         <Image src={item.iconSrc} alt={item.iconAlt} width={24} height={24} className="object-contain" />
       </div>
-      <span
-        className="font-[family-name:var(--font-body)] text-sm leading-none truncate"
-        style={{
-          color:      active ? "#FFD000" : "#5A3000",
-          textShadow: active ? "1px 1px 0 #504000" : "none",
-          fontWeight: active ? "bold" : "normal",
-        }}
-      >
+      <span className={cn(
+        "font-body text-sm leading-none truncate",
+        active ? "text-mario-brown-dark font-bold" : "text-mario-brown-dark/60"
+      )}>
         {item.label}
       </span>
     </Link>
   );
 }
 
-// Sınav modu badge — kendi state'ini yönetir
+// ─── Exam mode badge ──────────────────────────────────────────────────────────
+
 function NavSinavMode() {
   const [sinavTipi, setSinavTipi] = useState<SinavTipi>("YKS");
 
@@ -118,33 +106,26 @@ function NavSinavMode() {
   }, []);
 
   return (
-    <div className="px-3 py-2.5 border-b-2" style={{ borderColor: "#000000" }}>
-      <div
-        className="flex items-center gap-2.5 px-3 py-2 border-2"
-        style={{ background: "#000030", borderColor: "#FFD000", boxShadow: "2px 2px 0 0 #804000" }}
-      >
+    <div className="px-3 py-2.5 border-b-2 border-black">
+      <div className="flex items-center gap-2.5 px-3 py-2 border-2 bg-mario-navy-dark border-mario-gold shadow-pixel-sm-gold">
         <div className="w-6 h-6 relative">
           <Image src={SINAV_META[sinavTipi].icon} alt={SINAV_META[sinavTipi].isim} width={24} height={24} className="object-contain" />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="font-[family-name:var(--font-pixel)] text-[9px] leading-tight" style={{ color: "#FFD000" }}>
+          <div className="font-pixel text-[9px] leading-tight text-mario-gold">
             {sinavTipi} MODU
           </div>
-          <Link
-            href="/ayarlar"
-            className="font-[family-name:var(--font-body)] text-sm leading-none transition-colors hover:text-[#FFD000]"
-            style={{ color: "#A8C8F8" }}
-          >
+          <Link href="/ayarlar" className="font-body text-sm leading-none text-mario-light hover:text-mario-gold transition-colors">
             değiştir →
           </Link>
         </div>
-        <span className="font-[family-name:var(--font-pixel)] text-[8px] animate-pixel-blink" style={{ color: "#FFD000" }}>★</span>
+        <span className="font-pixel text-[8px] text-mario-gold animate-pixel-blink">★</span>
       </div>
     </div>
   );
 }
 
-// ─── Main Navbar ─────────────────────────────────────────────────────────────
+// ─── Navbar ───────────────────────────────────────────────────────────────────
 
 export function Navbar() {
   const pathname = usePathname();
@@ -152,40 +133,31 @@ export function Navbar() {
   return (
     <>
       {/* DESKTOP — fixed left sidebar */}
-      <aside
-        className="hidden lg:flex fixed left-0 top-0 h-full w-64 flex-col z-50"
-        style={{ background: "#000058", borderRight: "4px solid #000000", boxShadow: "4px 0 0 0 #000000" }}
-      >
+      <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 flex-col z-50 bg-mario-navy border-r-4 border-black shadow-[4px_0_0_0_#000000]">
         {/* Logo */}
-        <div className="px-4 py-5 border-b-4" style={{ background: "#000030", borderColor: "#FFD000" }}>
-          <div
-            className="font-[family-name:var(--font-pixel)] text-[11px] leading-relaxed tracking-wider"
-            style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
-          >
+        <div className="px-4 py-5 border-b-4 border-mario-gold bg-mario-navy-dark">
+          <div className="font-pixel text-[11px] leading-relaxed tracking-wider text-mario-gold text-shadow-gold">
             ⚔️ YKS QUEST
           </div>
-          <div className="font-[family-name:var(--font-body)] text-xl mt-1 leading-tight" style={{ color: "#A8C8F8" }}>
+          <div className="font-body text-xl mt-1 leading-tight text-mario-light">
             Pixel Akademi
           </div>
         </div>
 
-        {/* XP / Seviye */}
-        <div className="px-3 py-2 border-b-2" style={{ borderColor: "#000000" }}>
+        {/* XP / Level */}
+        <div className="px-3 py-2 border-b-2 border-black">
           <UserLevelBadge />
         </div>
 
-        {/* Sınav modu */}
+        {/* Exam mode */}
         <NavSinavMode />
 
         {/* Nav sections */}
         <nav className="flex-1 py-2 overflow-y-auto">
-          {desktopSections.map((section, i) => (
+          {DESKTOP_SECTIONS.map((section, i) => (
             <div key={i}>
               {section.label && (
-                <div
-                  className="px-5 pt-3 pb-1 font-[family-name:var(--font-pixel)] text-[8px] tracking-widest"
-                  style={{ color: "#4858A8" }}
-                >
+                <div className="px-5 pt-3 pb-1 font-pixel text-[8px] tracking-widest text-mario-slate-dark">
                   {section.label}
                 </div>
               )}
@@ -194,39 +166,35 @@ export function Navbar() {
               ))}
             </div>
           ))}
-          <div className="mt-2 border-t-2" style={{ borderColor: "#000000" }}>
+          <div className="mt-2 border-t-2 border-black">
             <NavItemDesktop item={SETTINGS_ITEM} active={pathname === SETTINGS_ITEM.href} />
           </div>
         </nav>
 
         {/* Footer */}
-        <div className="px-4 py-3 border-t-2" style={{ borderColor: "#000000" }}>
-          <div className="font-[family-name:var(--font-body)] text-sm text-center" style={{ color: "#A8C8F8" }}>
+        <div className="px-4 py-3 border-t-2 border-black">
+          <div className="font-body text-sm text-center text-mario-light">
             ✦ Macera Devam Ediyor! ✦
           </div>
         </div>
       </aside>
 
-      {/* MOBILE — fixed bottom bar (5 core items) */}
+      {/* MOBILE — fixed bottom bar */}
       <nav
-        className="lg:hidden fixed bottom-0 left-0 right-0 z-50"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t-4 border-black shadow-[0_-2px_0_0_#000000]"
         style={{
           background: "#C88040",
           backgroundImage: [
-            /* Çim şeridi: parlak yeşil + koyu yeşil gölge */
             "linear-gradient(to bottom, #58C800 0px, #58C800 6px, #006800 6px, #006800 9px, transparent 9px)",
-            /* Zemin blok doku */
             "linear-gradient(rgba(0,0,0,0.10) 1px, transparent 1px)",
             "linear-gradient(90deg, rgba(0,0,0,0.10) 1px, transparent 1px)",
           ].join(", "),
           backgroundSize: "100% 100%, 32px 28px, 32px 28px",
           backgroundPosition: "0 0, 0 9px, 0 9px",
-          borderTop: "4px solid #000000",
-          boxShadow: "0 -2px 0 0 #000000",
         }}
       >
         <div className="flex justify-around items-end py-1 px-1">
-          {mobileItems.map((item) => (
+          {MOBILE_ITEMS.map((item) => (
             <NavItemMobile key={item.href} item={item} active={pathname === item.href} />
           ))}
         </div>
