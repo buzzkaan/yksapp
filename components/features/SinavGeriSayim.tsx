@@ -7,13 +7,7 @@ import { hesaplaGunler } from "@/lib/utils/date";
 import { SINAV_TARIHLERI, aciliyetRengi, mesaj } from "@/lib/config/sinav-tarihleri";
 import type { SinavTipi } from "@/lib/sinav-data";
 import { ICONS } from "@/lib/constants/icons";
-
-const CORNERS = [
-  "top-[-2px] left-[-2px]",
-  "top-[-2px] right-[-2px]",
-  "bottom-[-2px] left-[-2px]",
-  "bottom-[-2px] right-[-2px]",
-] as const;
+import { PIXEL_CORNERS } from "@/lib/constants/ui";
 
 export function SinavGeriSayim() {
   const [sinav, setSinav] = useState<SinavTipi>("YKS");
@@ -32,7 +26,7 @@ export function SinavGeriSayim() {
   return (
     <div className="relative border-4 border-black bg-mario-navy shadow-pixel overflow-hidden">
       {/* Corner dots in exam color */}
-      {CORNERS.map((pos) => (
+      {PIXEL_CORNERS.map((pos) => (
         <div
           key={pos}
           className={`absolute ${pos} w-[10px] h-[10px] border-2 border-black z-10`}
@@ -51,7 +45,7 @@ export function SinavGeriSayim() {
             {meta.isim} 2026
           </span>
         </div>
-        <span className="font-body text-sm border border-mario-navy-dark px-2 py-0.5 text-mario-slate">
+        <span className="font-body text-sm border border-mario-navy-dark px-2 py-0.5 text-mario-stone-dark">
           yaklaşık tarih
         </span>
       </div>

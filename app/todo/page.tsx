@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useTransition, useRef, useMemo } from "react";
-import Image from "next/image";
 import {
   derslerGetir, dersEkle, dersSil,
   konuEkle, konuToggle, konuSil,
@@ -12,10 +11,10 @@ import {
 import { formatDateStr, hesaplaStreak } from "@/lib/utils/date";
 import { TaskPanel } from "@/components/todo/TaskPanel";
 import { SubjectPanel } from "@/components/todo/SubjectPanel";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { RENKLER, GOREV_RENKLER, IKONLAR } from "@/components/todo/constants";
 import type { DersWithKonular, Gorev } from "@/lib/types";
 import toast from "react-hot-toast";
-import { ICONS } from "@/lib/constants/icons";
 
 type Filtre = "aktif" | "tamamlanan" | "tumu";
 type Tab = "takvim" | "konular";
@@ -54,7 +53,12 @@ export default function YapilacaklarPage() {
   async function loadGorevler(y = yil, m = ay) { setGorevler(await aylikGorevlerGetir(y, m)); }
   async function loadDersler() { setDersler(await derslerGetir()); }
 
-  useEffect(() => { loadStreak(); loadDersler(); }, []);
+  useEffect(() => {
+    Promise.all([tamamlananGunleriGetir(), derslerGetir()]).then(([dates, ders]) => {
+      setStreakDates(dates);
+      setDersler(ders);
+    });
+  }, []);
   useEffect(() => { loadGorevler(yil, ay); }, [yil, ay]);
 
   const streakInfo = hesaplaStreak(streakDates);
@@ -143,57 +147,26 @@ export default function YapilacaklarPage() {
     });
   }
 
+  const headerAction = (
+    <div className="flex items-center gap-2">
+      {streakInfo.best > 0 && (
+        <div className="flex items-center gap-1 px-2 py-1 bg-black border-2 border-mario-gold">
+          <span className="text-sm">🏆</span>
+          <span className="font-pixel text-[10px] text-mario-gold">{streakInfo.best}</span>
+        </div>
+      )}
+      {streakInfo.current > 0 && (
+        <div className="flex items-center gap-1.5 px-2.5 py-1 bg-mario-gold border-2 border-black">
+          <span className="text-base">🔥</span>
+          <span className="font-pixel text-[10px] text-black">{streakInfo.current} GÜN</span>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-screen">
-
-      {/* ── Header ── */}
-      <div
-        className="relative border-b-4 px-4 py-5"
-        style={{
-          background: "#000058",
-          borderColor: "#000000",
-          boxShadow: "0 4px 0 0 #000000",
-        }}
-      >
-        <div className="absolute left-0 top-0 bottom-0 w-1.5" style={{ background: "#FFD000" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-1.5" style={{ background: "#FFD000" }} />
-        <div className="flex items-center justify-between pl-3 pr-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 relative flex-shrink-0">
-              <Image src={ICONS.chat} alt="yapilacaklar" fill className="object-contain" />
-            </div>
-            <div>
-              <h1
-                className="font-[family-name:var(--font-pixel)] leading-tight"
-                style={{ fontSize: "11px", color: "#FFD000", textShadow: "2px 2px 0 #804000", letterSpacing: "0.1em" }}
-              >
-                YAPILACAKLAR
-              </h1>
-              <p className="font-[family-name:var(--font-body)] text-xl mt-1" style={{ color: "#A8C8F8" }}>
-                Görevler &amp; Konular
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {streakInfo.best > 0 && (
-              <div className="px-2 py-1 flex items-center gap-1" style={{ background: "#000000", border: "3px solid #FFD000" }}>
-                <span className="text-sm">🏆</span>
-                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>
-                  {streakInfo.best}
-                </span>
-              </div>
-            )}
-            {streakInfo.current > 0 && (
-              <div className="px-2.5 py-1 flex items-center gap-1.5" style={{ background: "#FFD000", border: "3px solid #000000" }}>
-                <span className="text-base">🔥</span>
-                <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#000000" }}>
-                  {streakInfo.current} GÜN
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <PageHeader icon="📋" title="YAPILACAKLAR" subtitle="Görevler & Konular" action={headerAction} />
 
       <div className="py-4 px-3 sm:px-4">
       <div className="max-w-4xl mx-auto flex flex-col gap-4">
@@ -202,20 +175,20 @@ export default function YapilacaklarPage() {
         {aktifTab === "takvim" && (
           <div className="grid grid-cols-4 gap-2">
             <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#000058", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#A8C8F8" }}>BUGÜN</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#0058F8" }}>{istatistikler.bugun.length}</div>
+              <div className="font-pixel text-[10px]" style={{ color: "#A8C8F8" }}>BUGÜN</div>
+              <div className="font-pixel text-lg" style={{ color: "#0058F8" }}>{istatistikler.bugun.length}</div>
             </div>
             <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#006800", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>TAMAM</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#00A800" }}>{istatistikler.bugunTamamlanan}</div>
+              <div className="font-pixel text-[10px]" style={{ color: "#FFD000" }}>TAMAM</div>
+              <div className="font-pixel text-lg" style={{ color: "#00A800" }}>{istatistikler.bugunTamamlanan}</div>
             </div>
             <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#804000", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>AKTİF</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#FFD000" }}>{istatistikler.bugunAktif}</div>
+              <div className="font-pixel text-[10px]" style={{ color: "#FFD000" }}>AKTİF</div>
+              <div className="font-pixel text-lg" style={{ color: "#FFD000" }}>{istatistikler.bugunAktif}</div>
             </div>
             <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#880000", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#FFD000" }}>ACİL</div>
-              <div className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#E40000" }}>{istatistikler.yuksekOncelik}</div>
+              <div className="font-pixel text-[10px]" style={{ color: "#FFD000" }}>ACİL</div>
+              <div className="font-pixel text-lg" style={{ color: "#E40000" }}>{istatistikler.yuksekOncelik}</div>
             </div>
           </div>
         )}
@@ -229,7 +202,7 @@ export default function YapilacaklarPage() {
             <button
               key={tab.key}
               onClick={() => setAktifTab(tab.key)}
-              className="flex-1 py-2.5 font-[family-name:var(--font-pixel)] text-[11px] transition-all cursor-pointer select-none"
+              className="flex-1 py-2.5 font-pixel text-[11px] transition-all cursor-pointer select-none"
               style={aktifTab === tab.key ? {
                 background: "#C88040", borderTop: "4px solid #000000", borderLeft: "4px solid #000000", borderRight: "4px solid #000000", borderBottom: "4px solid #C88040",
                 color: "#000000", marginBottom: "-4px", position: "relative", zIndex: 2,

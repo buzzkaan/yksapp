@@ -65,12 +65,12 @@ export function SubjectPanel({
       {/* Alt başlık + ders ekle */}
       <DarkBox className="px-4 py-2.5">
         <div className="flex items-center justify-between">
-          <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#A8C8F8" }}>
+          <span className="font-body text-base" style={{ color: "#A8C8F8" }}>
             📦 {dersler.length} ders
           </span>
           <button
             onClick={() => onShowDersForm(v => !v)}
-            className="font-[family-name:var(--font-pixel)] text-[10px] px-3 py-1 cursor-pointer transition-all hover:scale-105"
+            className="font-pixel text-[10px] px-3 py-1 cursor-pointer transition-all hover:scale-105"
             style={{
               background: "#000000",
               color: "#A8C8F8",
@@ -93,7 +93,7 @@ export function SubjectPanel({
               placeholder="Ders adı (ör: Matematik)"
               value={dersAd}
               onChange={e => onDersAd(e.target.value)}
-              className="px-3 py-2 font-[family-name:var(--font-body)] text-lg outline-none w-full"
+              className="px-3 py-2 font-body text-lg outline-none w-full"
               style={{
                 background: "#A8A8A8",
                 border: "3px solid #000000",
@@ -131,7 +131,7 @@ export function SubjectPanel({
             <div className="flex gap-2">
               <button
                 type="submit" disabled={isPending || !dersAd.trim()}
-                className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-1.5 cursor-pointer disabled:opacity-50"
+                className="font-pixel text-[10px] px-4 py-1.5 cursor-pointer disabled:opacity-50"
                 style={{
                   background: "#00A800",
                   color: "#FFF",
@@ -143,7 +143,7 @@ export function SubjectPanel({
               </button>
               <button
                 type="button" onClick={() => onShowDersForm(false)}
-                className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-1.5 cursor-pointer"
+                className="font-pixel text-[10px] px-4 py-1.5 cursor-pointer"
                 style={{
                   background: "#A8A8A8",
                   color: "#6878A8",
@@ -167,7 +167,7 @@ export function SubjectPanel({
               <div key={d.id} className="flex-shrink-0 flex items-stretch">
                 <button
                   onClick={() => { onAktifDersId(d.id); onDersSilId(null); }}
-                  className="flex items-center gap-1.5 pl-2.5 pr-2 py-1.5 font-[family-name:var(--font-body)] text-base transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 pl-2.5 pr-2 py-1.5 font-body text-base transition-all cursor-pointer"
                   style={isAktif ? {
                     backgroundColor: d.renk,
                     color: "#FFF",
@@ -199,14 +199,14 @@ export function SubjectPanel({
                     <div className="flex items-stretch" style={{ border: "4px solid #CC0820", borderLeft: "none" }}>
                       <button
                         onClick={() => onDersSil(d.id)}
-                        className="px-2 font-[family-name:var(--font-body)] text-sm cursor-pointer"
+                        className="px-2 font-body text-sm cursor-pointer"
                         style={{ background: "#CC0820", color: "#FFF" }}
                       >
                         Evet
                       </button>
                       <button
                         onClick={() => onDersSilId(null)}
-                        className="px-2 font-[family-name:var(--font-body)] text-sm cursor-pointer"
+                        className="px-2 font-body text-sm cursor-pointer"
                         style={{ background: "#A8A8A8", color: "#6878A8", borderLeft: "2px solid #E01828" }}
                       >
                         İptal
@@ -215,15 +215,7 @@ export function SubjectPanel({
                   ) : (
                     <button
                       onClick={() => onDersSilId(d.id)}
-                      className="px-2 font-[family-name:var(--font-body)] text-base cursor-pointer transition-colors"
-                      style={{
-                        background: "#A8A8A8",
-                        color: "#A8C8F8",
-                        border: "4px solid #000000",
-                        borderLeft: "none",
-                      }}
-                      onMouseEnter={e => (e.currentTarget.style.color = "#E01828")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "#A8C8F8")}
+                      className="px-2 font-body text-base cursor-pointer text-mario-light hover:text-mario-red transition-colors bg-mario-stone border-4 border-black border-l-0"
                       title="Dersi sil"
                     >
                       ✕
@@ -240,7 +232,7 @@ export function SubjectPanel({
       {!aktifDers ? (
         <GameBox className="py-14 text-center">
           <span className="text-5xl block mb-3">📚</span>
-          <p className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#6878A8" }}>
+          <p className="font-body text-xl" style={{ color: "#6878A8" }}>
             {dersler.length === 0
               ? "Henüz ders yok. Yukarıdan ders ekle!"
               : "Yukarıdan bir ders seç."}
@@ -259,12 +251,12 @@ export function SubjectPanel({
           >
             <div className="flex items-center justify-between mb-2">
               <span
-                className="font-[family-name:var(--font-pixel)] text-[12px]"
+                className="font-pixel text-[12px]"
                 style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
               >
                 {aktifDers.icon} {aktifDers.ad.toUpperCase()}
               </span>
-              <span className="font-[family-name:var(--font-pixel)] text-[10px]" style={{ color: "#A8C8F8" }}>
+              <span className="font-pixel text-[10px]" style={{ color: "#A8C8F8" }}>
                 {tamamSayi}/{konular.length} ✅
               </span>
             </div>
@@ -281,7 +273,7 @@ export function SubjectPanel({
               />
               {progress === 100 && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#000000", textShadow: "0 1px 0 #FFD000" }}>
+                  <span className="font-pixel text-[9px]" style={{ color: "#000000", textShadow: "0 1px 0 #FFD000" }}>
                     🏆 CLEAR!
                   </span>
                 </div>
@@ -302,7 +294,7 @@ export function SubjectPanel({
                 placeholder="Konu ekle…"
                 value={konuBaslik}
                 onChange={e => onKonuBaslik(e.target.value)}
-                className="flex-1 px-3 py-2 font-[family-name:var(--font-body)] text-lg outline-none"
+                className="flex-1 px-3 py-2 font-body text-lg outline-none"
                 style={{
                   background: "#F5E0B0",
                   border: "3px solid #5C3A1E",
@@ -332,7 +324,7 @@ export function SubjectPanel({
               <button
                 type="submit"
                 disabled={isPending || !konuBaslik.trim()}
-                className="font-[family-name:var(--font-pixel)] text-[10px] px-3 h-10 flex-shrink-0 transition-all disabled:opacity-40 cursor-pointer"
+                className="font-pixel text-[10px] px-3 h-10 flex-shrink-0 transition-all disabled:opacity-40 cursor-pointer"
                 style={{
                   background: "#00A800",
                   color: "#FFF",
@@ -349,7 +341,7 @@ export function SubjectPanel({
                 placeholder="Not (opsiyonel)"
                 value={konuAciklama}
                 onChange={e => onKonuAciklama(e.target.value)}
-                className="px-3 py-1.5 font-[family-name:var(--font-body)] text-base outline-none w-full"
+                className="px-3 py-1.5 font-body text-base outline-none w-full"
                 style={{
                   background: "#A8A8A8",
                   border: "3px solid #000000",
@@ -361,7 +353,7 @@ export function SubjectPanel({
               {ONCELIK.map(o => (
                 <button
                   key={o.val} type="button" onClick={() => onKonuOncelik(o.val)}
-                  className="font-[family-name:var(--font-body)] text-sm flex items-center gap-1 transition-all cursor-pointer"
+                  className="font-body text-sm flex items-center gap-1 transition-all cursor-pointer"
                   style={{
                     color: konuOncelik === o.val ? o.renk : "#A8C8F8",
                     fontWeight: konuOncelik === o.val ? "bold" : "normal",
@@ -383,7 +375,7 @@ export function SubjectPanel({
               <button
                 key={f.key}
                 onClick={() => onFiltre(f.key)}
-                className="flex-1 py-2 flex items-center justify-center gap-1.5 font-[family-name:var(--font-body)] text-base transition-all cursor-pointer"
+                className="flex-1 py-2 flex items-center justify-center gap-1.5 font-body text-base transition-all cursor-pointer"
                 style={filtre === f.key ? {
                   background: "#000000",
                   color: "#FFD000",
@@ -416,7 +408,7 @@ export function SubjectPanel({
                 <span className="text-4xl block mb-2">
                   {filtre === "aktif" ? "🏆" : filtre === "tamamlanan" ? "📭" : "📝"}
                 </span>
-                <p className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#6878A8" }}>
+                <p className="font-body text-lg" style={{ color: "#6878A8" }}>
                   {filtre === "aktif"
                     ? "Tüm konular tamamlandı, harika!"
                     : filtre === "tamamlanan"

@@ -50,17 +50,11 @@ export function TodoItem({
       </button>
 
       <div className="flex-1 min-w-0">
-        <p
-          className="font-[family-name:var(--font-body)] text-lg leading-snug"
-          style={{
-            color: konu.tamamlandi ? "#6878A8" : "#000000",
-            textDecoration: konu.tamamlandi ? "line-through" : "none",
-          }}
-        >
+        <p className={`font-body text-lg leading-snug ${konu.tamamlandi ? "line-through text-mario-stone-dark" : "text-black"}`}>
           {konu.baslik}
         </p>
         {konu.aciklama && (
-          <p className="font-[family-name:var(--font-body)] text-sm mt-0.5 leading-snug" style={{ color: "#6878A8" }}>
+          <p className="font-body text-sm mt-0.5 leading-snug text-mario-stone-dark">
             {konu.aciklama}
           </p>
         )}
@@ -68,7 +62,7 @@ export function TodoItem({
 
       <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
         <span
-          className="font-[family-name:var(--font-body)] text-base leading-none"
+          className="font-body text-base leading-none"
           title={oncelik.label}
           style={{ color: oncelik.renk }}
         >
@@ -76,11 +70,8 @@ export function TodoItem({
         </span>
         <button
           onClick={sil}
-          className="w-6 h-6 flex items-center justify-center transition-colors font-[family-name:var(--font-body)] text-lg leading-none cursor-pointer"
+          className="w-6 h-6 flex items-center justify-center font-body text-lg leading-none cursor-pointer text-mario-light hover:text-mario-red transition-colors"
           title="Sil"
-          style={{ color: "#A8C8F8" }}
-          onMouseEnter={e => (e.currentTarget.style.color = "#E01828")}
-          onMouseLeave={e => (e.currentTarget.style.color = "#A8C8F8")}
         >
           ✕
         </button>

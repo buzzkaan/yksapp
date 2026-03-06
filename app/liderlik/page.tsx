@@ -154,13 +154,13 @@ export default async function LiderlikPage({
                   />
                 </div>
                 <span
-                  className="font-[family-name:var(--font-pixel)] text-xs"
+                  className="font-pixel text-xs"
                   style={{ color: isActive ? "#fff" : "#A8C8F8" }}
                 >
                   {sinav}
                 </span>
                 <span
-                  className="font-[family-name:var(--font-body)] text-sm"
+                  className="font-body text-sm"
                   style={{ color: isActive ? "rgba(255,255,255,0.85)" : "#6878A8" }}
                 >
                   #{rank || "—"}
@@ -198,7 +198,7 @@ export default async function LiderlikPage({
               )}
               {/* Rank badge */}
               <div
-                className="absolute -bottom-1.5 -right-1.5 font-[family-name:var(--font-pixel)] text-[8px] px-1.5 py-0.5 border-2 border-[#000000]"
+                className="absolute -bottom-1.5 -right-1.5 font-pixel text-[8px] px-1.5 py-0.5 border-2 border-[#000000]"
                 style={{ background: "#FFD000", color: "#000000" }}
               >
                 #{activeRank || "?"}
@@ -208,18 +208,18 @@ export default async function LiderlikPage({
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-start gap-2 mb-1">
                 <div>
-                  <p className="font-[family-name:var(--font-body)] text-xl text-[#000000] leading-tight">
+                  <p className="font-body text-xl text-[#000000] leading-tight">
                     {myName}
                   </p>
                   <p
-                    className="font-[family-name:var(--font-pixel)] text-[9px]"
+                    className="font-pixel text-[9px]"
                     style={{ color: "#FFD000" }}
                   >
                     SEVİYE {activeScore.seviye} · {activeTab}
                   </p>
                 </div>
                 <span
-                  className="font-[family-name:var(--font-body)] text-sm flex-shrink-0"
+                  className="font-body text-sm flex-shrink-0"
                   style={{ color: "#6878A8" }}
                 >
                   {activeLb.length} oyuncu
@@ -234,10 +234,10 @@ export default async function LiderlikPage({
                 />
               </div>
               <div className="flex justify-between mt-1">
-                <span className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#6878A8" }}>
+                <span className="font-body text-xs" style={{ color: "#6878A8" }}>
                   {activeScore.xp} XP
                 </span>
-                <span className="font-[family-name:var(--font-body)] text-xs" style={{ color: "#00A800" }}>
+                <span className="font-body text-xs" style={{ color: "#00A800" }}>
                   +{xpToNext} XP → seviye atla
                 </span>
               </div>
@@ -247,14 +247,14 @@ export default async function LiderlikPage({
 
         {/* ── Liderlik Tablosu ── */}
         <PixelCard>
-          <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
+          <p className="font-body text-lg text-[#000000] mb-3">
             🏅 {activeTab} Sıralaması
           </p>
 
           {activeLb.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-4xl mb-2">👥</p>
-              <p className="font-[family-name:var(--font-body)] text-lg text-[#6878A8]">
+              <p className="font-body text-lg text-[#6878A8]">
                 Henüz {activeTab} oyuncusu yok
               </p>
             </div>
@@ -284,7 +284,7 @@ export default async function LiderlikPage({
                         <span className="text-lg leading-none">{medal}</span>
                       ) : (
                         <span
-                          className="font-[family-name:var(--font-pixel)] text-[9px]"
+                          className="font-pixel text-[9px]"
                           style={{ color: "#6878A8" }}
                         >
                           #{rank}
@@ -318,14 +318,14 @@ export default async function LiderlikPage({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5">
                         <span
-                          className="font-[family-name:var(--font-body)] text-lg leading-tight truncate"
+                          className="font-body text-lg leading-tight truncate"
                           style={{ color: isMe ? "#FFD000" : "#A8C8F8" }}
                         >
                           {name}
                         </span>
                         {isMe && (
                           <span
-                            className="font-[family-name:var(--font-pixel)] text-[8px] px-1 py-0.5 flex-shrink-0"
+                            className="font-pixel text-[8px] px-1 py-0.5 flex-shrink-0"
                             style={{ background: "#FFD000", color: "#000000" }}
                           >
                             SEN
@@ -333,7 +333,7 @@ export default async function LiderlikPage({
                         )}
                       </div>
                       <span
-                        className="font-[family-name:var(--font-pixel)] text-[9px]"
+                        className="font-pixel text-[9px]"
                         style={{ color: "#6878A8" }}
                       >
                         Sv. {user.seviye}
@@ -343,7 +343,7 @@ export default async function LiderlikPage({
                     {/* XP */}
                     <div className="text-right flex-shrink-0">
                       <span
-                        className="font-[family-name:var(--font-pixel)] text-sm block"
+                        className="font-pixel text-sm block"
                         style={{ color: rank === 1 ? "#FFD000" : "#00A800" }}
                       >
                         {user.xp} XP

@@ -111,7 +111,7 @@ export function PomodoroTimer() {
               className="flex items-center justify-between px-4 py-2"
               style={{ background: "#000058", borderBottom: "3px solid #000000" }}
             >
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>
+              <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>
                 POMODORO
               </span>
               <div className="flex items-center gap-1.5">
@@ -131,7 +131,7 @@ export function PomodoroTimer() {
             {/* Saat */}
             <div className="flex flex-col items-center py-12 px-4">
               <div
-                className="font-[family-name:var(--font-pixel)] leading-none tabular-nums"
+                className="font-pixel leading-none tabular-nums"
                 style={{
                   fontSize: "clamp(48px, 12vw, 72px)",
                   color: timerColor,
@@ -142,7 +142,7 @@ export function PomodoroTimer() {
                 {dakika}:{saniye}
               </div>
               <div
-                className={`font-[family-name:var(--font-pixel)] text-[9px] mt-5 ${active || isFinished ? "animate-pixel-blink" : ""}`}
+                className={`font-pixel text-[9px] mt-5 ${active || isFinished ? "animate-pixel-blink" : ""}`}
                 style={{ color: statusColor }}
               >
                 {statusLabel}
@@ -165,7 +165,7 @@ export function PomodoroTimer() {
               <button
                 onClick={handleStart}
                 disabled={isFinished}
-                className="flex-1 font-[family-name:var(--font-pixel)] text-[11px] py-3 cursor-pointer transition-all"
+                className="flex-1 font-pixel text-[11px] py-3 cursor-pointer transition-all"
                 style={{
                   background: isFinished ? "#1E1E38" : "#00A800",
                   color: isFinished ? "#6878A8" : "#FFF",
@@ -178,7 +178,7 @@ export function PomodoroTimer() {
             ) : (
               <button
                 onClick={() => setActive(false)}
-                className="flex-1 font-[family-name:var(--font-pixel)] text-[11px] py-3 cursor-pointer"
+                className="flex-1 font-pixel text-[11px] py-3 cursor-pointer"
                 style={{
                   background: "#F89000",
                   color: "#FFF",
@@ -191,10 +191,7 @@ export function PomodoroTimer() {
             )}
             <button
               onClick={handleReset}
-              className="font-[family-name:var(--font-pixel)] text-[10px] px-5 py-3 cursor-pointer transition-all"
-              style={{ background: "#000058", color: "#6878A8", border: "3px solid #4858A8" }}
-              onMouseEnter={e => { e.currentTarget.style.color = "#E01828"; e.currentTarget.style.borderColor = "#E01828"; }}
-              onMouseLeave={e => { e.currentTarget.style.color = "#6878A8"; e.currentTarget.style.borderColor = "#4858A8"; }}
+              className="font-pixel text-[10px] px-5 py-3 cursor-pointer transition-all bg-mario-navy text-mario-stone-dark border-[3px] border-mario-slate-dark hover:text-mario-red hover:border-mario-red"
             >
               ■ SIFIRLA
             </button>
@@ -206,14 +203,14 @@ export function PomodoroTimer() {
               className="flex items-center justify-between px-4 py-3"
               style={{ background: "#000058", border: "4px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}
             >
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>
+              <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>
                 BUGÜN
               </span>
               <div className="flex items-center gap-3">
-                <span className="font-[family-name:var(--font-pixel)] text-[11px]" style={{ color: "#FFD000" }}>
+                <span className="font-pixel text-[11px]" style={{ color: "#FFD000" }}>
                   {completed} OTURUM
                 </span>
-                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>
+                <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>
                   {totalMinutes} DK
                 </span>
               </div>
@@ -227,7 +224,7 @@ export function PomodoroTimer() {
           {/* Süre seçimi */}
           <div style={{ background: "#A8A8A8", border: "4px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
             <div className="px-4 py-2" style={{ background: "#000058", borderBottom: "3px solid #000000" }}>
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>
+              <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>
                 SÜRE SEÇ{active && <span style={{ color: "#4858A8" }}> (aktifken değişmez)</span>}
               </span>
             </div>
@@ -247,10 +244,10 @@ export function PomodoroTimer() {
                       opacity: active && !isSel ? 0.4 : 1,
                     }}
                   >
-                    <span className="font-[family-name:var(--font-pixel)] text-[13px]" style={{ color: isSel ? "#FFD000" : "#6878A8" }}>
+                    <span className="font-pixel text-[13px]" style={{ color: isSel ? "#FFD000" : "#6878A8" }}>
                       {d.min}
                     </span>
-                    <span className="font-[family-name:var(--font-pixel)] text-[8px]" style={{ color: isSel ? "#A8C8F8" : "#A09070" }}>
+                    <span className="font-pixel text-[8px]" style={{ color: isSel ? "#A8C8F8" : "#A09070" }}>
                       {d.desc}
                     </span>
                   </button>
@@ -262,7 +259,7 @@ export function PomodoroTimer() {
           {/* Konu notu */}
           <div style={{ background: "#A8A8A8", border: "4px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
             <div className="px-4 py-2" style={{ background: "#000058", borderBottom: "3px solid #000000" }}>
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>
+              <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>
                 KONU <span style={{ color: "#4858A8" }}>(OPSİYONEL)</span>
               </span>
             </div>
@@ -272,7 +269,7 @@ export function PomodoroTimer() {
                 placeholder="Ör: Matematik — Türev"
                 value={konu}
                 onChange={(e) => setKonu(e.target.value)}
-                className="w-full px-3 py-2 font-[family-name:var(--font-body)] text-xl outline-none"
+                className="w-full px-3 py-2 font-body text-xl outline-none"
                 style={{
                   background: "#FAFAF0",
                   border: "3px solid #000000",
@@ -286,7 +283,7 @@ export function PomodoroTimer() {
           {/* Nasıl çalışır */}
           <div style={{ background: "#A8A8A8", border: "4px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
             <div className="px-4 py-2" style={{ background: "#000058", borderBottom: "3px solid #000000" }}>
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>
+              <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>
                 NASIL ÇALIŞIR
               </span>
             </div>
@@ -298,10 +295,10 @@ export function PomodoroTimer() {
                 { n: "04", text: "4 oturumda bir uzun mola" },
               ].map((s) => (
                 <div key={s.n} className="flex items-center gap-3">
-                  <span className="font-[family-name:var(--font-pixel)] text-[9px] flex-shrink-0" style={{ color: "#FFD000" }}>
+                  <span className="font-pixel text-[9px] flex-shrink-0" style={{ color: "#FFD000" }}>
                     {s.n}
                   </span>
-                  <span className="font-[family-name:var(--font-body)] text-lg" style={{ color: "#6878A8" }}>
+                  <span className="font-body text-lg" style={{ color: "#6878A8" }}>
                     {s.text}
                   </span>
                 </div>

@@ -79,7 +79,7 @@ export default function ProgramPage() {
             </PixelButton>
           ) : (
             <PixelCard variant="dark">
-              <p className="font-[family-name:var(--font-pixel)] text-[10px] mb-3" style={{ color: "#FFD000" }}>
+              <p className="font-pixel text-[10px] mb-3" style={{ color: "#FFD000" }}>
                 ▶ YENİ DERS
               </p>
               
@@ -87,7 +87,7 @@ export default function ProgramPage() {
                 <select
                   value={yeniDers.gun}
                   onChange={(e) => setYeniDers({ ...yeniDers, gun: parseInt(e.target.value) })}
-                  className="w-full px-3 py-2 border-2 font-[family-name:var(--font-body)] text-xl"
+                  className="w-full px-3 py-2 border-2 font-body text-xl"
                   style={{ background: "#000000", borderColor: "#4858A8", color: "#FFD000" }}
                 >
                   {GUNLER.map((g, i) => (
@@ -100,28 +100,28 @@ export default function ProgramPage() {
                   placeholder="Ders adı (örn: Matematik)"
                   value={yeniDers.ders}
                   onChange={(e) => setYeniDers({ ...yeniDers, ders: e.target.value })}
-                  className="w-full px-3 py-2 border-2 font-[family-name:var(--font-body)] text-xl"
+                  className="w-full px-3 py-2 border-2 font-body text-xl"
                   style={{ background: "#000000", borderColor: "#4858A8", color: "#B0C0D8" }}
                 />
                 
                 <div className="flex gap-2">
                   <div className="flex-1">
-                    <label className="font-[family-name:var(--font-body)] text-sm text-[#A8C8F8]">Başlangıç</label>
+                    <label className="font-body text-sm text-[#A8C8F8]">Başlangıç</label>
                     <input
                       type="time"
                       value={yeniDers.baslangic}
                       onChange={(e) => setYeniDers({ ...yeniDers, baslangic: e.target.value })}
-                      className="w-full px-3 py-2 border-2 font-[family-name:var(--font-body)] text-xl"
+                      className="w-full px-3 py-2 border-2 font-body text-xl"
                       style={{ background: "#000000", borderColor: "#4858A8", color: "#B0C0D8" }}
                     />
                   </div>
                   <div className="flex-1">
-                    <label className="font-[family-name:var(--font-body)] text-sm text-[#A8C8F8]">Bitiş</label>
+                    <label className="font-body text-sm text-[#A8C8F8]">Bitiş</label>
                     <input
                       type="time"
                       value={yeniDers.bitis}
                       onChange={(e) => setYeniDers({ ...yeniDers, bitis: e.target.value })}
-                      className="w-full px-3 py-2 border-2 font-[family-name:var(--font-body)] text-xl"
+                      className="w-full px-3 py-2 border-2 font-body text-xl"
                       style={{ background: "#000000", borderColor: "#4858A8", color: "#B0C0D8" }}
                     />
                   </div>
@@ -142,7 +142,7 @@ export default function ProgramPage() {
           {/* Program Listesi */}
           {program.length === 0 ? (
             <PixelCard className="text-center py-8">
-              <p className="font-[family-name:var(--font-body)] text-xl text-[#6878A8]">
+              <p className="font-body text-xl text-[#6878A8]">
                 Henüz program eklenmedi.
               </p>
             </PixelCard>
@@ -153,7 +153,7 @@ export default function ProgramPage() {
               
               return (
                 <PixelCard key={gunIndex}>
-                  <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
+                  <p className="font-body text-lg text-[#000000] mb-3">
                     {gunAd}
                   </p>
                   <div className="flex flex-col gap-2">
@@ -167,22 +167,22 @@ export default function ProgramPage() {
                           opacity: p.aktif ? 1 : 0.6
                         }}
                       >
-                        <span className="font-[family-name:var(--font-pixel)] text-sm text-[#A8C8F8] w-20">
+                        <span className="font-pixel text-sm text-[#A8C8F8] w-20">
                           {p.baslangic}-{p.bitis}
                         </span>
-                        <span className="flex-1 font-[family-name:var(--font-body)] text-xl text-[#FFD000]">
+                        <span className="flex-1 font-body text-xl text-[#FFD000]">
                           {p.ders}
                         </span>
                         <button
                           onClick={() => toggleAktif(p.id)}
-                          className="px-2 py-1 border-2 font-[family-name:var(--font-pixel)] text-[8px]"
+                          className="px-2 py-1 border-2 font-pixel text-[8px]"
                           style={{ borderColor: p.aktif ? "#00A800" : "#000000", color: p.aktif ? "#00A800" : "#6878A8" }}
                         >
                           {p.aktif ? "AKTİF" : "PASİF"}
                         </button>
                         <button
                           onClick={() => sil(p.id)}
-                          className="text-[#E01828] font-[family-name:var(--font-body)] text-xl"
+                          className="text-[#E01828] font-body text-xl"
                         >
                           ×
                         </button>

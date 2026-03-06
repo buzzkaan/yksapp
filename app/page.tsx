@@ -15,17 +15,8 @@ import { getOzetIstatistik } from "@/server/actions/istatistik";
 import { AYLAR_TAM, GUNLER_TAM } from "@/lib/constants/ui";
 import { ICONS } from "@/lib/constants/icons";
 import { hesaplaStreak } from "@/lib/utils/date";
+import { formatSure } from "@/lib/utils";
 import type { DenemeWithDetay, Gorev, PomodoroOturum } from "@/lib/types";
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
-function formatSure(dakika: number): string | null {
-  if (dakika === 0) return null;
-  if (dakika < 60) return `${dakika}dk`;
-  const h = Math.floor(dakika / 60);
-  const m = dakika % 60;
-  return m > 0 ? `${h}s ${m}dk` : `${h}s`;
-}
 
 const ALINTILAR = [
   "Bir adım at, hedefe bir adım daha yaklaş.",
@@ -117,33 +108,33 @@ export default async function HomePage() {
           <div className="border-4 border-black shadow-pixel overflow-hidden">
             <div className="px-4 py-2 border-b-4 border-black bg-black flex items-center justify-between">
               <span className="font-pixel text-[10px] tracking-widest text-mario-gold">★ BUGÜN</span>
-              <span className="font-body text-sm text-mario-slate-dark">{gunStr}</span>
+              <span className="font-body text-sm text-white">{gunStr}</span>
             </div>
 
             <div className="grid grid-cols-3 divide-x-4 divide-black bg-mario-parchment">
               {/* Pomodoro */}
               <div className="flex flex-col items-center justify-center px-2 py-4 gap-1 text-center">
-                <span className="font-pixel text-[8px] tracking-widest text-mario-slate">POMODORO</span>
-                <span className={`font-pixel text-3xl leading-none ${bugunPomo > 0 ? "text-mario-red" : "text-mario-inactive"}`}>
+                <span className="font-pixel text-[8px] tracking-widest text-mario-stone-dark">POMODORO</span>
+                <span className={`font-pixel text-3xl leading-none ${bugunPomo > 0 ? "text-mario-red" : "text-mario-stone-dark"}`}>
                   {bugunPomo > 0 ? bugunPomo : "—"}
                 </span>
-                <span className="font-body text-sm text-mario-slate">
-                  {bugunPomo > 0 ? (formatSure(bugunPomo * 25) ?? `${bugunPomo}×`) : "henüz yok"}
+                <span className="font-body text-sm text-mario-stone-dark">
+                  {bugunPomo > 0 ? formatSure(bugunPomo * 25) : "henüz yok"}
                 </span>
               </div>
 
               {/* Görevler */}
               <div className="flex flex-col items-center justify-center px-3 py-4 gap-1.5 text-center">
-                <span className="font-pixel text-[8px] tracking-widest text-mario-slate">GÖREVLER</span>
+                <span className="font-pixel text-[8px] tracking-widest text-mario-stone-dark">GÖREVLER</span>
                 <div className="flex items-baseline gap-1">
                   <span className={`font-pixel text-3xl leading-none ${
-                    toplamGorev === 0 ? "text-mario-inactive" :
+                    toplamGorev === 0 ? "text-mario-stone-dark" :
                     hepsiBitti ? "text-mario-green" : "text-mario-blue"
                   }`}>
                     {toplamGorev === 0 ? "—" : tamamlananGorev}
                   </span>
                   {toplamGorev > 0 && (
-                    <span className="font-body text-base text-mario-slate">/{toplamGorev}</span>
+                    <span className="font-body text-base text-mario-stone-dark">/{toplamGorev}</span>
                   )}
                 </div>
                 {toplamGorev > 0 ? (
@@ -157,20 +148,20 @@ export default async function HomePage() {
                         }}
                       />
                     </div>
-                    <span className="font-body text-sm text-mario-slate">%{gorevPct} tamamlandı</span>
+                    <span className="font-body text-sm text-mario-stone-dark">%{gorevPct} tamamlandı</span>
                   </>
                 ) : (
-                  <span className="font-body text-sm text-mario-slate">görev yok</span>
+                  <span className="font-body text-sm text-mario-stone-dark">görev yok</span>
                 )}
               </div>
 
               {/* Son deneme */}
               <div className="flex flex-col items-center justify-center px-2 py-4 gap-1 text-center">
-                <span className="font-pixel text-[8px] tracking-widest text-mario-slate">SON DENEME</span>
-                <span className={`font-pixel text-3xl leading-none ${sonDeneme ? "text-mario-green" : "text-mario-inactive"}`}>
+                <span className="font-pixel text-[8px] tracking-widest text-mario-stone-dark">SON DENEME</span>
+                <span className={`font-pixel text-3xl leading-none ${sonDeneme ? "text-mario-green" : "text-mario-stone-dark"}`}>
                   {sonDeneme ? sonDeneme.net.toFixed(1) : "—"}
                 </span>
-                <span className="font-body text-sm text-mario-slate">
+                <span className="font-body text-sm text-mario-stone-dark">
                   {sonDeneme
                     ? `${sonDeneme.tur} · ${new Date(sonDeneme.tarih).toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit" })}`
                     : "henüz yok"}
@@ -229,7 +220,7 @@ export default async function HomePage() {
                     {g.oncelik === 3 && (
                       <span className="font-pixel text-[8px] text-mario-red">!</span>
                     )}
-                    <span className={`font-pixel text-[10px] ${g.tamamlandi ? "text-mario-green" : "text-mario-inactive"}`}>
+                    <span className={`font-pixel text-[10px] ${g.tamamlandi ? "text-mario-green" : "text-mario-stone-dark"}`}>
                       {g.tamamlandi ? "✓" : "○"}
                     </span>
                   </div>
@@ -283,14 +274,14 @@ export default async function HomePage() {
         {userId && (
           <div className="grid grid-cols-2 gap-2">
             <div className="border-4 border-black p-3 flex flex-col gap-1 bg-mario-parchment shadow-pixel-btn">
-              <span className="font-pixel text-[8px] tracking-widest text-mario-slate">
+              <span className="font-pixel text-[8px] tracking-widest text-mario-stone-dark">
                 BU HAFTA · GÖREV
               </span>
               <div className="flex items-baseline gap-1">
                 <span className="font-pixel text-2xl text-mario-brown-dark">
                   {istatistik.haftaGorev.tamamlanan}
                 </span>
-                <span className="font-body text-base text-mario-slate">
+                <span className="font-body text-base text-mario-stone-dark">
                   /{istatistik.haftaGorev.toplam} tamamlandı
                 </span>
               </div>
@@ -307,16 +298,16 @@ export default async function HomePage() {
             </div>
 
             <div className="border-4 border-black p-3 flex flex-col gap-1 bg-mario-parchment shadow-pixel-btn">
-              <span className="font-pixel text-[8px] tracking-widest text-mario-slate">
+              <span className="font-pixel text-[8px] tracking-widest text-mario-stone-dark">
                 BU HAFTA · POMODORO
               </span>
               <div className="flex items-baseline gap-1">
                 <span className="font-pixel text-2xl text-mario-red">
                   {istatistik.haftaPomodoro}
                 </span>
-                <span className="font-body text-base text-mario-slate">oturum</span>
+                <span className="font-body text-base text-mario-stone-dark">oturum</span>
               </div>
-              <span className="font-body text-sm text-mario-slate">
+              <span className="font-body text-sm text-mario-stone-dark">
                 {istatistik.haftaPomodoro > 0
                   ? `≈ ${formatSure(istatistik.haftaPomodoro * 25) ?? `${istatistik.haftaPomodoro * 25}dk`} çalışma`
                   : "Bu hafta henüz yok"}

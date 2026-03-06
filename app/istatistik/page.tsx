@@ -6,16 +6,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { getIstatistik } from "@/server/actions/istatistik";
 import { KonuIlerlemeClient } from "@/components/KonuIlerlemeClient";
-
-// ─── Yardımcılar ──────────────────────────────────────────────────────────────
-
-function saat(dakika: number) {
-  if (dakika === 0) return "0dk";
-  if (dakika < 60) return `${dakika}dk`;
-  const h = Math.floor(dakika / 60);
-  const m = dakika % 60;
-  return m > 0 ? `${h}s ${m}dk` : `${h}s`;
-}
+import { formatSure as saat } from "@/lib/utils";
 
 function pct(tamamlanan: number, toplam: number) {
   if (toplam === 0) return 0;
@@ -29,7 +20,7 @@ function SectionHeader({ icon, title }: { icon: string; title: string }) {
     <div className="flex items-center gap-2 mt-1">
       <div className="h-[3px] flex-1" style={{ background: "#101010" }} />
       <span
-        className="font-[family-name:var(--font-pixel)] text-[9px] px-3 py-1.5 border-2 border-[#101010] whitespace-nowrap"
+        className="font-pixel text-[9px] px-3 py-1.5 border-2 border-[#101010] whitespace-nowrap"
         style={{ background: "#101010", color: "#FFD000" }}
       >
         {icon} {title}
@@ -51,16 +42,16 @@ function PomoKart({
       className="border-4 border-[#101010] bg-[#181838] p-3 flex flex-col gap-1"
       style={{ boxShadow: "3px 3px 0 0 #080828" }}
     >
-      <div className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#505068" }}>
+      <div className="font-pixel text-[8px] tracking-widest" style={{ color: "#505068" }}>
         {label}
       </div>
       <div className="flex items-baseline gap-1">
-        <span className="font-[family-name:var(--font-pixel)] text-2xl leading-none" style={{ color: renk }}>
+        <span className="font-pixel text-2xl leading-none" style={{ color: renk }}>
           {sayi}
         </span>
-        <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#505068" }}>🍅</span>
+        <span className="font-pixel text-[9px]" style={{ color: "#505068" }}>🍅</span>
       </div>
-      <div className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#606878" }}>
+      <div className="font-body text-sm" style={{ color: "#606878" }}>
         {saat(dakika)}
       </div>
     </div>
@@ -80,17 +71,17 @@ function GorevKart({
       className="border-4 border-[#101010] bg-[#F8F0DC] p-3 flex flex-col gap-2"
       style={{ boxShadow: "3px 3px 0 0 #101010" }}
     >
-      <div className="font-[family-name:var(--font-pixel)] text-[8px] tracking-widest" style={{ color: "#909090" }}>
+      <div className="font-pixel text-[8px] tracking-widest" style={{ color: "#909090" }}>
         {label}
       </div>
       <div className="flex items-end justify-between">
         <div>
-          <span className="font-[family-name:var(--font-pixel)] text-xl leading-none" style={{ color: renk }}>
+          <span className="font-pixel text-xl leading-none" style={{ color: renk }}>
             {tamamlanan}
           </span>
-          <span className="font-[family-name:var(--font-body)] text-base text-[#909090]">/{toplam}</span>
+          <span className="font-body text-base text-[#909090]">/{toplam}</span>
         </div>
-        <span className="font-[family-name:var(--font-pixel)] text-sm" style={{ color: renk }}>%{oran}</span>
+        <span className="font-pixel text-sm" style={{ color: renk }}>%{oran}</span>
       </div>
       <div className="h-2 border-2 border-[#101010] bg-[#D0D0E8] relative overflow-hidden">
         <div className="absolute inset-y-0 left-0" style={{ width: `${oran}%`, background: renk }} />
@@ -109,11 +100,11 @@ function GrafikKart({
   if (data.length < 2) return null;
   return (
     <PixelCard>
-      <p className="font-[family-name:var(--font-body)] text-lg text-[#101010] mb-3">{title}</p>
+      <p className="font-body text-lg text-[#101010] mb-3">{title}</p>
       <PixelLineChart data={data} color={color} height={100} />
       <div className="flex justify-between mt-1.5">
-        <span className="font-[family-name:var(--font-body)] text-xs text-[#606878]">{data[0]?.label}</span>
-        <span className="font-[family-name:var(--font-body)] text-xs text-[#606878]">{data[data.length - 1]?.label}</span>
+        <span className="font-body text-xs text-[#606878]">{data[0]?.label}</span>
+        <span className="font-body text-xs text-[#606878]">{data[data.length - 1]?.label}</span>
       </div>
     </PixelCard>
   );
@@ -157,39 +148,39 @@ export default async function IstatistikPage() {
           className="border-4 border-[#FFD000] bg-[#181838] p-4"
           style={{ boxShadow: "4px 4px 0 0 #504000" }}
         >
-          <p className="font-[family-name:var(--font-pixel)] text-[9px] mb-4 tracking-widest" style={{ color: "#505068" }}>
+          <p className="font-pixel text-[9px] mb-4 tracking-widest" style={{ color: "#505068" }}>
             ★ BU YIL — GENEL ÖZET
           </p>
           <div className="grid grid-cols-2 gap-x-6 gap-y-4">
             <div>
-              <div className="font-[family-name:var(--font-pixel)] text-3xl leading-none" style={{ color: "#FFD000" }}>
+              <div className="font-pixel text-3xl leading-none" style={{ color: "#FFD000" }}>
                 {yilToplam.sayi}
               </div>
-              <div className="font-[family-name:var(--font-body)] text-sm mt-0.5" style={{ color: "#8890B8" }}>
+              <div className="font-body text-sm mt-0.5" style={{ color: "#8890B8" }}>
                 🍅 toplam pomodoro
               </div>
             </div>
             <div>
-              <div className="font-[family-name:var(--font-pixel)] text-3xl leading-none" style={{ color: "#18C840" }}>
+              <div className="font-pixel text-3xl leading-none" style={{ color: "#18C840" }}>
                 {saat(yilToplam.dakika)}
               </div>
-              <div className="font-[family-name:var(--font-body)] text-sm mt-0.5" style={{ color: "#8890B8" }}>
+              <div className="font-body text-sm mt-0.5" style={{ color: "#8890B8" }}>
                 ⏱️ toplam çalışma
               </div>
             </div>
             <div>
-              <div className="font-[family-name:var(--font-pixel)] text-3xl leading-none" style={{ color: "#2878F8" }}>
+              <div className="font-pixel text-3xl leading-none" style={{ color: "#2878F8" }}>
                 {yilGorev.tamamlanan}
               </div>
-              <div className="font-[family-name:var(--font-body)] text-sm mt-0.5" style={{ color: "#8890B8" }}>
+              <div className="font-body text-sm mt-0.5" style={{ color: "#8890B8" }}>
                 ✅ tamamlanan görev
               </div>
             </div>
             <div>
-              <div className="font-[family-name:var(--font-pixel)] text-3xl leading-none" style={{ color: "#E01828" }}>
+              <div className="font-pixel text-3xl leading-none" style={{ color: "#E01828" }}>
                 {ist.deneme.toplam}
               </div>
-              <div className="font-[family-name:var(--font-body)] text-sm mt-0.5" style={{ color: "#8890B8" }}>
+              <div className="font-body text-sm mt-0.5" style={{ color: "#8890B8" }}>
                 📝 girilen deneme
               </div>
             </div>
@@ -210,10 +201,10 @@ export default async function IstatistikPage() {
           <div
             className="border-2 border-[#303058] bg-[#181838] px-4 py-2 flex items-center justify-between"
           >
-            <span className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#8890B8" }}>
+            <span className="font-body text-sm" style={{ color: "#8890B8" }}>
               Bu hafta günlük ortalama çalışma
             </span>
-            <span className="font-[family-name:var(--font-pixel)] text-sm" style={{ color: "#F89000" }}>
+            <span className="font-pixel text-sm" style={{ color: "#F89000" }}>
               {saat(haftaGunlukOrt)} / gün
             </span>
           </div>
@@ -254,7 +245,7 @@ export default async function IstatistikPage() {
           <PixelCard>
             <div className="text-center py-6">
               <p className="text-3xl mb-2">📝</p>
-              <p className="font-[family-name:var(--font-body)] text-lg text-[#606878]">
+              <p className="font-body text-lg text-[#606878]">
                 Henüz deneme kaydı yok.
               </p>
             </div>
@@ -268,12 +259,12 @@ export default async function IstatistikPage() {
             >
               {/* Başlık + trend */}
               <div className="flex items-center justify-between mb-4">
-                <span className="font-[family-name:var(--font-pixel)] text-[9px] tracking-widest" style={{ color: "#505068" }}>
+                <span className="font-pixel text-[9px] tracking-widest" style={{ color: "#505068" }}>
                   DENEME PERFORMANSI
                 </span>
                 {son5.length >= 3 && (
                   <span
-                    className="font-[family-name:var(--font-pixel)] text-[9px] px-2 py-0.5 border-2"
+                    className="font-pixel text-[9px] px-2 py-0.5 border-2"
                     style={{ borderColor: trendRenk, color: trendRenk }}
                   >
                     {trendLabel}
@@ -284,22 +275,22 @@ export default async function IstatistikPage() {
               {/* 3 ana metrik */}
               <div className="grid grid-cols-3 gap-3 text-center mb-4">
                 <div>
-                  <div className="font-[family-name:var(--font-pixel)] text-2xl leading-none" style={{ color: "#FFD000" }}>
+                  <div className="font-pixel text-2xl leading-none" style={{ color: "#FFD000" }}>
                     {ist.deneme.enYuksek.toFixed(1)}
                   </div>
-                  <div className="font-[family-name:var(--font-body)] text-sm mt-1" style={{ color: "#505068" }}>en yüksek</div>
+                  <div className="font-body text-sm mt-1" style={{ color: "#505068" }}>en yüksek</div>
                 </div>
                 <div>
-                  <div className="font-[family-name:var(--font-pixel)] text-2xl leading-none" style={{ color: "#18C840" }}>
+                  <div className="font-pixel text-2xl leading-none" style={{ color: "#18C840" }}>
                     {ist.deneme.ortalamaNet.toFixed(1)}
                   </div>
-                  <div className="font-[family-name:var(--font-body)] text-sm mt-1" style={{ color: "#505068" }}>ortalama net</div>
+                  <div className="font-body text-sm mt-1" style={{ color: "#505068" }}>ortalama net</div>
                 </div>
                 <div>
-                  <div className="font-[family-name:var(--font-pixel)] text-2xl leading-none" style={{ color: "#2878F8" }}>
+                  <div className="font-pixel text-2xl leading-none" style={{ color: "#2878F8" }}>
                     {ist.deneme.toplam}
                   </div>
-                  <div className="font-[family-name:var(--font-body)] text-sm mt-1" style={{ color: "#505068" }}>deneme sayısı</div>
+                  <div className="font-body text-sm mt-1" style={{ color: "#505068" }}>deneme sayısı</div>
                 </div>
               </div>
 
@@ -315,7 +306,7 @@ export default async function IstatistikPage() {
                   ].map((row) => (
                     <div key={row.label} className="flex items-center gap-2">
                       <span
-                        className="font-[family-name:var(--font-body)] text-xs w-20 flex-shrink-0"
+                        className="font-body text-xs w-20 flex-shrink-0"
                         style={{ color: "#505068" }}
                       >
                         {row.label}
@@ -330,7 +321,7 @@ export default async function IstatistikPage() {
                         />
                       </div>
                       <span
-                        className="font-[family-name:var(--font-pixel)] text-[9px] w-8 text-right flex-shrink-0"
+                        className="font-pixel text-[9px] w-8 text-right flex-shrink-0"
                         style={{ color: row.renk }}
                       >
                         {row.val.toFixed(1)}
@@ -344,13 +335,13 @@ export default async function IstatistikPage() {
               <div className="border-t-2 border-[#303058] pt-3 flex gap-6 justify-center">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3" style={{ background: "#2878F8" }} />
-                  <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#8890B8" }}>
+                  <span className="font-body text-base" style={{ color: "#8890B8" }}>
                     TYT — {ist.deneme.tytSayi}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3" style={{ background: "#E01828" }} />
-                  <span className="font-[family-name:var(--font-body)] text-base" style={{ color: "#8890B8" }}>
+                  <span className="font-body text-base" style={{ color: "#8890B8" }}>
                     AYT — {ist.deneme.aytSayi}
                   </span>
                 </div>

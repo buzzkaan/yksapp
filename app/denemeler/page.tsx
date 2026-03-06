@@ -77,7 +77,7 @@ function HesaplaTab() {
     <>
       {/* Sınav Türü */}
       <PixelCard variant="dark">
-        <p className="font-[family-name:var(--font-pixel)] text-[10px] mb-3" style={{ color: "#FFD000" }}>
+        <p className="font-pixel text-[10px] mb-3" style={{ color: "#FFD000" }}>
           ▶ SINAV TÜRÜ
         </p>
         <div className="flex gap-2">
@@ -90,7 +90,7 @@ function HesaplaTab() {
                 setDersler(liste.map((d) => ({ ad: d.ad, dogru: 0, yanlis: 0 })));
                 setSonuclar(null);
               }}
-              className="flex-1 py-2 px-3 border-2 font-[family-name:var(--font-body)] text-xl transition-all"
+              className="flex-1 py-2 px-3 border-2 font-body text-xl transition-all"
               style={{
                 borderColor: sinavTuru === tur ? "#FFD000" : "#303058",
                 background:  sinavTuru === tur ? "#101010" : "transparent",
@@ -106,7 +106,7 @@ function HesaplaTab() {
       {/* AYT Puan Türü */}
       {sinavTuru === "AYT" && (
         <PixelCard variant="dark">
-          <p className="font-[family-name:var(--font-pixel)] text-[10px] mb-3" style={{ color: "#FFD000" }}>
+          <p className="font-pixel text-[10px] mb-3" style={{ color: "#FFD000" }}>
             ▶ AYT PUAN TÜRÜ
           </p>
           <div className="grid grid-cols-4 gap-2">
@@ -117,7 +117,7 @@ function HesaplaTab() {
                 <button
                   key={tur}
                   onClick={() => { setAytTur(tur); setDersler(liste.map((d) => ({ ad: d.ad, dogru: 0, yanlis: 0 }))); setSonuclar(null); }}
-                  className="py-2 px-2 border-2 font-[family-name:var(--font-pixel)] text-[8px] transition-all"
+                  className="py-2 px-2 border-2 font-pixel text-[8px] transition-all"
                   style={{
                     borderColor: aytTur === tur ? "#FFD000" : "#303058",
                     background:  aytTur === tur ? "#101010" : "transparent",
@@ -134,7 +134,7 @@ function HesaplaTab() {
 
       {/* Ders Girişi */}
       <PixelCard>
-        <p className="font-[family-name:var(--font-body)] text-lg text-[#101010] mb-3">
+        <p className="font-body text-lg text-[#101010] mb-3">
           Doğru / Yanlış Girişi
         </p>
         <div className="flex flex-col gap-2">
@@ -144,22 +144,22 @@ function HesaplaTab() {
               className="flex items-center gap-2 border-2 border-[#D0D0E8] px-3 py-2"
               style={{ background: "#F8F4F0" }}
             >
-              <span className="flex-1 font-[family-name:var(--font-body)] text-xl text-[#101010]">{ders.ad}</span>
+              <span className="flex-1 font-body text-xl text-[#101010]">{ders.ad}</span>
               <div className="flex items-center gap-1">
-                <span className="font-[family-name:var(--font-body)] text-sm text-[#18C840]">D:</span>
+                <span className="font-body text-sm text-[#18C840]">D:</span>
                 <input
                   type="number" min="0" value={ders.dogru}
                   onChange={(e) => handleDersChange(i, "dogru", Math.max(0, parseInt(e.target.value) || 0))}
-                  className="w-14 px-2 py-1 border-2 border-[#D0D0E8] font-[family-name:var(--font-body)] text-xl text-center"
+                  className="w-14 px-2 py-1 border-2 border-[#D0D0E8] font-body text-xl text-center"
                   style={{ background: "#FFFFFF", color: "#18C840" }}
                 />
               </div>
               <div className="flex items-center gap-1">
-                <span className="font-[family-name:var(--font-body)] text-sm text-[#E01828]">Y:</span>
+                <span className="font-body text-sm text-[#E01828]">Y:</span>
                 <input
                   type="number" min="0" value={ders.yanlis}
                   onChange={(e) => handleDersChange(i, "yanlis", Math.max(0, parseInt(e.target.value) || 0))}
-                  className="w-14 px-2 py-1 border-2 border-[#D0D0E8] font-[family-name:var(--font-body)] text-xl text-center"
+                  className="w-14 px-2 py-1 border-2 border-[#D0D0E8] font-body text-xl text-center"
                   style={{ background: "#FFFFFF", color: "#E01828" }}
                 />
               </div>
@@ -177,24 +177,24 @@ function HesaplaTab() {
       {/* Sonuç */}
       {sonuclar && (
         <PixelCard>
-          <p className="font-[family-name:var(--font-body)] text-lg text-[#101010] mb-3 text-center">
+          <p className="font-body text-lg text-[#101010] mb-3 text-center">
             📊 SONUÇ
           </p>
           <div className="grid grid-cols-2 gap-3">
             <div className="px-4 py-4 text-center border-2 border-[#FFD000]" style={{ background: "#101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#606878" }}>NET</div>
-              <div className="font-[family-name:var(--font-pixel)] text-4xl" style={{ color: "#FFD000" }}>
+              <div className="font-pixel text-[9px]" style={{ color: "#606878" }}>NET</div>
+              <div className="font-pixel text-4xl" style={{ color: "#FFD000" }}>
                 {sonuclar.net.toFixed(1)}
               </div>
             </div>
             <div className="px-4 py-4 text-center border-2 border-[#18C840]" style={{ background: "#101010" }}>
-              <div className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#606878" }}>TAHMİNİ PUAN</div>
-              <div className="font-[family-name:var(--font-pixel)] text-4xl" style={{ color: "#18C840" }}>
+              <div className="font-pixel text-[9px]" style={{ color: "#606878" }}>TAHMİNİ PUAN</div>
+              <div className="font-pixel text-4xl" style={{ color: "#18C840" }}>
                 {sonuclar.puan.toFixed(1)}
               </div>
             </div>
           </div>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#606878] mt-3 text-center">
+          <p className="font-body text-sm text-[#606878] mt-3 text-center">
             * Tahmini puan. Gerçek hesaplama ÖSYM standartlarına göre değişebilir.
           </p>
         </PixelCard>
@@ -283,7 +283,7 @@ export default function DenemellerPage() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className="py-3 font-[family-name:var(--font-body)] text-xl border-r-4 last:border-r-0 border-[#101010] transition-all"
+                className="py-3 font-body text-xl border-r-4 last:border-r-0 border-[#101010] transition-all"
                 style={{
                   background: isActive ? "#101010" : "#F8F0DC",
                   color:      isActive ? "#FFD000" : "#606878",
@@ -310,13 +310,13 @@ export default function DenemellerPage() {
 
             {chartData.length >= 2 && (
               <PixelCard>
-                <p className="font-[family-name:var(--font-body)] text-lg text-[#101010] mb-3">
+                <p className="font-body text-lg text-[#101010] mb-3">
                   Net Trendi (son {chartData.length} deneme)
                 </p>
                 <PixelLineChart data={chartData} />
                 <div className="flex justify-between mt-1">
-                  <span className="font-[family-name:var(--font-body)] text-xs text-[#484858]">{chartData[0]?.label}</span>
-                  <span className="font-[family-name:var(--font-body)] text-xs text-[#484858]">{chartData[chartData.length - 1]?.label}</span>
+                  <span className="font-body text-xs text-[#484858]">{chartData[0]?.label}</span>
+                  <span className="font-body text-xs text-[#484858]">{chartData[chartData.length - 1]?.label}</span>
                 </div>
               </PixelCard>
             )}
@@ -327,8 +327,8 @@ export default function DenemellerPage() {
                   onClick={() => setAnalizExpanded(!analizExpanded)}
                   className="w-full flex items-center justify-between"
                 >
-                  <p className="font-[family-name:var(--font-body)] text-lg text-[#101010]">📊 Deneme Analizi</p>
-                  <span className="font-[family-name:var(--font-body)] text-lg text-[#2878F8]">
+                  <p className="font-body text-lg text-[#101010]">📊 Deneme Analizi</p>
+                  <span className="font-body text-lg text-[#2878F8]">
                     {analizExpanded ? "▲" : "▼"}
                   </span>
                 </button>
@@ -342,15 +342,15 @@ export default function DenemellerPage() {
                         { label: "ORT. YANLIŞ",   val: analiz.ortalamalar.yanlis.toFixed(1), renk: "#E01828" },
                       ].map((s) => (
                         <div key={s.label} className="border-2 border-[#D0D0E8] px-2 py-2 text-center" style={{ background: "#F0E8D0" }}>
-                          <div className="font-[family-name:var(--font-pixel)] text-[8px] text-[#606878]">{s.label}</div>
-                          <div className="font-[family-name:var(--font-pixel)] text-xl" style={{ color: s.renk }}>{s.val}</div>
+                          <div className="font-pixel text-[8px] text-[#606878]">{s.label}</div>
+                          <div className="font-pixel text-xl" style={{ color: s.renk }}>{s.val}</div>
                         </div>
                       ))}
                     </div>
 
                     {analiz.dersler.length > 0 && (
                       <div>
-                        <p className="font-[family-name:var(--font-body)] text-base text-[#101010] mb-2">
+                        <p className="font-body text-base text-[#101010] mb-2">
                           Ders Bazlı Ortalama:
                         </p>
                         <div className="space-y-1">
@@ -360,10 +360,10 @@ export default function DenemellerPage() {
                               className="flex items-center gap-2 border border-[#D0D0E8] px-2 py-1"
                               style={{ background: i === 0 ? "#D4ECC8" : i === analiz.dersler.length - 1 ? "#F4E0E0" : "#F8F4F0" }}
                             >
-                              <span className="font-[family-name:var(--font-pixel)] text-[9px] text-[#606878] w-4">#{i + 1}</span>
-                              <span className="flex-1 font-[family-name:var(--font-body)] text-base text-[#101010] truncate">{ders.ad}</span>
+                              <span className="font-pixel text-[9px] text-[#606878] w-4">#{i + 1}</span>
+                              <span className="flex-1 font-body text-base text-[#101010] truncate">{ders.ad}</span>
                               <span
-                                className="font-[family-name:var(--font-pixel)] text-sm"
+                                className="font-pixel text-sm"
                                 style={{ color: ders.ortalamaNet > 10 ? "#18C840" : ders.ortalamaNet > 5 ? "#F89000" : "#E01828" }}
                               >
                                 {ders.ortalamaNet.toFixed(1)}
@@ -380,7 +380,7 @@ export default function DenemellerPage() {
 
             {denemeler.length === 0 ? (
               <PixelCard className="text-center py-8">
-                <p className="font-[family-name:var(--font-body)] text-xl text-[#484858]">
+                <p className="font-body text-xl text-[#484858]">
                   Henüz deneme kaydı yok.
                 </p>
               </PixelCard>
@@ -391,17 +391,17 @@ export default function DenemellerPage() {
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <PixelBadge variant={d.tur === "TYT" ? "blue" : "purple"}>{d.tur}</PixelBadge>
-                        <span className="font-[family-name:var(--font-body)] text-base text-[#484858]">
+                        <span className="font-body text-base text-[#484858]">
                           {new Date(d.tarih).toLocaleDateString("tr-TR")}
                         </span>
                       </div>
-                      <div className="font-[family-name:var(--font-body)] text-sm text-[#101010]">
+                      <div className="font-body text-sm text-[#101010]">
                         D:{d.dogru} Y:{d.yanlis} B:{d.bos}
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-[family-name:var(--font-pixel)] text-sm text-[#18C840]">{d.net.toFixed(2)}</div>
-                      <div className="font-[family-name:var(--font-body)] text-xs text-[#484858]">net</div>
+                      <div className="font-pixel text-sm text-[#18C840]">{d.net.toFixed(2)}</div>
+                      <div className="font-body text-xs text-[#484858]">net</div>
                     </div>
                   </div>
 
@@ -414,14 +414,14 @@ export default function DenemellerPage() {
 
                   {expandedId === d.id && (
                     <div className="border-t-4 border-[#101010] mt-3 pt-3">
-                      <div className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-xs text-[#484858] mb-1">
+                      <div className="grid grid-cols-4 gap-1 font-body text-xs text-[#484858] mb-1">
                         <span>Ders</span>
                         <span className="text-center">D</span>
                         <span className="text-center">Y</span>
                         <span className="text-center">Net</span>
                       </div>
                       {d.dersDetay.map((dd) => (
-                        <div key={dd.id} className="grid grid-cols-4 gap-1 font-[family-name:var(--font-body)] text-base">
+                        <div key={dd.id} className="grid grid-cols-4 gap-1 font-body text-base">
                           <span className="text-[#101010] truncate">{dd.dersAdi}</span>
                           <span className="text-center text-[#18C840]">{dd.dogru}</span>
                           <span className="text-center text-[#E01828]">{dd.yanlis}</span>

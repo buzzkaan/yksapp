@@ -41,11 +41,11 @@ export function KonuIlerlemeClient() {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <span className="font-[family-name:var(--font-body)] text-lg text-[#000000]">
+        <span className="font-body text-lg text-[#000000]">
           Tamamlanan Konular
         </span>
         <span
-          className="font-[family-name:var(--font-pixel)] text-lg"
+          className="font-pixel text-lg"
           style={{ color: pct === 100 ? "#FFD000" : "#00A800" }}
         >
           %{pct}
@@ -72,7 +72,7 @@ export function KonuIlerlemeClient() {
         ))}
         <div className="absolute inset-0 flex items-center justify-center">
           <span
-            className="font-[family-name:var(--font-body)] text-sm"
+            className="font-body text-sm"
             style={{ color: pct > 45 ? "#fff" : "#A8C8F8" }}
           >
             {tamamlanan} / {toplam} konu
@@ -91,12 +91,12 @@ export function KonuIlerlemeClient() {
             className="border-2 border-[#000000] py-2 text-center bg-[#000040]"
           >
             <p
-              className="font-[family-name:var(--font-pixel)] text-base"
+              className="font-pixel text-base"
               style={{ color: s.renk }}
             >
               {s.value}
             </p>
-            <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8]">
+            <p className="font-body text-sm text-[#6878A8]">
               {s.label}
             </p>
           </div>

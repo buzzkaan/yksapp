@@ -47,10 +47,10 @@ export default async function BasarimlarPage() {
               </div>
               <div className="flex-1">
                 <div className="flex justify-between items-center mb-1">
-                  <span className="font-[family-name:var(--font-pixel)] text-sm" style={{ color: "#FFD000" }}>
+                  <span className="font-pixel text-sm" style={{ color: "#FFD000" }}>
                     SEVİYE {ayarlar.seviye}
                   </span>
-                  <span className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#606878" }}>
+                  <span className="font-body text-sm" style={{ color: "#606878" }}>
                     {ayarlar.xp % 100} / 100 XP
                   </span>
                 </div>
@@ -70,7 +70,7 @@ export default async function BasarimlarPage() {
           {/* Kazanılan Başarımlar */}
           {kazanilan.length > 0 && (
             <PixelCard>
-              <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
+              <p className="font-body text-lg text-[#000000] mb-3">
                 🏆 Kazanılan ({kazanilan.length})
               </p>
               <div className="flex flex-col gap-2">
@@ -82,14 +82,14 @@ export default async function BasarimlarPage() {
                   >
                     <span className="text-2xl">🏅</span>
                     <div className="flex-1">
-                      <div className="font-[family-name:var(--font-body)] text-xl text-[#FFD000]">
+                      <div className="font-body text-xl text-[#FFD000]">
                         {b.ad}
                       </div>
-                      <div className="font-[family-name:var(--font-body)] text-sm text-[#A8C8F8]">
+                      <div className="font-body text-sm text-[#A8C8F8]">
                         {b.aciklama}
                       </div>
                     </div>
-                    <span className="font-[family-name:var(--font-pixel)] text-sm text-[#00A800]">
+                    <span className="font-pixel text-sm text-[#00A800]">
                       +{b.puan} XP
                     </span>
                   </div>
@@ -101,7 +101,7 @@ export default async function BasarimlarPage() {
           {/* Kilitli Başarımlar */}
           {kazanilmamis.length > 0 && (
             <PixelCard>
-              <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
+              <p className="font-body text-lg text-[#000000] mb-3">
                 🔒 Kilitli ({kazanilmamis.length})
               </p>
               <div className="flex flex-col gap-2">
@@ -113,14 +113,14 @@ export default async function BasarimlarPage() {
                   >
                     <span className="text-2xl">🔒</span>
                     <div className="flex-1">
-                      <div className="font-[family-name:var(--font-body)] text-xl text-[#A8A8A8]">
+                      <div className="font-body text-xl text-[#A8A8A8]">
                         {b.ad}
                       </div>
-                      <div className="font-[family-name:var(--font-body)] text-sm text-[#808080]">
+                      <div className="font-body text-sm text-[#808080]">
                         {b.aciklama}
                       </div>
                     </div>
-                    <span className="font-[family-name:var(--font-pixel)] text-sm text-[#808080]">
+                    <span className="font-pixel text-sm text-[#808080]">
                       +{b.puan} XP
                     </span>
                   </div>

@@ -16,3 +16,11 @@ export function formatTarih(date: Date): string {
     year: "numeric",
   }).format(date);
 }
+
+export function formatSure(dakika: number): string {
+  if (dakika === 0) return "0dk";
+  if (dakika < 60) return `${dakika}dk`;
+  const h = Math.floor(dakika / 60);
+  const m = dakika % 60;
+  return m > 0 ? `${h}s ${m}dk` : `${h}s`;
+}

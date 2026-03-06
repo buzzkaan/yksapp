@@ -65,10 +65,10 @@ function GenelOzet({
       style={{ boxShadow: "4px 4px 0 0 #000000" }}
     >
       <div className="flex items-center justify-between mb-2">
-        <span className="font-[family-name:var(--font-body)] text-lg text-[#FFD000]">
+        <span className="font-body text-lg text-[#FFD000]">
           📊 Genel İlerleme
         </span>
-        <span className="font-[family-name:var(--font-body)] text-base text-[#6878A8]">
+        <span className="font-body text-base text-[#6878A8]">
           {toplamTamam}/{toplamKonu} konu
         </span>
       </div>
@@ -79,7 +79,7 @@ function GenelOzet({
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <span
-            className="font-[family-name:var(--font-body)] text-sm leading-none"
+            className="font-body text-sm leading-none"
             style={{ color: progress > 50 ? "#fff" : "#6878A8" }}
           >
             %{Math.round(progress)}
@@ -135,23 +135,23 @@ function DersKonuTakip({
         <span className="text-2xl flex-shrink-0">{icon}</span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className="font-[family-name:var(--font-body)] text-lg text-[#FFD000] leading-tight">
+            <span className="font-body text-lg text-[#FFD000] leading-tight">
               {isim}
             </span>
             {etiket && (
               <span
-                className="font-[family-name:var(--font-body)] text-xs border-2 px-1.5 py-0.5 flex-shrink-0"
+                className="font-body text-xs border-2 px-1.5 py-0.5 flex-shrink-0"
                 style={{ borderColor: renk, color: renk }}
               >
                 {etiket}
               </span>
             )}
             {tamTamam && (
-              <span className="font-[family-name:var(--font-body)] text-xs border-2 border-[#00A800] text-[#00A800] px-1.5 py-0.5 flex-shrink-0">
+              <span className="font-body text-xs border-2 border-[#00A800] text-[#00A800] px-1.5 py-0.5 flex-shrink-0">
                 🏆 Clear!
               </span>
             )}
-            <span className="ml-auto font-[family-name:var(--font-body)] text-sm text-[#6878A8] flex-shrink-0">
+            <span className="ml-auto font-body text-sm text-[#6878A8] flex-shrink-0">
               {tamamSayi}/{konular.length}
             </span>
           </div>
@@ -162,7 +162,7 @@ function DersKonuTakip({
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <span
-                className="font-[family-name:var(--font-body)] text-xs leading-none"
+                className="font-body text-xs leading-none"
                 style={{ color: progress > 50 ? "#fff" : "#6878A8" }}
               >
                 {tamTamam ? "✓ Tamamlandı!" : progress > 0 ? `%${Math.round(progress)}` : "Başlanmadı"}
@@ -189,7 +189,7 @@ function DersKonuTakip({
                   {tamam ? "✅" : "⬜"}
                 </span>
                 <span
-                  className="font-[family-name:var(--font-body)] text-base leading-snug flex-1"
+                  className="font-body text-base leading-snug flex-1"
                   style={{
                     color: tamam ? "#00A800" : "#A8C8F8",
                     textDecoration: tamam ? "line-through" : "none",
@@ -197,7 +197,7 @@ function DersKonuTakip({
                 >
                   {konu}
                 </span>
-                <span className="font-[family-name:var(--font-body)] text-xs text-[#6878A8] flex-shrink-0 mt-1">
+                <span className="font-body text-xs text-[#6878A8] flex-shrink-0 mt-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </button>
@@ -242,13 +242,13 @@ function YksSinavGrubu({
         style={{ backgroundColor: bgColor, borderBottom: `3px solid ${borderColor}` }}
       >
         <span
-          className="font-[family-name:var(--font-pixel)] text-xs px-2 py-1"
+          className="font-pixel text-xs px-2 py-1"
           style={{ backgroundColor: kategoriRenk, color: "#FFF" }}
         >
           {label}
         </span>
-        <span className="font-[family-name:var(--font-body)] text-sm text-[#FFD000]">{aciklama}</span>
-        <span className="ml-auto font-[family-name:var(--font-body)] text-sm flex-shrink-0" style={{ color: borderColor }}>
+        <span className="font-body text-sm text-[#FFD000]">{aciklama}</span>
+        <span className="ml-auto font-body text-sm flex-shrink-0" style={{ color: borderColor }}>
           {gercekDersler.length} ders
         </span>
       </div>
@@ -288,15 +288,15 @@ function GenelSinavBolum({ bolum, sinavTipi }: { bolum: SinavBolum; sinavTipi: S
         style={{ backgroundColor: bolum.renk + "33", borderBottom: `3px solid ${bolum.renk}` }}
       >
         <span
-          className="font-[family-name:var(--font-pixel)] text-xs px-2 py-1"
+          className="font-pixel text-xs px-2 py-1"
           style={{ backgroundColor: bolum.renk, color: "#FFF" }}
         >
           {bolum.icon} {bolum.isim}
         </span>
-        <span className="font-[family-name:var(--font-body)] text-sm text-[#FFD000] flex-1 truncate">
+        <span className="font-body text-sm text-[#FFD000] flex-1 truncate">
           {bolum.aciklama}
         </span>
-        <span className="font-[family-name:var(--font-body)] text-sm text-[#6878A8] flex-shrink-0">
+        <span className="font-body text-sm text-[#6878A8] flex-shrink-0">
           {bolum.dersler.length} ders
         </span>
       </div>
@@ -358,9 +358,9 @@ function YksView() {
               style={isAktif ? { background: kat.renk } : { background: "#A8A8A8", color: "#000000" }}
             >
               <span className="text-2xl leading-none">{kat.icon}</span>
-              <span className="font-[family-name:var(--font-body)] text-lg leading-tight">{kat.label}</span>
+              <span className="font-body text-lg leading-tight">{kat.label}</span>
               <span
-                className="font-[family-name:var(--font-body)] text-xs px-1.5 py-0.5 border-2"
+                className="font-body text-xs px-1.5 py-0.5 border-2"
                 style={
                   isAktif
                     ? { borderColor: "rgba(255,255,255,0.5)", color: "rgba(255,255,255,0.85)" }
@@ -381,10 +381,10 @@ function YksView() {
       >
         <span className="text-3xl">{kategori.icon}</span>
         <div>
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#FFD000] leading-tight">
+          <p className="font-body text-xl text-[#FFD000] leading-tight">
             {kategori.label} Puan Türü
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8]">{kategori.aciklama}</p>
+          <p className="font-body text-sm text-[#6878A8]">{kategori.aciklama}</p>
         </div>
       </div>
 
@@ -392,7 +392,7 @@ function YksView() {
 
       {(aktif === "ea" || aktif === "dil") && (
         <div className="border-2 border-dashed border-[#2878F8] px-3 py-2 bg-[#000058]">
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8]">
+          <p className="font-body text-sm text-[#6878A8]">
             ℹ️ TDE, Tarih, Coğrafya ve Felsefe hem TYT hem AYT için gereklidir.
           </p>
         </div>
@@ -402,7 +402,7 @@ function YksView() {
       <YksSinavGrubu sinav="AYT" dersKeys={kategori.ayt} kategoriRenk={kategori.renk} />
 
       <div className="border-2 border-dashed border-[#2878F8] px-3 py-2 bg-[#000058]">
-        <p className="font-[family-name:var(--font-body)] text-xs text-[#6878A8]">
+        <p className="font-body text-xs text-[#6878A8]">
           ⚠️ Yabancı Dil kazanımları henüz mevcut değil.
         </p>
       </div>
@@ -432,12 +432,12 @@ function GenelSinavView({
       >
         <Image src={meta.icon} alt={meta.isim} width={36} height={36} className="w-9 h-9" />
         <div className="flex-1">
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#FFD000] leading-tight">{meta.tamIsim}</p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8]">{meta.aciklama}</p>
+          <p className="font-body text-xl text-[#FFD000] leading-tight">{meta.tamIsim}</p>
+          <p className="font-body text-sm text-[#6878A8]">{meta.aciklama}</p>
         </div>
         <div className="text-right flex-shrink-0">
-          <p className="font-[family-name:var(--font-pixel)] text-base" style={{ color: meta.renk }}>{bolumler.length}</p>
-          <p className="font-[family-name:var(--font-body)] text-xs text-[#6878A8]">bölüm</p>
+          <p className="font-pixel text-base" style={{ color: meta.renk }}>{bolumler.length}</p>
+          <p className="font-body text-xs text-[#6878A8]">bölüm</p>
         </div>
       </div>
 
@@ -469,7 +469,7 @@ export default function HaritaPage() {
         <PageHeader icon="📚" title="KONULAR" subtitle="Yükleniyor..." />
         <PageContainer>
           <div className="text-center py-16">
-            <p className="font-[family-name:var(--font-pixel)] text-[10px] text-[#6878A8] animate-pixel-blink">
+            <p className="font-pixel text-[10px] text-[#6878A8] animate-pixel-blink">
               YÜKLENİYOR...
             </p>
           </div>

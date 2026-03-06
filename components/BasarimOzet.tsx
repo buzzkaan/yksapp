@@ -47,7 +47,7 @@ export function BasarimOzet() {
 
   return (
     <PixelCard>
-      <p className="font-[family-name:var(--font-body)] text-lg text-[#000000] mb-3">
+      <p className="font-body text-lg text-[#000000] mb-3">
         🏆 Başarımlar
       </p>
       <div className="flex items-center gap-3">
@@ -56,10 +56,10 @@ export function BasarimOzet() {
         </div>
         <div className="flex-1">
           <div className="flex justify-between items-center mb-1">
-            <span className="font-[family-name:var(--font-pixel)] text-sm" style={{ color: "#FFD000" }}>
+            <span className="font-pixel text-sm" style={{ color: "#FFD000" }}>
               SEVİYE {ayarlar.seviye}
             </span>
-            <span className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#6878A8" }}>
+            <span className="font-body text-sm" style={{ color: "#6878A8" }}>
               {ayarlar.xp} XP
             </span>
           </div>
@@ -72,10 +72,10 @@ export function BasarimOzet() {
         </div>
       </div>
       <div className="mt-3 flex justify-between items-center">
-        <span className="font-[family-name:var(--font-body)] text-sm" style={{ color: "#00A800" }}>
+        <span className="font-body text-sm" style={{ color: "#00A800" }}>
           {kazanilan}/{toplam} başarım
         </span>
-        <span className="font-[family-name:var(--font-pixel)] text-sm" style={{ color: "#00A800" }}>
+        <span className="font-pixel text-sm" style={{ color: "#00A800" }}>
           %{ilerleme}
         </span>
       </div>

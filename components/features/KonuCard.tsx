@@ -4,10 +4,10 @@ import { PixelBadge } from "@/components/pixel/PixelBadge";
 import { konuToggle, konuSil } from "@/server/actions/konular";
 import toast from "react-hot-toast";
 
-const ONCELIK_MAP = {
-  1: { label: "Düşük",  variant: "green" as const },
-  2: { label: "Orta",   variant: "gold"  as const },
-  3: { label: "Yüksek", variant: "red"   as const },
+const ONCELIK_BADGE: Record<number, { label: string; variant: "green" | "gold" | "red" }> = {
+  1: { label: "Normal", variant: "green" },
+  2: { label: "Orta",   variant: "gold"  },
+  3: { label: "Acil",   variant: "red"   },
 };
 
 export function KonuCard({
@@ -27,7 +27,7 @@ export function KonuCard({
   dersRenk: string;
   onRefresh?: () => void;
 }) {
-  const p = ONCELIK_MAP[oncelik as 1 | 2 | 3] ?? ONCELIK_MAP[1];
+  const p = ONCELIK_BADGE[oncelik] ?? ONCELIK_BADGE[1];
 
   async function handleToggle() {
     if (tamamlandi) return;

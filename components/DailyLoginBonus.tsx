@@ -36,23 +36,23 @@ export function DailyLoginBonus() {
       <div className="fixed inset-0 z-[102] flex items-center justify-center p-4">
         <PixelCard className="max-w-sm w-full text-center animate-[bounce_0.5s_ease-out]">
           <div className="text-6xl mb-4">🎉</div>
-          <h2 className="font-[family-name:var(--font-pixel)] text-2xl text-[#FFD000] mb-2">
+          <h2 className="font-pixel text-2xl text-[#FFD000] mb-2">
             GÜNLÜK GİRİŞ!
           </h2>
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#000000] mb-4">
+          <p className="font-body text-xl text-[#000000] mb-4">
             Hoş geldin! +{bonus.xpKazan} XP kazandın!
           </p>
           <div
             className="inline-block px-4 py-2 border-2 border-[#FFD000]"
             style={{ background: "#FFD000", boxShadow: "3px 3px 0 0 #804000" }}
           >
-            <span className="font-[family-name:var(--font-pixel)] text-lg" style={{ color: "#000000" }}>
+            <span className="font-pixel text-lg" style={{ color: "#000000" }}>
               +{bonus.xpKazan} XP
             </span>
           </div>
           <button
             onClick={() => setGoster(false)}
-            className="mt-4 w-full py-2 font-[family-name:var(--font-body)] text-lg"
+            className="mt-4 w-full py-2 font-body text-lg"
             style={{ color: "#6878A8" }}
           >
             Teşekkürler!

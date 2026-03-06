@@ -63,7 +63,7 @@ export function CalendarGrid({
       >
         <button
           onClick={prevMonth}
-          className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
+          className="font-pixel text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
           style={{
             color: "#A8A8A8",
             background: "#000000",
@@ -76,7 +76,7 @@ export function CalendarGrid({
         <div className="flex items-center gap-2">
           <span className="text-base">◆</span>
           <span
-            className="font-[family-name:var(--font-pixel)] text-[14px]"
+            className="font-pixel text-[14px]"
             style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
           >
             {AYLAR_TAM[ay - 1].toUpperCase()} {yil}
@@ -85,7 +85,7 @@ export function CalendarGrid({
         </div>
         <button
           onClick={nextMonth}
-          className="font-[family-name:var(--font-pixel)] text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
+          className="font-pixel text-[12px] px-2 py-1 transition-all hover:scale-110 active:scale-95 cursor-pointer select-none"
           style={{
             color: "#A8A8A8",
             background: "#000000",
@@ -108,7 +108,7 @@ export function CalendarGrid({
         {GUNLER_KISALT.map((g, i) => (
           <div
             key={g}
-            className="text-center py-1.5 font-[family-name:var(--font-pixel)] text-[10px]"
+            className="text-center py-1.5 font-pixel text-[10px]"
             style={{
               color: i >= 5 ? "#E01828" : "#000000",
               borderRight: i < 6 ? "2px solid #000000" : "none",
@@ -163,7 +163,7 @@ export function CalendarGrid({
               }}
             >
               <span
-                className="font-[family-name:var(--font-pixel)] text-[11px] leading-none"
+                className="font-pixel text-[11px] leading-none"
                 style={{
                   color: isSelected
                     ? "#FFFFFF"

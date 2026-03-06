@@ -8,3 +8,10 @@ export const GUNLER_TAM = [
 ];
 
 export const GUNLER_KISALT = ["Pt", "Sl", "Ça", "Pe", "Cu", "Ct", "Pz"];
+
+export const PIXEL_CORNERS = [
+  "top-[-2px] left-[-2px]",
+  "top-[-2px] right-[-2px]",
+  "bottom-[-2px] left-[-2px]",
+  "bottom-[-2px] right-[-2px]",
+] as const;

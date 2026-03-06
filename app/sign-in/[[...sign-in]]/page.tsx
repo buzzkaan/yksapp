@@ -9,13 +9,13 @@ export default function SignInPage() {
       {/* Logo */}
       <div className="mb-8 text-center">
         <div
-          className="font-[family-name:var(--font-pixel)] text-[14px] leading-relaxed tracking-wider"
+          className="font-pixel text-[14px] leading-relaxed tracking-wider"
           style={{ color: "#FFD000", textShadow: "2px 2px 0 #504000" }}
         >
           🌾 YKS FARM
         </div>
         <div
-          className="font-[family-name:var(--font-body)] text-2xl mt-1"
+          className="font-body text-2xl mt-1"
           style={{ color: "#8890B8" }}
         >
           Çiftliğe Giriş Yap

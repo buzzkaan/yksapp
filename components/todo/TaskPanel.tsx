@@ -80,16 +80,16 @@ export function TaskPanel({
             }}
           >
             <div className="flex items-center gap-2 min-w-0">
-              <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>◆</span>
+              <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>◆</span>
               <span
-                className="font-[family-name:var(--font-pixel)] text-[11px] truncate"
+                className="font-pixel text-[11px] truncate"
                 style={{ color: "#FFD000", textShadow: "2px 2px 0 #804000" }}
               >
                 {selectedDateLabel}
               </span>
               {toplam > 0 && (
                 <span
-                  className="font-[family-name:var(--font-pixel)] text-[9px] px-1.5 py-0.5 flex-shrink-0"
+                  className="font-pixel text-[9px] px-1.5 py-0.5 flex-shrink-0"
                   style={{
                     background: tamamlanan === toplam ? "#00A800" : "#000000",
                     color: tamamlanan === toplam ? "#FFF" : "#A8C8F8",
@@ -102,7 +102,7 @@ export function TaskPanel({
             </div>
             <button
               onClick={() => onShowGorevForm(v => !v)}
-              className="font-[family-name:var(--font-pixel)] text-[10px] px-3 py-1.5 transition-all cursor-pointer flex-shrink-0"
+              className="font-pixel text-[10px] px-3 py-1.5 transition-all cursor-pointer flex-shrink-0"
               style={{
                 background: showGorevForm ? "#6878A8" : "#00A800",
                 color: "#FFF",
@@ -127,7 +127,7 @@ export function TaskPanel({
                 value={gorevBaslik}
                 onChange={e => onGorevBaslik(e.target.value)}
                 autoFocus
-                className="px-3 py-2 font-[family-name:var(--font-body)] text-xl outline-none w-full"
+                className="px-3 py-2 font-body text-xl outline-none w-full"
                 style={{
                   background: "#FAFAF0",
                   border: "3px solid #000000",
@@ -140,7 +140,7 @@ export function TaskPanel({
                 placeholder="Açıklama (opsiyonel)..."
                 value={gorevAciklama}
                 onChange={e => onGorevAciklama(e.target.value)}
-                className="px-3 py-1.5 font-[family-name:var(--font-body)] text-lg outline-none w-full"
+                className="px-3 py-1.5 font-body text-lg outline-none w-full"
                 style={{
                   background: "#FAFAF0",
                   border: "2px solid #C0B890",
@@ -151,7 +151,7 @@ export function TaskPanel({
 
               {/* Öncelik */}
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>ÖNCELİK</span>
+                <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>ÖNCELİK</span>
                 {[
                   { val: 1, label: "DÜŞÜK", color: "#00A800", dark: "#107030" },
                   { val: 2, label: "ORTA", color: "#F89000", dark: "#C07000" },
@@ -161,7 +161,7 @@ export function TaskPanel({
                     key={p.val}
                     type="button"
                     onClick={() => onGorevOncelik(p.val)}
-                    className="font-[family-name:var(--font-pixel)] text-[9px] px-2.5 py-1 cursor-pointer transition-all"
+                    className="font-pixel text-[9px] px-2.5 py-1 cursor-pointer transition-all"
                     style={{
                       background: gorevOncelik === p.val ? p.color : "#E8E0D0",
                       color: gorevOncelik === p.val ? "#FFF" : "#6878A8",
@@ -176,7 +176,7 @@ export function TaskPanel({
 
               {/* Renk */}
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-[family-name:var(--font-pixel)] text-[9px]" style={{ color: "#6878A8" }}>RENK</span>
+                <span className="font-pixel text-[9px]" style={{ color: "#6878A8" }}>RENK</span>
                 {GOREV_RENKLER.map(r => (
                   <button
                     key={r} type="button" onClick={() => onGorevRenk(r)}
@@ -194,7 +194,7 @@ export function TaskPanel({
               <div className="flex gap-2 pt-1">
                 <button
                   type="submit"
-                  className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-2 cursor-pointer"
+                  className="font-pixel text-[10px] px-4 py-2 cursor-pointer"
                   style={{
                     background: "#00A800",
                     color: "#FFF",
@@ -207,7 +207,7 @@ export function TaskPanel({
                 <button
                   type="button"
                   onClick={() => onShowGorevForm(false)}
-                  className="font-[family-name:var(--font-pixel)] text-[10px] px-4 py-2 cursor-pointer"
+                  className="font-pixel text-[10px] px-4 py-2 cursor-pointer"
                   style={{
                     background: "#E8E0D0",
                     color: "#6878A8",
@@ -224,14 +224,14 @@ export function TaskPanel({
           {selectedGorevler.length === 0 ? (
             <div className="py-8 text-center flex flex-col items-center gap-3">
               <div
-                className="font-[family-name:var(--font-pixel)] text-[9px]"
+                className="font-pixel text-[9px]"
                 style={{ color: "#A09870" }}
               >
                 [ GÖREV YOK ]
               </div>
               <button
                 onClick={() => onShowGorevForm(true)}
-                className="font-[family-name:var(--font-body)] text-xl cursor-pointer"
+                className="font-body text-xl cursor-pointer"
                 style={{ color: "#2878F8", borderBottom: "2px dotted #2878F8" }}
               >
                 + görev ekle
@@ -273,7 +273,7 @@ export function TaskPanel({
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <span
-                          className="font-[family-name:var(--font-body)] text-xl leading-tight"
+                          className="font-body text-xl leading-tight"
                           style={{
                             color: g.tamamlandi ? "#A8C8F8" : "#000000",
                             textDecoration: g.tamamlandi ? "line-through" : "none",
@@ -283,7 +283,7 @@ export function TaskPanel({
                         </span>
                         {!g.tamamlandi && g.oncelik !== 1 && (
                           <span
-                            className="font-[family-name:var(--font-pixel)] text-[8px] px-1.5 py-0.5 flex-shrink-0"
+                            className="font-pixel text-[8px] px-1.5 py-0.5 flex-shrink-0"
                             style={{ background: oncelikColor, color: "#FFF", border: "2px solid #000000" }}
                           >
                             {g.oncelik === 3 ? "YÜKSEK" : "ORTA"}
@@ -291,7 +291,7 @@ export function TaskPanel({
                         )}
                         {isOverdue && (
                           <span
-                            className="font-[family-name:var(--font-pixel)] text-[8px] px-1.5 py-0.5 flex-shrink-0"
+                            className="font-pixel text-[8px] px-1.5 py-0.5 flex-shrink-0"
                             style={{ background: "#E01828", color: "#FFF", border: "2px solid #000000" }}
                           >
                             GEÇ
@@ -299,7 +299,7 @@ export function TaskPanel({
                         )}
                       </div>
                       {g.aciklama && (
-                        <p className="font-[family-name:var(--font-body)] text-base mt-0.5" style={{ color: "#707080" }}>
+                        <p className="font-body text-base mt-0.5" style={{ color: "#707080" }}>
                           {g.aciklama}
                         </p>
                       )}
@@ -308,22 +308,8 @@ export function TaskPanel({
                     {/* Sil */}
                     <button
                       onClick={() => onGorevSil(g.id)}
-                      className="font-[family-name:var(--font-pixel)] text-[10px] w-7 h-7 flex items-center justify-center cursor-pointer flex-shrink-0 transition-all"
+                      className="font-pixel text-[10px] w-7 h-7 flex items-center justify-center cursor-pointer flex-shrink-0 transition-all text-mario-stone hover:text-mario-red hover:bg-[#FFE8E8] hover:border-mario-red border-2 border-transparent"
                       title="Sil"
-                      style={{
-                        color: "#A09080",
-                        border: "2px solid transparent",
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.color = "#E01828";
-                        e.currentTarget.style.borderColor = "#E01828";
-                        e.currentTarget.style.background = "#FFE8E8";
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.color = "#A09080";
-                        e.currentTarget.style.borderColor = "transparent";
-                        e.currentTarget.style.background = "transparent";
-                      }}
                     >
                       ✕
                     </button>
@@ -337,7 +323,7 @@ export function TaskPanel({
                   className="px-4 py-2.5 text-center"
                   style={{ background: "#D4ECC8", borderTop: "3px solid #00A800" }}
                 >
-                  <span className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#107030" }}>
+                  <span className="font-body text-xl" style={{ color: "#107030" }}>
                     🏆 Günün görevleri tamamlandı!
                   </span>
                 </div>
@@ -349,12 +335,12 @@ export function TaskPanel({
         <GameBox>
           <div className="py-10 text-center flex flex-col items-center gap-3">
             <div
-              className="font-[family-name:var(--font-pixel)] text-[9px]"
+              className="font-pixel text-[9px]"
               style={{ color: "#A09870" }}
             >
               [ GÜN SEÇİLMEDİ ]
             </div>
-            <p className="font-[family-name:var(--font-body)] text-xl" style={{ color: "#6878A8" }}>
+            <p className="font-body text-xl" style={{ color: "#6878A8" }}>
               Takvimden bir gün seç
             </p>
           </div>

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { PIXEL_CORNERS } from "@/lib/constants/ui";
 
 // Mario block variants:
 // wood → Brick Block | stone → Stone Block | gold → ? Block
@@ -14,13 +15,6 @@ const VARIANTS: Record<Variant, { card: string; shadow: string; corner: string }
   green: { card: "bg-mario-green  border-black text-white", shadow: "shadow-pixel-green", corner: "bg-mario-gold"  },
 };
 
-const CORNERS = [
-  "top-[-2px] left-[-2px]",
-  "top-[-2px] right-[-2px]",
-  "bottom-[-2px] left-[-2px]",
-  "bottom-[-2px] right-[-2px]",
-] as const;
-
 export function PixelCard({
   children,
   className,
@@ -33,7 +27,7 @@ export function PixelCard({
   const v = VARIANTS[variant];
   return (
     <div className={cn("relative border-4 p-4 image-pixel", v.card, v.shadow, className)}>
-      {CORNERS.map((pos) => (
+      {PIXEL_CORNERS.map((pos) => (
         <div
           key={pos}
           className={cn("absolute w-[10px] h-[10px] border-2 border-black z-10", pos, v.corner)}

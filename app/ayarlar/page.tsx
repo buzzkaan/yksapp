@@ -88,10 +88,10 @@ export default function AyarlarPage() {
 
         {/* Sınav Seçimi */}
         <PixelCard>
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#000000] mb-1">
+          <p className="font-body text-xl text-[#000000] mb-1">
             🎓 Hangi Boss&apos;a Hazırlanıyorsun?
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8] mb-4">
+          <p className="font-body text-sm text-[#6878A8] mb-4">
             Seçtiğin sınava göre konular ve içerikler değişir.
           </p>
 
@@ -117,25 +117,25 @@ export default function AyarlarPage() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span
-                          className="font-[family-name:var(--font-pixel)] text-xs"
+                          className="font-pixel text-xs"
                           style={{ color: isSecili ? "#FFF" : "#000000" }}
                         >
                           {meta.isim}
                         </span>
                         {isSecili && (
-                          <span className="font-[family-name:var(--font-body)] text-sm border-2 border-white/60 px-1.5 text-white">
+                          <span className="font-body text-sm border-2 border-white/60 px-1.5 text-white">
                             ✓ Seçili
                           </span>
                         )}
                       </div>
                       <p
-                        className="font-[family-name:var(--font-body)] text-base mt-0.5"
+                        className="font-body text-base mt-0.5"
                         style={{ color: isSecili ? "rgba(255,255,255,0.9)" : "#000000" }}
                       >
                         {meta.tamIsim}
                       </p>
                       <p
-                        className="font-[family-name:var(--font-body)] text-sm"
+                        className="font-body text-sm"
                         style={{ color: isSecili ? "rgba(255,255,255,0.75)" : "#6878A8" }}
                       >
                         {meta.aciklama}
@@ -158,15 +158,15 @@ export default function AyarlarPage() {
 
         {/* Görünüm Ayarları */}
         <PixelCard>
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#000000] mb-1">
+          <p className="font-body text-xl text-[#000000] mb-1">
             🎨 Görünüm Ayarları
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8] mb-4">
+          <p className="font-body text-sm text-[#6878A8] mb-4">
             Yazı boyutu ve stilini kişiselleştir.
           </p>
 
           {/* Yazı Boyutu */}
-          <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#6878A8] mb-2">YAZI BOYUTU</p>
+          <p className="font-pixel text-[9px] text-[#6878A8] mb-2">YAZI BOYUTU</p>
           <div className="flex gap-2 mb-5">
             {[
               { key: "kucuk", label: "Küçük", sub: "S" },
@@ -186,11 +186,11 @@ export default function AyarlarPage() {
                 }}
               >
                 <span
-                  className="font-[family-name:var(--font-pixel)] block"
+                  className="font-pixel block"
                   style={{ fontSize: key === "kucuk" ? "9px" : key === "buyuk" ? "14px" : "11px", color: boyut === key ? "#FFF" : "#000000" }}
                 >{sub}</span>
                 <span
-                  className="font-[family-name:var(--font-body)] text-base block mt-1"
+                  className="font-body text-base block mt-1"
                   style={{ color: boyut === key ? "rgba(255,255,255,0.85)" : "#6878A8" }}
                 >{label}</span>
               </button>
@@ -198,7 +198,7 @@ export default function AyarlarPage() {
           </div>
 
           {/* Yazı Stili */}
-          <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#6878A8] mb-2">YAZI STİLİ</p>
+          <p className="font-pixel text-[9px] text-[#6878A8] mb-2">YAZI STİLİ</p>
           <div className="flex gap-2 mb-5">
             {[
               { key: "pixel", label: "🎮 Pixel", aciklama: "Retro piksel yazı" },
@@ -216,27 +216,27 @@ export default function AyarlarPage() {
                   boxShadow: "3px 3px 0px 0px #000000",
                 }}
               >
-                <span className="font-[family-name:var(--font-body)] text-lg block" style={{ color: "#000000" }}>{label}</span>
-                <span className="font-[family-name:var(--font-body)] text-sm block" style={{ color: "#6878A8" }}>{aciklama}</span>
+                <span className="font-body text-lg block" style={{ color: "#000000" }}>{label}</span>
+                <span className="font-body text-sm block" style={{ color: "#6878A8" }}>{aciklama}</span>
               </button>
             ))}
           </div>
 
           {/* Önizleme */}
           <div className="border-2 border-dashed border-[#6878A8] p-3" style={{ backgroundColor: "#A8A8A8" }}>
-            <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#6878A8] mb-2">ÖNİZLEME</p>
-            <p className="font-[family-name:var(--font-body)] text-2xl text-[#000000] leading-tight">YKS Quest</p>
-            <p className="font-[family-name:var(--font-body)] text-xl text-[#6878A8]">Türkçe • Matematik • Geometri</p>
-            <p className="font-[family-name:var(--font-pixel)] text-[9px] text-[#2878F8] mt-1">STREAK: 7 GÜN 🔥</p>
+            <p className="font-pixel text-[9px] text-[#6878A8] mb-2">ÖNİZLEME</p>
+            <p className="font-body text-2xl text-[#000000] leading-tight">YKS Quest</p>
+            <p className="font-body text-xl text-[#6878A8]">Türkçe • Matematik • Geometri</p>
+            <p className="font-pixel text-[9px] text-[#2878F8] mt-1">STREAK: 7 GÜN 🔥</p>
           </div>
         </PixelCard>
 
         {/* Hedef Takibi */}
         <PixelCard>
-          <p className="font-[family-name:var(--font-body)] text-xl text-[#000000] mb-1">
+          <p className="font-body text-xl text-[#000000] mb-1">
             🎯 Hedef Üniversite / Bölüm
           </p>
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8] mb-4">
+          <p className="font-body text-sm text-[#6878A8] mb-4">
             Hedefini belirleyerek motivasyonunu artır!
           </p>
 
@@ -246,7 +246,7 @@ export default function AyarlarPage() {
               placeholder="Hedef üniversite"
               value={hedef.uni}
               onChange={(e) => setHedef(h => ({ ...h, uni: e.target.value }))}
-              className="w-full px-3 py-2 border-2 border-[#D0D0E8] font-[family-name:var(--font-body)] text-xl"
+              className="w-full px-3 py-2 border-2 border-[#D0D0E8] font-body text-xl"
               style={{ background: "#FFFFFF", color: "#000000" }}
             />
             <input
@@ -254,7 +254,7 @@ export default function AyarlarPage() {
               placeholder="Hedef bölüm"
               value={hedef.bolum}
               onChange={(e) => setHedef(h => ({ ...h, bolum: e.target.value }))}
-              className="w-full px-3 py-2 border-2 border-[#D0D0E8] font-[family-name:var(--font-body)] text-xl"
+              className="w-full px-3 py-2 border-2 border-[#D0D0E8] font-body text-xl"
               style={{ background: "#FFFFFF", color: "#000000" }}
             />
             <input
@@ -262,7 +262,7 @@ export default function AyarlarPage() {
               placeholder="Hedef net (örn: 80)"
               value={hedef.net}
               onChange={(e) => setHedef(h => ({ ...h, net: e.target.value }))}
-              className="w-full px-3 py-2 border-2 border-[#D0D0E8] font-[family-name:var(--font-body)] text-xl"
+              className="w-full px-3 py-2 border-2 border-[#D0D0E8] font-body text-xl"
               style={{ background: "#FFFFFF", color: "#000000" }}
             />
             <PixelButton
@@ -276,7 +276,7 @@ export default function AyarlarPage() {
         </PixelCard>
 
 <div className="border-2 border-dashed border-[#2878F8] bg-[#A8A8A8] px-3 py-2">
-          <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8]">
+          <p className="font-body text-sm text-[#6878A8]">
             ℹ️ Sınav seçimin yalnızca bu cihazda saklanır. İstediğin zaman değiştirebilirsin.
           </p>
         </div>
@@ -285,12 +285,12 @@ export default function AyarlarPage() {
         <div className="grid grid-cols-2 gap-2">
           <Link href="/istatistik">
             <div className="border-2 border-[#2878F8] px-3 py-3 text-center cursor-pointer" style={{ background: "#A8A8A8", boxShadow: "3px 3px 0 0 #000000" }}>
-              <span className="font-[family-name:var(--font-body)] text-lg text-[#2878F8]">📊 Tüm İstatistikler</span>
+              <span className="font-body text-lg text-[#2878F8]">📊 Tüm İstatistikler</span>
             </div>
           </Link>
           <Link href="/basarimlar">
             <div className="border-2 border-[#FFD000] px-3 py-3 text-center cursor-pointer" style={{ background: "#A8A8A8", boxShadow: "3px 3px 0 0 #000000" }}>
-              <span className="font-[family-name:var(--font-body)] text-lg text-[#FFD000]">🏆 Tüm Başarımlar</span>
+              <span className="font-body text-lg text-[#FFD000]">🏆 Tüm Başarımlar</span>
             </div>
           </Link>
         </div>
