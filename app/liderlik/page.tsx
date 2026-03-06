@@ -9,7 +9,6 @@ import { PageContainer } from "@/components/layout/PageContainer";
 import { db } from "@/lib/db";
 import { requireUserId } from "@/lib/auth";
 import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
-import { getSinavTipi } from "@/lib/utils/sinav";
 
 // ─── Tipler ───────────────────────────────────────────────────────────────────
 
@@ -73,8 +72,7 @@ export default async function LiderlikPage({
 
   const myImageUrl = meClerk?.imageUrl ?? "";
 
-  const currentSinav = getSinavTipi();
-  const activeTab    = (tab as SinavTipi) || currentSinav;
+  const activeTab = (tab as SinavTipi) || "YKS";
 
   // DB
   const [currentUser_db, users] = await Promise.all([

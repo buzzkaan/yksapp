@@ -1,12 +1,7 @@
 "use server";
-import { LS_SINAV_KEY, type SinavTipi } from "@/lib/sinav-data";
-
-const VALID_SINAV: SinavTipi[] = ["YKS", "DGS", "KPSS"];
-
-export async function getSinavTipiServer(): Promise<SinavTipi> {
-  const { cookies } = await import("next/headers");
-  return "YKS";
-}
+import { db } from "@/lib/db";
+import { requireUserId } from "@/lib/auth";
+import { formatDateStr, parseDateStr } from "@/lib/utils/date";
 
 function getHaftaBasi(): Date {
   const now = new Date();
@@ -29,10 +24,6 @@ function getYilBasi(): Date {
 }
 
 export async function getOzetIstatistik() {
-  const { db } = await import("@/lib/db");
-  const { requireUserId } = await import("@/lib/auth");
-  const { formatDateStr } = await import("@/lib/utils/date");
-
   const userId = await requireUserId();
   const now = new Date();
 
@@ -61,10 +52,6 @@ export async function getOzetIstatistik() {
 }
 
 export async function getIstatistik() {
-  const { db } = await import("@/lib/db");
-  const { requireUserId } = await import("@/lib/auth");
-  const { formatDateStr, parseDateStr } = await import("@/lib/utils/date");
-
   const userId = await requireUserId();
   const now = new Date();
 
@@ -153,12 +140,20 @@ export async function getIstatistik() {
     toplam: d.toplam,
   })).reverse();
 
+  let netToplam = 0, enYuksek = 0, tytSayi = 0, aytSayi = 0;
+  for (const d of denemeler) {
+    netToplam += d.net;
+    if (d.net > enYuksek) enYuksek = d.net;
+    if (d.tur === 'TYT') tytSayi++;
+    else if (d.tur === 'AYT') aytSayi++;
+  }
+
   const denemeIstatistik = {
     toplam: toplamDeneme,
-    ortalamaNet: toplamDeneme > 0 ? denemeler.reduce((sum, d) => sum + d.net, 0) / toplamDeneme : 0,
-    enYuksek: toplamDeneme > 0 ? Math.max(...denemeler.map(d => d.net)) : 0,
-    tytSayi: denemeler.filter(d => d.tur === 'TYT').length,
-    aytSayi: denemeler.filter(d => d.tur === 'AYT').length,
+    ortalamaNet: toplamDeneme > 0 ? netToplam / toplamDeneme : 0,
+    enYuksek,
+    tytSayi,
+    aytSayi,
   };
 
   const konuIstatistik = {

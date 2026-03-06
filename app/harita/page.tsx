@@ -18,6 +18,7 @@ function getKonuData(): Record<string, boolean> {
 }
 function saveKonuData(data: Record<string, boolean>) {
   localStorage.setItem(LS_KONU_KEY, JSON.stringify(data));
+  window.dispatchEvent(new Event("konu-data-updated"));
 }
 
 // ─── Genel İlerleme Özeti ─────────────────────────────────────────────────────
@@ -29,7 +30,18 @@ function GenelOzet({
   sinavTipi: SinavTipi;
   bolumler: { bolumKey: string; dersler: { key: string; konular: string[] }[] }[];
 }) {
-  const toplamKonu = bolumler.flatMap((b) => b.dersler).flatMap((d) => d.konular).length;
+  let toplamKonu = 0;
+  for (const b of bolumler) {
+    for (const d of b.dersler) toplamKonu += d.konular.length;
+  }
+
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    const handler = () => setRefreshKey((k) => k + 1);
+    window.addEventListener("konu-data-updated", handler);
+    return () => window.removeEventListener("konu-data-updated", handler);
+  }, []);
 
   const toplamTamam = useMemo(() => {
     const data = getKonuData();
@@ -42,7 +54,8 @@ function GenelOzet({
       }
     }
     return tamam;
-  }, [bolumler, sinavTipi]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bolumler, sinavTipi, refreshKey]);
 
   const progress = toplamKonu > 0 ? (toplamTamam / toplamKonu) * 100 : 0;
 

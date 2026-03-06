@@ -2,6 +2,7 @@
 import { db } from "@/lib/db";
 import { requireUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { hesaplaStreak, formatDateStr } from "@/lib/utils/date";
 
 const BASARIM_TANIMLARI = [
   // Streak başarımları
@@ -41,11 +42,9 @@ export async function basarimlariGetir() {
   let basarimlar = await db.basarim.findMany({ where: { userId } });
   
   if (basarimlar.length === 0) {
-    for (const b of BASARIM_TANIMLARI) {
-      await db.basarim.create({
-        data: { userId, ...b, kazanildi: false },
-      });
-    }
+    await db.basarim.createMany({
+      data: BASARIM_TANIMLARI.map((b) => ({ userId, ...b, kazanildi: false })),
+    });
     basarimlar = await db.basarim.findMany({ where: { userId } });
   }
   
@@ -55,13 +54,17 @@ export async function basarimlariGetir() {
 export async function basarimlariKontrolEt() {
   const userId = await requireUserId();
   
-  const [pomodoroSayi, gorevSayi, konuSayi, denemeSayi, basarimlar] = await Promise.all([
+  const [pomodoroSayi, gorevSayi, konuSayi, denemeSayi, basarimlar, tamamlananGorevler] = await Promise.all([
     db.pomodoroOturum.count({ where: { userId, tamamlandi: true } }),
     db.gunlukGorev.count({ where: { userId, tamamlandi: true } }),
     db.konu.count({ where: { userId, tamamlandi: true } }),
     db.deneme.count({ where: { userId } }),
     db.basarim.findMany({ where: { userId, kazanildi: false } }),
+    db.gunlukGorev.findMany({ where: { userId, tamamlandi: true }, select: { tarih: true } }),
   ]);
+
+  const streakDates = [...new Set(tamamlananGorevler.map((g) => formatDateStr(new Date(g.tarih))))];
+  const { best: enIyiStreak } = hesaplaStreak(streakDates);
   
   const yeniKazanimlar: string[] = [];
   
@@ -70,10 +73,10 @@ export async function basarimlariKontrolEt() {
     
     switch (b.tur) {
       case "streak":
-        if (b.anahtar === "3_gun_streak") kazanildi = gorevSayi >= 3;
-        else if (b.anahtar === "7_gun_streak") kazanildi = gorevSayi >= 7;
-        else if (b.anahtar === "14_gun_streak") kazanildi = gorevSayi >= 14;
-        else if (b.anahtar === "30_gun_streak") kazanildi = gorevSayi >= 30;
+        if (b.anahtar === "3_gun_streak") kazanildi = enIyiStreak >= 3;
+        else if (b.anahtar === "7_gun_streak") kazanildi = enIyiStreak >= 7;
+        else if (b.anahtar === "14_gun_streak") kazanildi = enIyiStreak >= 14;
+        else if (b.anahtar === "30_gun_streak") kazanildi = enIyiStreak >= 30;
         break;
       case "pomodoro":
         if (b.anahtar === "ilk_pomodoro") kazanildi = pomodoroSayi >= 1;

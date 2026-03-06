@@ -53,19 +53,15 @@ const DESKTOP_SECTIONS: { label?: string; items: NavItem[] }[] = [
 // ─── Desktop nav item ─────────────────────────────────────────────────────────
 
 function NavItemDesktop({ item, active }: { item: NavItem; active: boolean }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
     <Link
       href={item.href}
       className={cn(
         "flex items-center gap-3 px-4 py-3 mx-2 my-0.5 border-2 transition-all duration-75 relative",
-        active           && "border-mario-gold bg-black       text-mario-gold",
-        !active && hovered && "border-mario-gold bg-mario-navy-dark text-mario-light",
-        !active && !hovered && "border-transparent text-mario-slate"
+        active
+          ? "border-mario-gold bg-black text-mario-gold"
+          : "border-transparent text-mario-slate hover:border-mario-gold hover:bg-mario-navy-dark hover:text-mario-light"
       )}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       {active && <span className="absolute left-0 inset-y-1 w-[3px] bg-mario-gold" />}
       <div className="w-8 h-8 relative shrink-0">

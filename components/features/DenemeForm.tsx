@@ -46,7 +46,8 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await denemeEkle({ tur, tarih: new Date(tarih), dersler });
+      const [y, m, d] = tarih.split("-").map(Number);
+      await denemeEkle({ tur, tarih: new Date(y, m - 1, d), dersler });
       toast.success(`📊 ${tur} denemesi kaydedildi! Net: ${toplamNet.toFixed(2)}`);
       onClose();
     } catch {

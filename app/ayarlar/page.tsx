@@ -237,7 +237,7 @@ export default function AyarlarPage() {
             🎯 Hedef Üniversite / Bölüm
           </p>
           <p className="font-[family-name:var(--font-body)] text-sm text-[#6878A8] mb-4">
-            Hedefini belirleerek motivasyonunu artır!
+            Hedefini belirleyerek motivasyonunu artır!
           </p>
 
           <div className="flex flex-col gap-3">
