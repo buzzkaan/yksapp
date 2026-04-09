@@ -1,7 +1,10 @@
 export const dynamic = "force-dynamic";
 
 import Image from "next/image";
+import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
 import { PixelCard } from "@/components/pixel/PixelCard";
+import { PixelButton } from "@/components/pixel/PixelButton";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { basarimlariGetir, userAyarlariniGetir } from "@/server/actions/basarim";
@@ -27,6 +30,27 @@ type UserAyarlar = {
 };
 
 export default async function BasarimlarPage() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return (
+      <>
+        <PageHeader icon="🎖️" title="BAŞARIMLAR" subtitle="XP ve rozetler" />
+        <PageContainer>
+          <div className="border-4 border-mario-blue bg-mario-light/20 px-4 py-6 text-center shadow-pixel">
+            <p className="font-body text-2xl text-black mb-2">🔐 Başarımlarını görmek için giriş yap!</p>
+            <p className="font-body text-base text-mario-stone-dark mb-4">
+              Seviye atla, XP topla ve rozetleri aç.
+            </p>
+            <Link href="/sign-in">
+              <PixelButton variant="primary">Giriş Yap →</PixelButton>
+            </Link>
+          </div>
+        </PageContainer>
+      </>
+    );
+  }
+
   const [basarimlar, ayarlar]: [Basarim[], UserAyarlar] = await Promise.all([
     basarimlariGetir() as Promise<Basarim[]>,
     userAyarlariniGetir() as Promise<UserAyarlar>,

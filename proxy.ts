@@ -1,15 +1,10 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher([
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-]);
-
-export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
-    await auth.protect();
-  }
-});
+// Tüm sayfalar herkese açık — kullanıcılar giriş yapmadan gezebilir.
+// Korumayı, yazma işlemlerini yapan sunucu aksiyonları `requireUserId()`
+// ile hâlâ sağlıyor; böylece bir özellik kullanılmak istendiğinde kullanıcı
+// doğal olarak giriş/kayıt sayfasına yönlendirilmiş olur.
+export default clerkMiddleware();
 
 export const config = {
   matcher: [

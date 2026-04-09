@@ -1,7 +1,10 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelLineChart } from "@/components/pixel/PixelLineChart";
+import { PixelButton } from "@/components/pixel/PixelButton";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { getIstatistik } from "@/server/actions/istatistik";
@@ -113,6 +116,27 @@ function GrafikKart({
 // ─── Ana Sayfa ────────────────────────────────────────────────────────────────
 
 export default async function IstatistikPage() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return (
+      <>
+        <PageHeader icon="📊" title="İSTATİSTİKLER" subtitle="Performans analizi" />
+        <PageContainer>
+          <div className="border-4 border-mario-blue bg-mario-light/20 px-4 py-6 text-center shadow-pixel">
+            <p className="font-body text-2xl text-black mb-2">🔐 İstatistiklerini görmek için giriş yap!</p>
+            <p className="font-body text-base text-mario-stone-dark mb-4">
+              Giriş yaptığında pomodoro, görev ve deneme performansın burada görünecek.
+            </p>
+            <Link href="/sign-in">
+              <PixelButton variant="primary">Giriş Yap →</PixelButton>
+            </Link>
+          </div>
+        </PageContainer>
+      </>
+    );
+  }
+
   const ist = await getIstatistik();
 
   const pomodoroGrafik = ist.grafik

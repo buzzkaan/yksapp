@@ -8,6 +8,7 @@ import { PixelBadge } from "@/components/pixel/PixelBadge";
 import { PixelLineChart } from "@/components/pixel/PixelLineChart";
 import { DenemeForm } from "@/components/features/DenemeForm";
 import { denemeleriGetir, denemeSil } from "@/server/actions/denemeler";
+import { useAuthGate } from "@/lib/utils/auth-gate";
 import type { DenemeWithDetay } from "@/lib/types";
 import toast from "react-hot-toast";
 
@@ -213,11 +214,18 @@ export default function DenemellerPage() {
   const [showForm, setShowForm]             = useState(false);
   const [expandedId, setExpandedId]         = useState<string | null>(null);
   const [analizExpanded, setAnalizExpanded] = useState(true);
+  const { requireAuth } = useAuthGate();
 
   async function handleSil(id: string) {
+    if (!requireAuth()) return;
     await denemeSil(id);
     toast("🗑️ Deneme silindi", { icon: "⚠️" });
     setDenemeler(await denemeleriGetir());
+  }
+
+  function handleShowForm() {
+    if (!requireAuth()) return;
+    setShowForm(true);
   }
 
   useEffect(() => {
@@ -301,7 +309,7 @@ export default function DenemellerPage() {
         ) : (
           <>
             {!showForm ? (
-              <PixelButton onClick={() => setShowForm(true)} variant="primary" className="w-full">
+              <PixelButton onClick={handleShowForm} variant="primary" className="w-full">
                 + Yeni Deneme Ekle
               </PixelButton>
             ) : (

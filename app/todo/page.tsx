@@ -13,6 +13,7 @@ import { TaskPanel } from "@/components/todo/TaskPanel";
 import { SubjectPanel } from "@/components/todo/SubjectPanel";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { RENKLER, GOREV_RENKLER, IKONLAR } from "@/components/todo/constants";
+import { useAuthGate } from "@/lib/utils/auth-gate";
 import type { DersWithKonular, Gorev } from "@/lib/types";
 import toast from "react-hot-toast";
 
@@ -48,6 +49,7 @@ export default function YapilacaklarPage() {
   const [dersIcon, setDersIcon] = useState(IKONLAR[0]);
   const [isPending, startT] = useTransition();
   const konuInputRef = useRef<HTMLInputElement>(null);
+  const { requireAuth } = useAuthGate();
 
   async function loadStreak() { setStreakDates(await tamamlananGunleriGetir()); }
   async function loadGorevler(y = yil, m = ay) { setGorevler(await aylikGorevlerGetir(y, m)); }
@@ -80,13 +82,14 @@ export default function YapilacaklarPage() {
   async function handleGorevEkle(e: React.FormEvent) {
     e.preventDefault();
     if (!gorevBaslik.trim() || !selectedDate) return;
+    if (!requireAuth()) return;
     const [y, m, d] = selectedDate.split("-").map(Number);
-    await gorevEkle({ 
-      tarih: new Date(y, m - 1, d), 
-      baslik: gorevBaslik, 
+    await gorevEkle({
+      tarih: new Date(y, m - 1, d),
+      baslik: gorevBaslik,
       aciklama: gorevAciklama || undefined,
       oncelik: gorevOncelik,
-      renk: gorevRenk 
+      renk: gorevRenk
     });
     setGorevBaslik(""); setGorevAciklama(""); setGorevOncelik(1); setShowGorevForm(false);
     toast.success("📅 Görev eklendi!");
@@ -94,12 +97,14 @@ export default function YapilacaklarPage() {
   }
 
   async function handleGorevTamamla(id: string) {
+    if (!requireAuth()) return;
     await gorevTamamla(id);
     toast.success("✅ Görev tamamlandı!");
     await loadGorevler(); await loadStreak();
   }
 
   async function handleGorevSil(id: string) {
+    if (!requireAuth()) return;
     await gorevSil(id);
     toast("🗑️ Görev silindi", { icon: "⚠️" });
     await loadGorevler(); await loadStreak();
@@ -114,6 +119,7 @@ export default function YapilacaklarPage() {
   function handleDersEkle(e: React.FormEvent) {
     e.preventDefault();
     if (!dersAd.trim()) return;
+    if (!requireAuth()) return;
     startT(async () => {
       await dersEkle({ ad: dersAd, renk: dersRenk, icon: dersIcon });
       setDersAd(""); setShowDersForm(false);
@@ -125,6 +131,7 @@ export default function YapilacaklarPage() {
   function handleKonuEkle(e: React.FormEvent) {
     e.preventDefault();
     if (!konuBaslik.trim() || !aktifDersId) return;
+    if (!requireAuth()) return;
     startT(async () => {
       await konuEkle({
         baslik: konuBaslik, dersId: aktifDersId,
@@ -138,6 +145,7 @@ export default function YapilacaklarPage() {
   }
 
   function handleDersSil(id: string) {
+    if (!requireAuth()) return;
     startT(async () => {
       await dersSil(id);
       setDersSilId(null);

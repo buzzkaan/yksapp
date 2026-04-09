@@ -1,8 +1,28 @@
 "use server";
 import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 import { requireUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { hesaplaStreak, formatDateStr } from "@/lib/utils/date";
+
+const BOS_AYARLAR = {
+  userId: "",
+  sinavTipi: "YKS",
+  hedefUni: null as string | null,
+  hedefBolum: null as string | null,
+  hedefNet: null as number | null,
+  xp: 0,
+  seviye: 1,
+  yksXp: 0,
+  yksSeviye: 1,
+  dgsXp: 0,
+  dgsSeviye: 1,
+  kpssXp: 0,
+  kpssSeviye: 1,
+  sonGirisTarih: null as Date | null,
+  createdAt: new Date(0),
+  updatedAt: new Date(0),
+};
 
 const BASARIM_TANIMLARI = [
   // Streak başarımları
@@ -37,8 +57,9 @@ const BASARIM_TANIMLARI = [
 ];
 
 export async function basarimlariGetir() {
-  const userId = await requireUserId();
-  
+  const { userId } = await auth();
+  if (!userId) return [];
+
   let basarimlar = await db.basarim.findMany({ where: { userId } });
   
   if (basarimlar.length === 0) {
@@ -52,8 +73,9 @@ export async function basarimlariGetir() {
 }
 
 export async function basarimlariKontrolEt() {
-  const userId = await requireUserId();
-  
+  const { userId } = await auth();
+  if (!userId) return [] as string[];
+
   const [pomodoroSayi, gorevSayi, konuSayi, denemeSayi, basarimlar, tamamlananGorevler] = await Promise.all([
     db.pomodoroOturum.count({ where: { userId, tamamlandi: true } }),
     db.gunlukGorev.count({ where: { userId, tamamlandi: true } }),
@@ -119,8 +141,9 @@ export async function basarimlariKontrolEt() {
 }
 
 export async function userAyarlariniGetir() {
-  const userId = await requireUserId();
-  
+  const { userId } = await auth();
+  if (!userId) return BOS_AYARLAR;
+
   let ayarlar = await db.userAyarlar.findUnique({ where: { userId } });
   
   if (!ayarlar) {
@@ -175,9 +198,10 @@ export async function userAyarlariniGuncelle(data: {
 }
 
 export async function girisYapildi() {
-  const userId = await requireUserId();
-  
-  let ayarlar = await db.userAyarlar.findUnique({ where: { userId } });
+  const { userId } = await auth();
+  if (!userId) return { yeniGiris: false, xpKazan: 0 };
+
+  const ayarlar = await db.userAyarlar.findUnique({ where: { userId } });
   
   const simdi = new Date();
   const bugun = new Date(simdi.getFullYear(), simdi.getMonth(), simdi.getDate());

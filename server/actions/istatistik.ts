@@ -1,7 +1,38 @@
 "use server";
 import { db } from "@/lib/db";
-import { requireUserId } from "@/lib/auth";
+import { auth } from "@clerk/nextjs/server";
 import { formatDateStr, parseDateStr } from "@/lib/utils/date";
+
+const BOS_OZET = {
+  bugunGorev: { toplam: 0, tamamlanan: 0 },
+  haftaGorev: { toplam: 0, tamamlanan: 0 },
+  ayGorev:    { toplam: 0, tamamlanan: 0 },
+  haftaPomodoro: 0,
+};
+
+const BOS_ISTATISTIK = {
+  pomodoro: {
+    gunluk: { sayi: 0, dakika: 0 },
+    hafta:  { sayi: 0, dakika: 0 },
+    ay:     { sayi: 0, dakika: 0 },
+    yil:    { sayi: 0, dakika: 0 },
+  },
+  gorev: {
+    gunluk: { toplam: 0, tamamlanan: 0 },
+    hafta:  { toplam: 0, tamamlanan: 0 },
+    ay:     { toplam: 0, tamamlanan: 0 },
+    yil:    { toplam: 0, tamamlanan: 0 },
+  },
+  konu:   { toplam: 0, tamamlanan: 0, yuzde: 0 },
+  deneme: { toplam: 0, ortalamaNet: 0, enYuksek: 0, tytSayi: 0, aytSayi: 0 },
+  grafik: [] as {
+    tarih: string; label: string; dakika: number; sayi: number;
+    gorevToplam: number; gorevTamam: number;
+  }[],
+  denemeGrafik: [] as {
+    tarih: string; label: string; tur: string; net: number; toplam: number;
+  }[],
+};
 
 function getHaftaBasi(): Date {
   const now = new Date();
@@ -24,7 +55,8 @@ function getYilBasi(): Date {
 }
 
 export async function getOzetIstatistik() {
-  const userId = await requireUserId();
+  const { userId } = await auth();
+  if (!userId) return BOS_OZET;
   const now = new Date();
 
   const bugun = new Date(now);
@@ -52,7 +84,8 @@ export async function getOzetIstatistik() {
 }
 
 export async function getIstatistik() {
-  const userId = await requireUserId();
+  const { userId } = await auth();
+  if (!userId) return BOS_ISTATISTIK;
   const now = new Date();
 
   const bugun = new Date(now);

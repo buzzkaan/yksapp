@@ -4,6 +4,7 @@ import { PixelButton } from "@/components/pixel/PixelButton";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { denemeEkle } from "@/server/actions/denemeler";
 import { netHesapla } from "@/lib/utils";
+import { useAuthGate } from "@/lib/utils/auth-gate";
 import toast from "react-hot-toast";
 
 const TYT_DERSLER = ["Türkçe", "Matematik", "Fen Bilimleri", "Sosyal Bilimler"];
@@ -22,6 +23,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
     TYT_DERSLER.map((d) => ({ dersAdi: d, dogru: 0, yanlis: 0, bos: 0 }))
   );
   const [submitting, setSubmitting] = useState(false);
+  const { requireAuth } = useAuthGate();
 
   function handleTurChange(t: "TYT" | "AYT") {
     setTur(t);
@@ -44,6 +46,7 @@ export function DenemeForm({ onClose }: DenemeFormProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!requireAuth()) return;
     setSubmitting(true);
     try {
       const [y, m, d] = tarih.split("-").map(Number);

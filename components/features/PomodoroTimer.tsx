@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { PixelProgress } from "@/components/pixel/PixelProgress";
 import { pomodoroKaydet } from "@/server/actions/pomodoro";
+import { useAuthGate } from "@/lib/utils/auth-gate";
 import toast from "react-hot-toast";
 
 const DURATIONS = [
@@ -18,6 +19,7 @@ export function PomodoroTimer() {
   const [totalMinutes, setTotalMinutes] = useState(0);
   const [konu, setKonu] = useState("");
   const startRef = useRef<Date | null>(null);
+  const { requireAuth } = useAuthGate();
 
   useEffect(() => {
     if (!active) return;
@@ -51,8 +53,10 @@ export function PomodoroTimer() {
   }
 
   function handleStart() {
-    startRef.current = new Date();
-    setActive(true);
+    requireAuth(() => {
+      startRef.current = new Date();
+      setActive(true);
+    });
   }
 
   function handleReset() {
