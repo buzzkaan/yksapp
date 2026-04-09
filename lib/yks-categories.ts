@@ -535,14 +535,6 @@ export const TYT_DERSLER = [
   "biyoloji",
 ];
 
-// ─── KPSS dersleri ────────────────────────────────────────────────────────────
-// Genel Yetenek (60 soru): Türkçe 30 + Matematik 27 + Geometri 3
-// Genel Kültür  (60 soru): Tarih 27 + Coğrafya 18 + Vatandaşlık 9 + Güncel 6
-export const KPSS_DERSLER = {
-  gy: ["turkce", "matematik", "geometri"],
-  gk: ["tarih", "cografya", "vatandaslik", "guncel_bilgiler"],
-};
-
 // ─── YKS Kategori yapısı ─────────────────────────────────────────────────────
 export interface KategoriYapi {
   label: string;

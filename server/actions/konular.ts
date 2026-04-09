@@ -2,7 +2,7 @@
 import { db } from "@/lib/db";
 import { requireUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
-import type { DersWithKonular, Konu } from "@/lib/types";
+import type { DersWithKonular } from "@/lib/types";
 
 export async function derslerGetir(): Promise<DersWithKonular[]> {
   try {
@@ -87,15 +87,3 @@ export async function konuSil(id: string) {
   }
 }
 
-export async function konularGetir(dersId: string): Promise<Konu[]> {
-  try {
-    const userId = await requireUserId();
-    return db.konu.findMany({
-      where: { dersId, userId },
-      orderBy: [{ tamamlandi: "asc" }, { oncelik: "desc" }],
-    }) as Promise<Konu[]>;
-  } catch (error) {
-    console.error("[konularGetir]", error);
-    return [];
-  }
-}

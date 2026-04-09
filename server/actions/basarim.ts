@@ -234,11 +234,11 @@ export async function girisYapildi() {
     };
     
     if (sinavTipi === "YKS") {
-      updateData.yksXp = (ayarlar as any).yksXp + bonusXp || bonusXp;
+      updateData.yksXp = ayarlar.yksXp + bonusXp;
     } else if (sinavTipi === "DGS") {
-      updateData.dgsXp = (ayarlar as any).dgsXp + bonusXp || bonusXp;
+      updateData.dgsXp = ayarlar.dgsXp + bonusXp;
     } else if (sinavTipi === "KPSS") {
-      updateData.kpssXp = (ayarlar as any).kpssXp + bonusXp || bonusXp;
+      updateData.kpssXp = ayarlar.kpssXp + bonusXp;
     }
     
     await db.userAyarlar.update({

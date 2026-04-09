@@ -2,7 +2,7 @@
 import { useState, useEffect, useTransition, useRef, useMemo } from "react";
 import {
   derslerGetir, dersEkle, dersSil,
-  konuEkle, konuToggle, konuSil,
+  konuEkle,
 } from "@/server/actions/konular";
 import {
   aylikGorevlerGetir, gorevEkle, gorevTamamla, gorevSil,

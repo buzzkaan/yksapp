@@ -242,7 +242,6 @@ export function TaskPanel({
               {selectedGorevler.map((g, idx) => {
                 const isOverdue = !g.tamamlandi && selectedDate < todayStr;
                 const oncelikColor = g.oncelik === 3 ? "#E01828" : g.oncelik === 2 ? "#F89000" : "#00A800";
-                const oncelikLabel = g.oncelik === 3 ? "!" : g.oncelik === 2 ? "·" : "";
                 return (
                   <div
                     key={g.id}

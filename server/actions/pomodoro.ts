@@ -41,12 +41,3 @@ export async function bugunPomodorolariGetir(): Promise<PomodoroOturum[]> {
   }
 }
 
-export async function toplamPomodoroGetir(): Promise<number> {
-  try {
-    const userId = await requireUserId();
-    return db.pomodoroOturum.count({ where: { userId, tamamlandi: true } });
-  } catch (error) {
-    console.error("[toplamPomodoroGetir]", error);
-    return 0;
-  }
-}

@@ -5,6 +5,7 @@ import { netHesapla } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import type { DenemeWithDetay, DenemeType } from "@/lib/types";
 
+
 type DersInput = {
   dersAdi: string;
   dogru: number;
@@ -49,19 +50,6 @@ export async function denemeEkle(data: {
   } catch (error) {
     console.error("[denemeEkle]", error);
     throw new Error("Deneme eklenemedi");
-  }
-}
-
-export async function denemeGetir(id: string): Promise<DenemeWithDetay | null> {
-  try {
-    const userId = await requireUserId();
-    return db.deneme.findFirst({
-      where: { id, userId },
-      include: { dersDetay: true },
-    }) as Promise<DenemeWithDetay | null>;
-  } catch (error) {
-    console.error("[denemeGetir]", error);
-    return null;
   }
 }
 
