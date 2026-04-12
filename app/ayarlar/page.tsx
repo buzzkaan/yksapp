@@ -5,7 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
 import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
-import { getSinavTipi, setSinavTipi } from "@/lib/utils/sinav";
+import { useSinavTipi } from "@/lib/utils/use-sinav-tipi";
+import { useLocalStorage } from "@/lib/utils/use-local-storage";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelButton } from "@/components/pixel/PixelButton";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -18,45 +19,36 @@ const SINAV_LISTESI: SinavTipi[] = ["YKS", "DGS", "KPSS"];
 
 export default function AyarlarPage() {
   const router = useRouter();
-  const [secili, setSecili] = useState<SinavTipi>(getSinavTipi);
-  const [hedef, setHedef] = useState({ uni: "", bolum: "", net: "" });
-  const [boyut, setBoyut] = useState("normal");
-  const [stil, setStil] = useState("pixel");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("hedefler");
-    if (saved) {
+  const [sinavTipi, setSinavTipi] = useSinavTipi();
+  const [pending, setPending] = useState<SinavTipi | null>(null);
+  const secili = pending ?? sinavTipi;
+  const [hedef, setHedef] = useState(() => {
+    if (typeof window === "undefined") return { uni: "", bolum: "", net: "" };
+    try {
+      const saved = localStorage.getItem("hedefler");
+      if (!saved) return { uni: "", bolum: "", net: "" };
       const h = JSON.parse(saved);
-      setHedef({ uni: h.uni || "", bolum: h.bolum || "", net: h.net?.toString() || "" });
+      return { uni: h.uni || "", bolum: h.bolum || "", net: h.net?.toString() || "" };
+    } catch {
+      return { uni: "", bolum: "", net: "" };
     }
-    setBoyut(localStorage.getItem("yaziBoyutu") || "normal");
-    setStil(localStorage.getItem("yaziStili") || "pixel");
-  }, []);
+  });
+  const [boyut, setBoyut] = useLocalStorage("yaziBoyutu", "normal");
+  const [stil, setStil] = useLocalStorage("yaziStili", "pixel");
+
+  function applyDataAttr(name: string, value: string, defaultValue: string) {
+    if (value === defaultValue) delete document.documentElement.dataset[name];
+    else document.documentElement.dataset[name] = value;
+  }
+
+  useEffect(() => applyDataAttr("boyut", boyut, "normal"), [boyut]);
+  useEffect(() => applyDataAttr("stil", stil, "pixel"), [stil]);
 
   function handleKaydet() {
     setSinavTipi(secili);
+    setPending(null);
     toast.success(`${SINAV_META[secili].isim} seçildi!`);
     setTimeout(() => router.push("/yks"), 800);
-  }
-
-  function handleBoyutDegis(yeniBoyut: string) {
-    setBoyut(yeniBoyut);
-    localStorage.setItem("yaziBoyutu", yeniBoyut);
-    if (yeniBoyut === "normal") {
-      delete document.documentElement.dataset.boyut;
-    } else {
-      document.documentElement.dataset.boyut = yeniBoyut;
-    }
-  }
-
-  function handleStilDegis(yeniStil: string) {
-    setStil(yeniStil);
-    localStorage.setItem("yaziStili", yeniStil);
-    if (yeniStil === "pixel") {
-      delete document.documentElement.dataset.stil;
-    } else {
-      document.documentElement.dataset.stil = yeniStil;
-    }
   }
 
   function hedefKaydet() {
@@ -102,7 +94,7 @@ export default function AyarlarPage() {
               return (
                 <button
                   key={tip}
-                  onClick={() => setSecili(tip)}
+                  onClick={() => setPending(tip)}
                   className="w-full border-4 border-[#000000] p-3 text-left transition-all cursor-pointer"
                   style={isSecili ? {
                     backgroundColor: meta.renk,
@@ -175,7 +167,7 @@ export default function AyarlarPage() {
             ].map(({ key, label, sub }) => (
               <button
                 key={key}
-                onClick={() => handleBoyutDegis(key)}
+                onClick={() => setBoyut(key)}
                 className="flex-1 border-4 border-[#000000] py-2 px-1 text-center cursor-pointer transition-all"
                 style={boyut === key ? {
                   backgroundColor: "#2878F8",
@@ -206,7 +198,7 @@ export default function AyarlarPage() {
             ].map(({ key, label, aciklama }) => (
               <button
                 key={key}
-                onClick={() => handleStilDegis(key)}
+                onClick={() => setStil(key)}
                 className="flex-1 border-4 border-[#000000] py-3 px-3 text-left cursor-pointer transition-all"
                 style={stil === key ? {
                   backgroundColor: "#FFD000",

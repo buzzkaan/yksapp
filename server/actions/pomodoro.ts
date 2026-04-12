@@ -1,8 +1,8 @@
 "use server";
 import { db } from "@/lib/db";
-import { requireUserId } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { todayBoundaries } from "@/lib/utils/date";
+import { withQuery, withMutation } from "./_utils";
 import type { PomodoroOturum } from "@/lib/types";
 
 export async function pomodoroKaydet(data: {
@@ -13,31 +13,18 @@ export async function pomodoroKaydet(data: {
   konuId?: string;
   notlar?: string;
 }): Promise<void> {
-  try {
-    const userId = await requireUserId();
+  await withMutation("pomodoroKaydet", "Pomodoro kaydedilemedi", async (userId) => {
     await db.pomodoroOturum.create({ data: { ...data, userId } });
     revalidatePath("/pomodoro");
-  } catch (error) {
-    console.error("[pomodoroKaydet]", error);
-    throw new Error("Pomodoro kaydedilemedi");
-  }
+  });
 }
 
 export async function bugunPomodorolariGetir(): Promise<PomodoroOturum[]> {
-  try {
-    const userId = await requireUserId();
+  return withQuery("bugunPomodorolariGetir", async (userId) => {
     const { bugun, yarin } = todayBoundaries();
     return db.pomodoroOturum.findMany({
-      where: {
-        userId,
-        baslangic: { gte: bugun, lt: yarin },
-        tamamlandi: true,
-      },
+      where: { userId, baslangic: { gte: bugun, lt: yarin }, tamamlandi: true },
       orderBy: { baslangic: "desc" },
     }) as Promise<PomodoroOturum[]>;
-  } catch (error) {
-    console.error("[bugunPomodorolariGetir]", error);
-    return [];
-  }
+  }, []);
 }
-

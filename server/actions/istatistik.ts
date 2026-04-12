@@ -1,7 +1,7 @@
 "use server";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { formatDateStr, parseDateStr } from "@/lib/utils/date";
+import { formatDateStr, parseDateStr, formatTarihTR } from "@/lib/utils/date";
 
 const BOS_OZET = {
   bugunGorev: { toplam: 0, tamamlanan: 0 },
@@ -158,7 +158,7 @@ export async function getIstatistik() {
 
   const grafikVeri = Object.entries(pomodoroByDay).map(([tarih, veri]) => ({
     tarih,
-    label: parseDateStr(tarih).toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' }),
+    label: formatTarihTR(parseDateStr(tarih)),
     dakika: veri.dakika,
     sayi: veri.sayi,
     gorevToplam: gorevByDay[tarih].toplam,
@@ -167,7 +167,7 @@ export async function getIstatistik() {
 
   const denemeGrafik = denemeler.map(d => ({
     tarih: formatDateStr(d.tarih),
-    label: d.tarih.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit' }),
+    label: formatTarihTR(d.tarih),
     tur: d.tur,
     net: d.net,
     toplam: d.toplam,

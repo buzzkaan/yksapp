@@ -8,7 +8,7 @@ const VARIANTS: Record<Variant, string> = {
   green:  "bg-mario-green  border-black text-white  shadow-pixel-sm-green",
   gold:   "bg-mario-gold   border-black text-black  shadow-pixel-sm-gold",
   red:    "bg-mario-red    border-black text-white  shadow-pixel-sm-red",
-  purple: "bg-[#8838C8]    border-black text-white  shadow-pixel-sm",
+  purple: "bg-mario-purple border-black text-white  shadow-pixel-sm",
   blue:   "bg-mario-blue   border-black text-white  shadow-pixel-sm",
 };
 

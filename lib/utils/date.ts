@@ -1,5 +1,9 @@
 export const MS_PER_DAY = 86_400_000;
 
+export function formatTarihTR(date: Date): string {
+  return date.toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit" });
+}
+
 export function formatDateStr(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }

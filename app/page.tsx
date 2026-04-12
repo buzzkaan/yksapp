@@ -14,7 +14,7 @@ import { denemeleriGetir } from "@/server/actions/denemeler";
 import { getOzetIstatistik } from "@/server/actions/istatistik";
 import { AYLAR_TAM, GUNLER_TAM } from "@/lib/constants/ui";
 import { ICONS } from "@/lib/constants/icons";
-import { hesaplaStreak } from "@/lib/utils/date";
+import { hesaplaStreak, formatTarihTR } from "@/lib/utils/date";
 import { formatSure } from "@/lib/utils";
 import type { DenemeWithDetay, Gorev, PomodoroOturum } from "@/lib/types";
 
@@ -163,7 +163,7 @@ export default async function HomePage() {
                 </span>
                 <span className="font-body text-sm text-mario-stone-dark">
                   {sonDeneme
-                    ? `${sonDeneme.tur} · ${new Date(sonDeneme.tarih).toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit" })}`
+                    ? `${sonDeneme.tur} · ${formatTarihTR(new Date(sonDeneme.tarih))}`
                     : "henüz yok"}
                 </span>
               </div>

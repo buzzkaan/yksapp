@@ -9,6 +9,9 @@ import { PixelLineChart } from "@/components/pixel/PixelLineChart";
 import { DenemeForm } from "@/components/features/DenemeForm";
 import { denemeleriGetir, denemeSil } from "@/server/actions/denemeler";
 import { useAuthGate } from "@/lib/utils/auth-gate";
+import { formatTarihTR } from "@/lib/utils/date";
+import { getPerformanceColor } from "@/lib/utils/colors";
+import { PixelToggleGroup } from "@/components/pixel/PixelToggleGroup";
 import type { DenemeWithDetay } from "@/lib/types";
 import toast from "react-hot-toast";
 
@@ -81,27 +84,15 @@ function HesaplaTab() {
         <p className="font-pixel text-[10px] mb-3" style={{ color: "#FFD000" }}>
           ▶ SINAV TÜRÜ
         </p>
-        <div className="flex gap-2">
-          {(["TYT", "AYT"] as SinavTuru[]).map((tur) => (
-            <button
-              key={tur}
-              onClick={() => {
-                setSinavTuru(tur);
-                const liste = tur === "TYT" ? tytDersler : aytDersler;
-                setDersler(liste.map((d) => ({ ad: d.ad, dogru: 0, yanlis: 0 })));
-                setSonuclar(null);
-              }}
-              className="flex-1 py-2 px-3 border-2 font-body text-xl transition-all"
-              style={{
-                borderColor: sinavTuru === tur ? "#FFD000" : "#303058",
-                background:  sinavTuru === tur ? "#101010" : "transparent",
-                color:       sinavTuru === tur ? "#FFD000" : "#606878",
-              }}
-            >
-              {tur}
-            </button>
-          ))}
-        </div>
+        <PixelToggleGroup
+          options={[{ key: "TYT", label: "TYT" }, { key: "AYT", label: "AYT" }] as { key: SinavTuru; label: string }[]}
+          value={sinavTuru}
+          onChange={(tur) => {
+            setSinavTuru(tur);
+            setDersler((tur === "TYT" ? tytDersler : aytDersler).map((d) => ({ ad: d.ad, dogru: 0, yanlis: 0 })));
+            setSonuclar(null);
+          }}
+        />
       </PixelCard>
 
       {/* AYT Puan Türü */}
@@ -110,26 +101,23 @@ function HesaplaTab() {
           <p className="font-pixel text-[10px] mb-3" style={{ color: "#FFD000" }}>
             ▶ AYT PUAN TÜRÜ
           </p>
-          <div className="grid grid-cols-4 gap-2">
-            {(["sayisal", "sozel", "esit", "dil"] as const).map((tur) => {
-              const label = tur === "sayisal" ? "SAYISAL" : tur === "sozel" ? "SÖZEL" : tur === "esit" ? "EŞİT" : "DİL";
-              const liste = tur === "sozel" ? aytSozelDersler : tur === "esit" ? aytEsitDersler : tur === "dil" ? aytDilDersler : aytDersler;
-              return (
-                <button
-                  key={tur}
-                  onClick={() => { setAytTur(tur); setDersler(liste.map((d) => ({ ad: d.ad, dogru: 0, yanlis: 0 }))); setSonuclar(null); }}
-                  className="py-2 px-2 border-2 font-pixel text-[8px] transition-all"
-                  style={{
-                    borderColor: aytTur === tur ? "#FFD000" : "#303058",
-                    background:  aytTur === tur ? "#101010" : "transparent",
-                    color:       aytTur === tur ? "#FFD000" : "#606878",
-                  }}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
+          <PixelToggleGroup
+            options={[
+              { key: "sayisal", label: "SAYISAL" },
+              { key: "sozel",   label: "SÖZEL" },
+              { key: "esit",    label: "EŞİT" },
+              { key: "dil",     label: "DİL" },
+            ] as { key: typeof aytTur; label: string }[]}
+            value={aytTur}
+            buttonClass="flex-1 py-2 px-2 border-2 font-pixel text-[8px] transition-all"
+            className="grid grid-cols-4 gap-2"
+            onChange={(tur) => {
+              const listMap = { sayisal: aytDersler, sozel: aytSozelDersler, esit: aytEsitDersler, dil: aytDilDersler };
+              setAytTur(tur);
+              setDersler(listMap[tur].map((d) => ({ ad: d.ad, dogru: 0, yanlis: 0 })));
+              setSonuclar(null);
+            }}
+          />
         </PixelCard>
       )}
 
@@ -236,7 +224,7 @@ export default function DenemellerPage() {
     .reverse()
     .slice(-10)
     .map((d) => ({
-      label: new Date(d.tarih).toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit" }),
+      label: formatTarihTR(new Date(d.tarih)),
       value: d.net,
     }));
 
@@ -372,7 +360,7 @@ export default function DenemellerPage() {
                               <span className="flex-1 font-body text-base text-[#101010] truncate">{ders.ad}</span>
                               <span
                                 className="font-pixel text-sm"
-                                style={{ color: ders.ortalamaNet > 10 ? "#18C840" : ders.ortalamaNet > 5 ? "#F89000" : "#E01828" }}
+                                style={{ color: getPerformanceColor(ders.ortalamaNet) }}
                               >
                                 {ders.ortalamaNet.toFixed(1)}
                               </span>

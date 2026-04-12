@@ -1,10 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { DERSLER, KATEGORILER } from "@/lib/yks-categories";
 import { DGS_BOLUMLER, KPSS_BOLUMLER } from "@/lib/sinav-data";
-import { getSinavTipi } from "@/lib/utils/sinav";
+import { useSinavTipi } from "@/lib/utils/use-sinav-tipi";
+import { useLocalStorage } from "@/lib/utils/use-local-storage";
 
 const LS_KONU_KEY = "yks_farm_konu_v1";
+const EMPTY_KONU_DATA: Record<string, boolean> = {};
 
 function getToplam(sinavTipi: string): number {
   if (sinavTipi === "YKS") {
@@ -19,22 +21,17 @@ function getToplam(sinavTipi: string): number {
 }
 
 export function KonuIlerlemeClient() {
-  const [tamamlanan, setTamamlanan] = useState(0);
-  const [toplam, setToplam] = useState(0);
+  const [sinavTipi] = useSinavTipi();
+  const [konuData] = useLocalStorage<Record<string, boolean>>(
+    LS_KONU_KEY,
+    EMPTY_KONU_DATA,
+  );
 
-  useEffect(() => {
-    const tip = getSinavTipi();
-    const top = getToplam(tip);
-    try {
-      const data: Record<string, boolean> = JSON.parse(
-        localStorage.getItem(LS_KONU_KEY) ?? "{}"
-      );
-      setTamamlanan(Object.values(data).filter(Boolean).length);
-    } catch {
-      setTamamlanan(0);
-    }
-    setToplam(top);
-  }, []);
+  const toplam = useMemo(() => getToplam(sinavTipi), [sinavTipi]);
+  const tamamlanan = useMemo(
+    () => Object.values(konuData).filter(Boolean).length,
+    [konuData],
+  );
 
   const pct = toplam > 0 ? Math.round((tamamlanan / toplam) * 100) : 0;
 

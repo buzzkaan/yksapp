@@ -9,6 +9,7 @@ import {
   tamamlananGunleriGetir,
 } from "@/server/actions/takvim";
 import { formatDateStr, hesaplaStreak } from "@/lib/utils/date";
+import { PixelStatCard } from "@/components/pixel/PixelStatCard";
 import { TaskPanel } from "@/components/todo/TaskPanel";
 import { SubjectPanel } from "@/components/todo/SubjectPanel";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -61,7 +62,7 @@ export default function YapilacaklarPage() {
       setDersler(ders);
     });
   }, []);
-  useEffect(() => { loadGorevler(yil, ay); }, [yil, ay]);
+  useEffect(() => { aylikGorevlerGetir(yil, ay).then(setGorevler); }, [yil, ay]);
 
   const streakInfo = hesaplaStreak(streakDates);
 
@@ -182,22 +183,10 @@ export default function YapilacaklarPage() {
         {/* İstatistik kartları */}
         {aktifTab === "takvim" && (
           <div className="grid grid-cols-4 gap-2">
-            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#000058", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-pixel text-[10px]" style={{ color: "#A8C8F8" }}>BUGÜN</div>
-              <div className="font-pixel text-lg" style={{ color: "#0058F8" }}>{istatistikler.bugun.length}</div>
-            </div>
-            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#006800", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-pixel text-[10px]" style={{ color: "#FFD000" }}>TAMAM</div>
-              <div className="font-pixel text-lg" style={{ color: "#00A800" }}>{istatistikler.bugunTamamlanan}</div>
-            </div>
-            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#804000", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-pixel text-[10px]" style={{ color: "#FFD000" }}>AKTİF</div>
-              <div className="font-pixel text-lg" style={{ color: "#FFD000" }}>{istatistikler.bugunAktif}</div>
-            </div>
-            <div className="border-4 border-[#000000] p-2 text-center" style={{ background: "#880000", boxShadow: "3px 3px 0 0 #000000" }}>
-              <div className="font-pixel text-[10px]" style={{ color: "#FFD000" }}>ACİL</div>
-              <div className="font-pixel text-lg" style={{ color: "#E40000" }}>{istatistikler.yuksekOncelik}</div>
-            </div>
+            <PixelStatCard variant="lg" label="BUGÜN" value={istatistikler.bugun.length}        labelColor="#A8C8F8" valueColor="#0058F8" bg="#000058" />
+            <PixelStatCard variant="lg" label="TAMAM" value={istatistikler.bugunTamamlanan}     labelColor="#FFD000" valueColor="#00A800" bg="#006800" />
+            <PixelStatCard variant="lg" label="AKTİF" value={istatistikler.bugunAktif}          labelColor="#FFD000" valueColor="#FFD000" bg="#804000" />
+            <PixelStatCard variant="lg" label="ACİL"  value={istatistikler.yuksekOncelik}       labelColor="#FFD000" valueColor="#E40000" bg="#880000" />
           </div>
         )}
 

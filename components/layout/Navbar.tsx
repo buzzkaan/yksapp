@@ -2,9 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { SINAV_META, type SinavTipi } from "@/lib/sinav-data";
-import { getSinavTipi } from "@/lib/utils/sinav";
+import { SINAV_META } from "@/lib/sinav-data";
+import { useSinavTipi } from "@/lib/utils/use-sinav-tipi";
 import { UserLevelBadge } from "@/components/UserLevelBadge";
 import { ICONS } from "@/lib/constants/icons";
 import { cn } from "@/lib/utils";
@@ -95,11 +94,7 @@ function NavItemMobile({ item, active }: { item: NavItem; active: boolean }) {
 // ─── Exam mode badge ──────────────────────────────────────────────────────────
 
 function NavSinavMode() {
-  const [sinavTipi, setSinavTipi] = useState<SinavTipi>("YKS");
-
-  useEffect(() => {
-    setSinavTipi(getSinavTipi());
-  }, []);
+  const [sinavTipi] = useSinavTipi();
 
   return (
     <div className="px-3 py-2.5 border-b-2 border-black">

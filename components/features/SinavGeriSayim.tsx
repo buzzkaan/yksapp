@@ -1,20 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { SINAV_META } from "@/lib/sinav-data";
-import { getSinavTipi } from "@/lib/utils/sinav";
+import { useSinavTipi } from "@/lib/utils/use-sinav-tipi";
 import { hesaplaGunler } from "@/lib/utils/date";
 import { SINAV_TARIHLERI, aciliyetRengi, mesaj } from "@/lib/config/sinav-tarihleri";
-import type { SinavTipi } from "@/lib/sinav-data";
 import { ICONS } from "@/lib/constants/icons";
 import { PIXEL_CORNERS } from "@/lib/constants/ui";
 
 export function SinavGeriSayim() {
-  const [sinav, setSinav] = useState<SinavTipi>("YKS");
-
-  useEffect(() => {
-    setSinav(getSinavTipi());
-  }, []);
+  const [sinav] = useSinavTipi();
 
   const gunler    = hesaplaGunler(SINAV_TARIHLERI[sinav].tarih);
   const meta      = SINAV_META[sinav];

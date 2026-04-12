@@ -6,7 +6,7 @@ import {
   DGS_BOLUMLER, KPSS_BOLUMLER, SINAV_META,
   type SinavTipi, type SinavBolum,
 } from "@/lib/sinav-data";
-import { getSinavTipi } from "@/lib/utils/sinav";
+import { useSinavTipi } from "@/lib/utils/use-sinav-tipi";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageContainer } from "@/components/layout/PageContainer";
 
@@ -453,30 +453,8 @@ function GenelSinavView({
 // ─── Ana Sayfa ────────────────────────────────────────────────────────────────
 
 export default function HaritaPage() {
-  const [sinavTipi, setSinavTipi] = useState<SinavTipi>("YKS");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setSinavTipi(getSinavTipi());
-    setMounted(true);
-  }, []);
-
+  const [sinavTipi] = useSinavTipi();
   const meta = SINAV_META[sinavTipi];
-
-  if (!mounted) {
-    return (
-      <>
-        <PageHeader icon="📚" title="KONULAR" subtitle="Yükleniyor..." />
-        <PageContainer>
-          <div className="text-center py-16">
-            <p className="font-pixel text-[10px] text-[#6878A8] animate-pixel-blink">
-              YÜKLENİYOR...
-            </p>
-          </div>
-        </PageContainer>
-      </>
-    );
-  }
 
   return (
     <>

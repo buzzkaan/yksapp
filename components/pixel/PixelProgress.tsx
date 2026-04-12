@@ -1,8 +1,10 @@
 // Mario HP bar: Pipe green (high) → Coin gold (mid) → Mario red (low)
 
+import { MARIO } from "@/lib/constants/mario-palette";
+
 type Size = "sm" | "md" | "lg";
 
-const FILL_COLORS = { high: "#00A800", mid: "#FFD000", low: "#E40000" } as const;
+const FILL_COLORS = { high: MARIO.green, mid: MARIO.gold, low: MARIO.red } as const;
 const HEIGHTS: Record<Size, number> = { sm: 14, md: 20, lg: 28 };
 
 function resolveFill(value: number, custom?: string): string {

@@ -25,6 +25,7 @@
   --color-mario-slate-dark: #4858A8;  /* Dark slate              */
   --color-mario-parchment:  #F8F0DC;  /* Parchment / warm white  */
   --color-mario-inactive:   #D0C8B8;  /* Inactive / empty        */
+  --color-mario-purple:     #8838C8;  /* Princess / magic        */
 
   --font-pixel: var(--font-pixel-start);
   --font-body:  var(--font-vt323);

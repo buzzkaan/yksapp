@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { PixelCard } from "@/components/pixel/PixelCard";
 import { PixelButton } from "@/components/pixel/PixelButton";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { PageContainer } from "@/components/layout/PageContainer";
+import { useLocalStorage } from "@/lib/utils/use-local-storage";
 
 const GUNLER = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
 
@@ -17,24 +18,13 @@ type Program = {
   aktif: boolean;
 };
 
+const EMPTY_PROGRAM: Program[] = [];
+
 export default function ProgramPage() {
-  const [program, setProgram] = useState<Program[]>([]);
+  const [program, setProgram] = useLocalStorage<Program[]>("haftalikProgram", EMPTY_PROGRAM);
   const [showForm, setShowForm] = useState(false);
   const [yeniDers, setYeniDers] = useState({ gun: 0, ders: "", baslangic: "09:00", bitis: "10:00" });
   const [isPending, startT] = useTransition();
-
-  useEffect(() => {
-    // Load program from localStorage for now
-    const saved = localStorage.getItem("haftalikProgram");
-    if (saved) {
-      setProgram(JSON.parse(saved));
-    }
-  }, []);
-
-  function kaydetProgram(yeniProgram: Program[]) {
-    localStorage.setItem("haftalikProgram", JSON.stringify(yeniProgram));
-    setProgram(yeniProgram);
-  }
 
   function ekle() {
     if (!yeniDers.ders.trim()) return;
@@ -49,7 +39,7 @@ export default function ProgramPage() {
         aktif: true,
       };
       const updated = [...program, yeni];
-      kaydetProgram(updated);
+      setProgram(updated);
       setShowForm(false);
       setYeniDers({ gun: 0, ders: "", baslangic: "09:00", bitis: "10:00" });
     });
@@ -58,14 +48,14 @@ export default function ProgramPage() {
   function sil(id: string) {
     startT(() => {
       const updated = program.filter(p => p.id !== id);
-      kaydetProgram(updated);
+      setProgram(updated);
     });
   }
 
   function toggleAktif(id: string) {
     startT(() => {
       const updated = program.map(p => p.id === id ? { ...p, aktif: !p.aktif } : p);
-      kaydetProgram(updated);
+      setProgram(updated);
     });
   }
 
